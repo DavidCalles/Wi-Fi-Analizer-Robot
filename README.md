@@ -8,6 +8,7 @@
 Briefly, our project consists of a small vehicle/robot capable of navigating without crashing. While navigating, it will sense the strength of a given WiFi network, transmit the attained data into a cloud service, and a user interface will provide a graphical representation of the data. Figure 1 represents a very high level overview of our idea.
 
 ![Blocks_Diagram](https://github.com/DavidCalles/Wi-Fi-Analizer-Robot/blob/main/Document_Pictues/ESD-Capstone-BlocksDiagram.drawio.png)
+>Figure 1
 
 ## Problem Statement
 
@@ -19,19 +20,27 @@ Although our project does not cover room or network mapping in its scope, we bel
 The requirements of the minimum viable product are the following: 
 
 **3.1 Hardware**
+
 • **MVP:** The robot would make use of a camera module, motors, an ultrasonic sensor, and a Raspberry Pi with a WiFi module. 
+
 • **Nice-to-have features:** The project might also include an external module/antenna for improved WiFi signal acquisition. 
 
 **3.2 Navigation**
+
 • **MVP:** The robot would move using user input, but will overwrite any instruction to avoid obstacles coming from the front. 
+
 • **Nice-to-have features:** The robot will have a basic self-driving software that avoids collisions and can map the place where the data was recorded. 
 
 **3.3 Data acquisition** 
+
 • **MVP:** The robot will acquire low quality low frame-rate video, ultrasonic sensor data, and WiFi signal strength of at least 1Hz. 
+
 • **Nice-to-have features:** The robot will acquire higher quality and higher frequency of all the signals stated above.
 
 **3.4 Web Interface** 
+
 • **MVP:** The data will be represented in a Web dashboard/portal, showing WiFi signal quality in dBm/dB against time in a line graph, along with the video in the corresponding time. 
+
 • **Nice-to-have features:** Additional data can be showed in the dashboard, like mapped position of the vehicle or additional information when hovering over the graphs.
 
 ## Team Member Roles/Responsibilities
