@@ -7,7 +7,7 @@
 
 Briefly, our project consists of a small vehicle/robot capable of navigating without crashing. While navigating, it will sense the strength of a given WiFi network, transmit the attained data into a cloud service, and a user interface will provide a graphical representation of the data. Figure 1 represents a very high level overview of our idea.
 
-![Blocks_Diagram](https://github.com/DavidCalles/Wi-Fi-Analizer-Robot/blob/main/Doc%20Pictues/ESD-Capstone-BlocksDiagram.drawio.png)
+![Blocks_Diagram](https://github.com/DavidCalles/Wi-Fi-Analizer-Robot/blob/main/Document_Pictues/ESD-Capstone-BlocksDiagram.drawio.png)
 
 ## Problem Statement
 
