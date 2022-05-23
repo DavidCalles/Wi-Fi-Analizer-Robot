@@ -1,4 +1,4 @@
-# Embedded Systems Development Capstone Project: WiViBot
+# WiViBot
 
 >Team- Govinda Bhatt, David Calles, Jaskaran Kaur, Alain Reyes
 
