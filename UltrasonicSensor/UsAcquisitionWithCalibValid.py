@@ -2,12 +2,14 @@
 #-------------------------  Imported Modules   --------------------------------
 #==============================================================================
 
+from tkinter import Y
 import RPi.GPIO as GPIO
 import time
 import pandas as pd
 import plotly.express as px
 import numpy as np
-from scipy import optimize
+import datetime as dt
+import plotly.graph_objects as go
 
 import os
  
@@ -60,17 +62,25 @@ class UltrasonicSensor:
 
 #==============================================================================
 
-    def GetDistanceSamples(self, period, numSamples):
+    def GetDistanceSamples(self, period, numSamples, validRange=[0.1, 150.0]):
         
         #Initialize empty array for data
         self.samples = []
 
         #Retrieve raw data points
         for i in range(numSamples):
-            self.samples.append(self.GetDistanceBlocking())
-            time.sleep(period)
+            potentialSample = self.GetDistanceBlocking()
+            # Basic data validation
+            if((potentialSample[1] >= validRange[0]) and (potentialSample[1] <= validRange[1])):
+                self.samples.append(potentialSample)
+                time.sleep(period)
 
         self.samplesDf = pd.DataFrame(data=self.samples, columns=['TimeStamp', 'Distance'])
+        self.samplesDf['Formatted TimeStamp'] = self.samplesDf['TimeStamp'].apply(lambda x: dt.datetime.fromtimestamp(x))
+
+        # If Calibration is found
+        if hasattr(self, 'coeffs'):
+            self.samplesDf['Calibrated Distance'] = self.samplesDf['Distance'].apply(lambda x: (self.coeffs[0]*x+self.coeffs[1]))
 
 #==============================================================================
 
@@ -81,21 +91,89 @@ class UltrasonicSensor:
 
 #==============================================================================
 
-    def CalibrateManual(self, expectedPoints, realPoints):
-        pass
+    def CalibrateManual(self, df):
+
+        x = df.Real.to_numpy(copy=True)
+        y = df.Sensed.to_numpy(copy=True)
+
+        # Matrix A
+        A = np.vstack([x, np.ones(len(x))]).T
+        # Y data into a column vector
+        y2 = y[:, np.newaxis]
+
+        # Direct least square regression
+        self.coeffs = np.dot((np.dot(np.linalg.inv(np.dot(A.T, A)), A.T)), y2)
+        print(f'Equation => y = {self.coeffs[0]}x + {self.coeffs}')
+
+        #Plot results
+        y2 = self.coeffs[0]*x + self.coeffs[1]
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=x, y=y,
+                            mode='markers', name='Calibration Points'))
+        fig.add_trace(go.Scatter(x=x, y=y2,
+                            mode='lines', name='Fitted Line'))
+        # Edit the layout
+        fig.update_layout(title='Calibration Points of Ultrasonic Sensor',
+            xaxis_title='Sensed Distance (Cm)',
+            yaxis_title='Real Measured Distance (Cm)', )
+        fig.show()
 
 #==============================================================================
 
-    def CalibrateSemiAutomatic(self):
-        pass
+    def CalibrateSemiAutomatic(self, waitTime):
+        self.calibrationPoints = []
+        # Get first point
+        realValue = input("We will take our FIRST point, please measure the distance and insert it here:")
+        time.sleep(waitTime)
+        _, sensedValue = self.GetDistanceBlocking()
+        self.calibrationPoints.append((realValue, sensedValue))
+
+        #Second point
+        realValue = input("Now for the SECOND one, please measure the distance and insert it here:")
+        time.sleep(waitTime)
+        _, sensedValue = self.GetDistanceBlocking()
+        self.calibrationPoints.append((realValue, sensedValue))  
+
+        #Third point
+        realValue = input("And the THIRD one, please measure the distance and insert it here:")
+        time.sleep(waitTime)
+        _, sensedValue = self.GetDistanceBlocking()
+        self.calibrationPoints.append((realValue, sensedValue)) 
+
+        #As much extra points as the user desires
+        while input("Do you wish to add more points? (y/n)") not in ['n', 'N', 'no', 'No']:
+            realValue = input("Please measure the distance and insert it here:")
+            time.sleep(waitTime)
+            _, sensedValue = self.GetDistanceBlocking()
+            self.calibrationPoints.append((realValue, sensedValue))
+        
+        self.calibrationPointsDf = pd.DataFrame(data=self.calibrationPoints, columns=['Real', 'Sensed'], dtype='float32')
+        print("Calibrating with the following points:")
+        print(self.calibrationPointsDf)
+
+        # Calibrate with retrieved points
+        self.CalibrateManual(self.calibrationPointsDf)
 
 #==============================================================================
 
-    def PlotRawSamples(self, theme='plotly_dark'):
+    def PlotSamples(self, theme='plotly_dark'):
 
-        if hasattr(self, 'samplesDf'):
-            fig = px.line(self.samplesDf, x='TimeStamp', y='Distance',
-                color='Distance', template=theme)
+        if hasattr(self, "coeffs"):
+            fig = px.line(self.samplesDf, x='Formatted TimeStamp', y=['Distance', 'Calibrated Distance'], template=theme,
+            labels={
+                     "Formatted TimeStamp": "Time (Date)",
+                     "Distance": "Distance (cm)",
+                     "Calibrated Distance": "Distance (cm)"
+                },
+                title="Ultrasonic Sensor Raw and Calibrated Data")    
+            fig.show()
+        elif hasattr(self, 'samplesDf'):
+            fig = px.line(self.samplesDf, x='Formatted TimeStamp', y='Distance', template=theme,
+            labels={
+                     "Formatted TimeStamp": "Time (Date)",
+                     "Distance": "Distance (cm)"
+                },
+                title="Ultrasonic Sensor Raw Data")
             fig.show()
         else:
             print("There are no points to plot")
@@ -116,14 +194,18 @@ triggerPin = 27
 echoPin = 17
 
 # Check if platform is ARM (summary for "rpi")
-if os.uname()[4].startsWith("arm"):
+if "arm" in os.uname()[4]:
 
     try:
         # New sensor object
         sensor0 = UltrasonicSensor(triggerPin, echoPin)
-        # Retrieve x number of samples
-        sensor0.GetDistanceSamples(period=0.1, numSamples=50)
-        sensor0.PlotRawSamples()
+        
+        # Calibrate sensor (1 sec wait after entering distance)
+        sensor0.CalibrateSemiAutomatic(waitTime=1)
+
+        # Retrieve x number of samples, doing a simple range validation
+        sensor0.GetDistanceSamples(period=0.1, numSamples=50, validRange=[0.1, 150])
+        sensor0.PlotSamples()
 
         # Reset by pressing CTRL + C
     except KeyboardInterrupt:
