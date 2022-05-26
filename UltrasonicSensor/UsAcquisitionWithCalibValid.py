@@ -21,10 +21,11 @@ class UltrasonicSensor:
 
 #-------------------------   Init Method   ------------------------------------
 
-    def __init__(self, trigger_pin, echo_pin):
+    def __init__(self, trigger_pin, echo_pin, theme='plotly_dark'):
 
         self.trigger_pin = trigger_pin
         self.echo_pin = echo_pin
+        self.theme = theme
         self.startTime = 0
         self.distance = 0
 
@@ -81,6 +82,7 @@ class UltrasonicSensor:
         # If Calibration is found
         if hasattr(self, 'coeffs'):
             self.samplesDf['Calibrated Distance'] = self.samplesDf['Distance'].apply(lambda x: (self.coeffs[0]*x+self.coeffs[1]))
+            self.samplesDf = self.samplesDf.astype({"Calibrated Distance": float, "Distance": float}) 
 
 #==============================================================================
 
@@ -103,7 +105,7 @@ class UltrasonicSensor:
 
         # Direct least square regression
         self.coeffs = np.dot((np.dot(np.linalg.inv(np.dot(A.T, A)), A.T)), y2)
-        print(f'Equation => y = {self.coeffs[0]}x + {self.coeffs}')
+        print(f'Equation => y = {self.coeffs[0]}x + {self.coeffs[1]}')
 
         #Plot results
         y2 = self.coeffs[0]*x + self.coeffs[1]
@@ -115,7 +117,8 @@ class UltrasonicSensor:
         # Edit the layout
         fig.update_layout(title='Calibration Points of Ultrasonic Sensor',
             xaxis_title='Sensed Distance (Cm)',
-            yaxis_title='Real Measured Distance (Cm)', )
+            yaxis_title='Real Measured Distance (Cm)',
+            template=self.theme)
         fig.show()
 
 #==============================================================================
@@ -147,7 +150,7 @@ class UltrasonicSensor:
             _, sensedValue = self.GetDistanceBlocking()
             self.calibrationPoints.append((realValue, sensedValue))
         
-        self.calibrationPointsDf = pd.DataFrame(data=self.calibrationPoints, columns=['Real', 'Sensed'], dtype='float32')
+        self.calibrationPointsDf = pd.DataFrame(data=self.calibrationPoints, columns=['Real', 'Sensed'], dtype=float)
         print("Calibrating with the following points:")
         print(self.calibrationPointsDf)
 
@@ -156,10 +159,10 @@ class UltrasonicSensor:
 
 #==============================================================================
 
-    def PlotSamples(self, theme='plotly_dark'):
+    def PlotSamples(self):
 
         if hasattr(self, "coeffs"):
-            fig = px.line(self.samplesDf, x='Formatted TimeStamp', y=['Distance', 'Calibrated Distance'], template=theme,
+            fig = px.line(self.samplesDf, x='Formatted TimeStamp', y=['Distance', 'Calibrated Distance'], template=self.theme,
             labels={
                      "Formatted TimeStamp": "Time (Date)",
                      "Distance": "Distance (cm)",
@@ -168,7 +171,7 @@ class UltrasonicSensor:
                 title="Ultrasonic Sensor Raw and Calibrated Data")    
             fig.show()
         elif hasattr(self, 'samplesDf'):
-            fig = px.line(self.samplesDf, x='Formatted TimeStamp', y='Distance', template=theme,
+            fig = px.line(self.samplesDf, x='Formatted TimeStamp', y='Distance', template=self.theme,
             labels={
                      "Formatted TimeStamp": "Time (Date)",
                      "Distance": "Distance (cm)"
@@ -198,13 +201,14 @@ if "arm" in os.uname()[4]:
 
     try:
         # New sensor object
-        sensor0 = UltrasonicSensor(triggerPin, echoPin)
+        sensor0 = UltrasonicSensor(triggerPin, echoPin, 'seaborn')
         
         # Calibrate sensor (1 sec wait after entering distance)
         sensor0.CalibrateSemiAutomatic(waitTime=1)
 
         # Retrieve x number of samples, doing a simple range validation
         sensor0.GetDistanceSamples(period=0.1, numSamples=50, validRange=[0.1, 150])
+        #print(sensor0.samplesDf)
         sensor0.PlotSamples()
 
         # Reset by pressing CTRL + C
