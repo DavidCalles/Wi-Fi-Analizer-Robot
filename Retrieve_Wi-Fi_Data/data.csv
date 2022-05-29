@@ -1,0 +1,6 @@
+Channel,Frequency,Quality,Quality Max,Signal Level,Encryption,SSID
+36,5.18,53,70,-57,on,minh-5g
+11,2.462,69,70,-41,on,minh-2g
+132,5.66,25,70,-85,on,Primus-32db-5G
+11,2.462,34,70,-76,on,Primus-32db
+1,2.412,57,70,-53,on,dlink-E336
