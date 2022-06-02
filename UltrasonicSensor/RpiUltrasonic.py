@@ -8,9 +8,26 @@ import pandas as pd
 import plotly.express as px
 import numpy as np
 import datetime as dt
+from datetime import datetime
 import plotly.graph_objects as go
+import sys
+import select
 
 import os
+ 
+#==============================================================================
+#---------------------   General Purpose Functions   -------------------------
+#==============================================================================
+
+def NonBlocking_IsThereInput():
+    return select.select([sys.stdin], [], [], 0) == ([sys.stdin], [], [])
+
+def NonBlocking_InputIsKey(key='q'):
+    if NonBlocking_IsThereInput():
+        c = sys.stdin.readline().rstrip()
+        if c == key:
+            return 1
+    return 0
  
 #==============================================================================
 #---------------------------   Main Class   -----------------------------------
@@ -62,21 +79,26 @@ class UltrasonicSensor:
 
 #==============================================================================
 
-    def GetDistanceSamples(self, period, numSamples, validRange=[0.1, 150.0]):
+    def GetDistanceSamples(self, period=0.1, numSamples=50, validRange=[0.1, 150.0], verbose=True, cancelKey='q'):
         
         #Initialize empty array for data
         self.samples = []
-
+        sampleId = 0
         #Retrieve raw data points
-        for i in range(numSamples):
+        while (sampleId <= numSamples) or (numSamples == -1):
             potentialSample = self.GetDistanceBlocking()
             # Basic data validation
             if((potentialSample[1] >= validRange[0]) and (potentialSample[1] <= validRange[1])):
-                self.samples.append(potentialSample)
+                self.samples.append(potentialSample.insert(0, sampleId))
+                sampleId += 1
+                if verbose:
+                    print(potentialSample)
+                if NonBlocking_InputIsKey(key=cancelKey):
+                    break
                 time.sleep(period)
 
-        self.samplesDf = pd.DataFrame(data=self.samples, columns=['TimeStamp', 'Distance'])
-        self.samplesDf['Formatted TimeStamp'] = self.samplesDf['TimeStamp'].apply(lambda x: dt.datetime.fromtimestamp(x))
+        self.samplesDf = pd.DataFrame(data=self.samples, columns=['SampleId', 'Epoch', 'Distance'])
+        self.samplesDf['DateTimeUTC'] = self.samplesDf['Epoch'].apply(lambda x: datetime.fromtimestamp(x))
 
         # If Calibration is found
         if hasattr(self, 'coeffs'):
@@ -155,13 +177,24 @@ class UltrasonicSensor:
 
         # Calibrate with retrieved points
         self.CalibrateManual(self.calibrationPointsDf)
+        
+#==============================================================================
+
+    def ExportCalibrationToCsv(self, path):
+        if hasattr(self, "coeffs"):
+            np.savetxt("path", self.coeffs, delimiter=",")
+        else:
+            raise ValueError("Calibration could not be found")
+    
+    def ImportCalibrationFromCsv(self, path):    
+            self.coeffs = np.genfromtxt(path, delimiter=',')
 
 #==============================================================================
 
     def PlotSamples(self):
 
         if hasattr(self, "coeffs"):
-            fig = px.line(self.samplesDf, x='Formatted TimeStamp', y=['Distance', 'Calibrated Distance'], template=self.theme,
+            fig = px.line(self.samplesDf, x='DateTimeUTC', y=['Distance', 'Calibrated Distance'], template=self.theme,
             labels={
                      "Formatted TimeStamp": "Time (Date)",
                      "Distance": "Distance (cm)",
@@ -170,7 +203,7 @@ class UltrasonicSensor:
                 title="Ultrasonic Sensor Raw and Calibrated Data")    
             fig.show()
         elif hasattr(self, 'samplesDf'):
-            fig = px.line(self.samplesDf, x='Formatted TimeStamp', y='Distance', template=self.theme,
+            fig = px.line(self.samplesDf, x='DateTimeUTC', y='Distance', template=self.theme,
             labels={
                      "Formatted TimeStamp": "Time (Date)",
                      "Distance": "Distance (cm)"
@@ -187,35 +220,35 @@ class UltrasonicSensor:
 
 #==============================================================================
 
-#==============================================================================
-#---------------------------   Main Code   -----------------------------------
-#==============================================================================
+# #==============================================================================
+# #---------------------------   Main Code   -----------------------------------
+# #==============================================================================
 
-# Set GPIO Pins for this test
-triggerPin = 27
-echoPin = 17
+# # Set GPIO Pins for this test
+# triggerPin = 27
+# echoPin = 17
 
-# Check if platform is ARM (summary for "rpi")
-if "arm" in os.uname()[4]:
+# # Check if platform is ARM (summary for "rpi")
+# if "arm" in os.uname()[4]:
 
-    try:
-        # New sensor object
-        sensor0 = UltrasonicSensor(triggerPin, echoPin, 'seaborn')
+#     try:
+#         # New sensor object
+#         sensor0 = UltrasonicSensor(triggerPin, echoPin, 'seaborn')
         
-        # Calibrate sensor (1 sec wait after entering distance)
-        sensor0.CalibrateSemiAutomatic(waitTime=1)
+#         # Calibrate sensor (1 sec wait after entering distance)
+#         sensor0.CalibrateSemiAutomatic(waitTime=1)
 
-        # Retrieve x number of samples, doing a simple range validation
-        sensor0.GetDistanceSamples(period=0.1, numSamples=50, validRange=[0.1, 150])
-        print(sensor0.samplesDf)
-        sensor0.PlotSamples()
+#         # Retrieve x number of samples, doing a simple range validation
+#         sensor0.GetDistanceSamples(period=0.1, numSamples=50, validRange=[0.1, 150])
+#         print(sensor0.samplesDf)
+#         sensor0.PlotSamples()
 
-        # Reset by pressing CTRL + C
-    except KeyboardInterrupt:
-        print("Manual stop")
+#         # Reset by pressing CTRL + C
+#     except KeyboardInterrupt:
+#         print("Manual stop")
 
-    # GPIO Cleanup
-    sensor0.CloseGPIO()
+#     # GPIO Cleanup
+#     sensor0.CloseGPIO()
 
-else:
-    print("CARE! Not running in raspberry-pi!!")
+# else:
+#     print("CARE! Not running in raspberry-pi!!")
