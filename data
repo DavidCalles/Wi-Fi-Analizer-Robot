@@ -1,0 +1,71 @@
+                    Channel:1
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=57/70  Signal level=-53 dBm  
+                    Encryption key:on
+                    ESSID:"neckhouse"
+                    Channel:1
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=54/70  Signal level=-56 dBm  
+                    Encryption key:on
+                    ESSID:"neckhouse"
+                    Channel:149
+                    Frequency:5.745 GHz
+                    Quality=44/70  Signal level=-66 dBm  
+                    Encryption key:on
+                    ESSID:"neckhouse"
+                    Channel:149
+                    Frequency:5.745 GHz
+                    Quality=35/70  Signal level=-75 dBm  
+                    Encryption key:on
+                    ESSID:"neckhouse"
+                    Channel:36
+                    Frequency:5.18 GHz (Channel 36)
+                    Quality=48/70  Signal level=-62 dBm  
+                    Encryption key:on
+                    ESSID:"neckhouse"
+                    Channel:36
+                    Frequency:5.18 GHz (Channel 36)
+                    Quality=46/70  Signal level=-64 dBm  
+                    Encryption key:off
+                    ESSID:""
+                    Channel:36
+                    Frequency:5.18 GHz (Channel 36)
+                    Quality=46/70  Signal level=-64 dBm  
+                    Encryption key:on
+                    ESSID:""
+                    ESSID:"116413"
+                    Channel:8
+                    Frequency:2.447 GHz (Channel 8)
+                    Quality=59/70  Signal level=-51 dBm  
+                    Encryption key:on
+                    ESSID:""
+                    Channel:8
+                    Frequency:2.447 GHz (Channel 8)
+                    Quality=59/70  Signal level=-51 dBm  
+                    Encryption key:on
+                    ESSID:"Hitron65285"
+                    Channel:11
+                    Frequency:2.462 GHz (Channel 11)
+                    Quality=37/70  Signal level=-73 dBm  
+                    Encryption key:on
+                    ESSID:"BELL800"
+                    Channel:11
+                    Frequency:2.462 GHz (Channel 11)
+                    Quality=39/70  Signal level=-71 dBm  
+                    Encryption key:on
+                    ESSID:"BELL800-V"
+                    Channel:2
+                    Frequency:2.417 GHz (Channel 2)
+                    Quality=42/70  Signal level=-68 dBm  
+                    Encryption key:on
+                    ESSID:"41 Amherst Dr - C_2.4G"
+                    Channel:11
+                    Frequency:2.462 GHz (Channel 11)
+                    Quality=35/70  Signal level=-75 dBm  
+                    Encryption key:on
+                    ESSID:"41Amherst-5G-EXT"
+                    Channel:11
+                    Frequency:2.462 GHz (Channel 11)
+                    Quality=32/70  Signal level=-78 dBm  
+                    Encryption key:on
+                    ESSID:"DIRECT-8C-HP DeskJet 3700 series"

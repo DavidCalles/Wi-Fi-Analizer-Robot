@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #get parameters
-iwlist wlp5s0 scan | grep 'ESSID\|Quality\|Channel\|Frequency\|Encryption' > data
+iwlist wlan0 scan | grep 'ESSID\|Quality\|Channel\|Frequency\|Encryption' > data
 
 #split quality and signal level
 sed -i 's/Signal level/\nSignal level/g' data
@@ -47,7 +47,7 @@ sed -i '1s/^/\n/' data.csv
 echo "$(echo -n 'Channel,Frequency,Quality,Quality Max,Signal Level,Encryption,SSID'; cat data.csv)" > data.csv
 
 #deletes last line
-sed -i '$d' data.csv
+#sed -i '$d' data.csv
 
 #genrate json
 cat data.csv| python3 -c 'import csv, json, sys; print(json.dumps([dict(r) for r in csv.DictReader(sys.stdin)]))' > wifi.json
