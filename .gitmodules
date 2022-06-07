@@ -8,3 +8,6 @@
 [submodule "RobotSource/robot-hat"]
 	path = RobotSource/robot-hat
 	url = https://github.com/sunfounder/robot-hat.git
+[submodule "RobotSource/vilib"]
+	path = RobotSource/vilib
+	url = https://github.com/sunfounder/vilib.git
