@@ -4,6 +4,7 @@
 [submodule "RobotSource/picar-x"]
 	path = RobotSource/picar-x
 	url = https://github.com/sunfounder/picar-x.git
+	branch = robot_hat
 [submodule "RobotSource/robot-hat"]
 	path = RobotSource/robot-hat
 	url = https://github.com/sunfounder/robot-hat.git
