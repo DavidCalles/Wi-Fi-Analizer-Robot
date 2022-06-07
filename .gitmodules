@@ -1,0 +1,3 @@
+[submodule "WiviBot-WebApp"]
+	path = WiviBot-WebApp
+	url = https://github.com/kjaskaran/WiviBot-WebApp
