@@ -1,0 +1,13 @@
+[submodule "WiviBot-WebApp"]
+	path = WiviBot-WebApp
+	url = https://github.com/kjaskaran/WiviBot-WebApp
+[submodule "RobotSource/picar-x"]
+	path = RobotSource/picar-x
+	url = https://github.com/sunfounder/picar-x.git
+	branch = robot_hat
+[submodule "RobotSource/robot-hat"]
+	path = RobotSource/robot-hat
+	url = https://github.com/sunfounder/robot-hat.git
+[submodule "RobotSource/vilib"]
+	path = RobotSource/vilib
+	url = https://github.com/sunfounder/vilib.git
