@@ -31,3 +31,5 @@ for i in range(20):
     # Get  ultrasonic sensor data
     distanceRaw = myrobot.get_distance()
     distanceCalib = rpius.CalibrateSample()
+    print(f'{distanceRaw}, {distanceCalib}')
+    
