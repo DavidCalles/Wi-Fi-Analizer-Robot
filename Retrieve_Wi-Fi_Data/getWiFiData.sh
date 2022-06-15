@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #get parameters
-iwlist wlan0 scan | grep 'ESSID\|Quality\|Channel\|Frequency\|Encryption' > data
+iwlist wlan1 scan | grep 'ESSID\|Quality\|Channel\|Frequency\|Encryption' > data
 
 #split quality and signal level
 sed -i 's/Signal level/\nSignal level/g' data
