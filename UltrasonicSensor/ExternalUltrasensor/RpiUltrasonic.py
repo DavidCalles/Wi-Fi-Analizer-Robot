@@ -28,6 +28,9 @@ def NonBlocking_InputIsKey(key='q'):
         if c == key:
             return 1
     return 0
+
+def CalibrateSample(sample, coeffs):
+    return (coeffs[0]*sample + coeffs[1])
  
 #==============================================================================
 #---------------------------   Main Class   -----------------------------------
@@ -37,7 +40,7 @@ class UltrasonicSensor:
 
 #-------------------------   Init Method   ------------------------------------
 
-    def __init__(self, trigger_pin, echo_pin, theme='plotly_dark'):
+    def __init__(self, trigger_pin=27, echo_pin=17, theme='plotly_dark'):
 
         self.trigger_pin = trigger_pin
         self.echo_pin = echo_pin
@@ -180,14 +183,15 @@ class UltrasonicSensor:
         
 #==============================================================================
 
-    def ExportCalibrationToCsv(self, path):
+    def ExportCalibrationToFile(self, path):
         if hasattr(self, "coeffs"):
-            np.savetxt("path", self.coeffs, delimiter=",")
+            np.savetxt(path, self.coeffs, delimiter=",")
         else:
             raise ValueError("Calibration could not be found")
     
-    def ImportCalibrationFromCsv(self, path):    
-            self.coeffs = np.genfromtxt(path, delimiter=',')
+    def ImportCalibrationFromFile(self, path):    
+        self.coeffs = np.genfromtxt(path, delimiter=',')
+        return self.coeffs  
 
 #==============================================================================
 
@@ -217,38 +221,3 @@ class UltrasonicSensor:
 
     def CloseGPIO(self):
         GPIO.cleanup()
-
-#==============================================================================
-
-# #==============================================================================
-# #---------------------------   Main Code   -----------------------------------
-# #==============================================================================
-
-# # Set GPIO Pins for this test
-# triggerPin = 27
-# echoPin = 17
-
-# # Check if platform is ARM (summary for "rpi")
-# if "arm" in os.uname()[4]:
-
-#     try:
-#         # New sensor object
-#         sensor0 = UltrasonicSensor(triggerPin, echoPin, 'seaborn')
-        
-#         # Calibrate sensor (1 sec wait after entering distance)
-#         sensor0.CalibrateSemiAutomatic(waitTime=1)
-
-#         # Retrieve x number of samples, doing a simple range validation
-#         sensor0.GetDistanceSamples(period=0.1, numSamples=50, validRange=[0.1, 150])
-#         print(sensor0.samplesDf)
-#         sensor0.PlotSamples()
-
-#         # Reset by pressing CTRL + C
-#     except KeyboardInterrupt:
-#         print("Manual stop")
-
-#     # GPIO Cleanup
-#     sensor0.CloseGPIO()
-
-# else:
-#     print("CARE! Not running in raspberry-pi!!")

@@ -3,7 +3,6 @@
 #-------------------------  Imported Modules   --------------------------------
 #==============================================================================
 
-from tabnanny import verbose
 from RpiUltrasonic import *
 
 #==============================================================================
@@ -25,16 +24,15 @@ if "arm" in os.uname()[4]:
         # New sensor object
         sensor0 = UltrasonicSensor(trigger_pin=triggerPin, echo_pin=echoPin, theme='seaborn')
         
+        # Calibrate sensor (1 sec wait after entering distance)
+        sensor0.CalibrateSemiAutomatic(waitTime=1)
         # Save calibration to CSV file 
-        sensor0.ImportCalibrationFromCsv(path='CalibrationCoeffs.csv')
+        sensor0.ExportCalibrationToFile(path='CalibrationCoeffs.csv')
         
         # Retrieve x number of samples, doing a simple range validation
-        # Press key to cancel early
-        sensor0.GetDistanceNumSamples(period=0.1, numSamples=100, validRange=[0.1, 150], verbose=False, cancelKey='q')
+        sensor0.GetDistanceSamples(period=0.1, numSamples=50, validRange=[0.1, 150])
+        print(sensor0.samplesDf)
         sensor0.PlotSamples()
-        # Get Dataframe
-        print(sensor0.samplesDf.head())
-        sensor0.WriteSamplesToJson(path='FormattedSamples.json')
 
         # Reset by pressing CTRL + C
     except KeyboardInterrupt:
