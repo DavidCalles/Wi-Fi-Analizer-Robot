@@ -117,7 +117,7 @@ class UltrasonicSensor:
 
 #==============================================================================
 
-    def CalibrateManual(self, df):
+    def CalibrateManual(self, df, plot=False):
 
         x = df.Real.to_numpy(copy=True)
         y = df.Sensed.to_numpy(copy=True)
@@ -132,18 +132,19 @@ class UltrasonicSensor:
         print(f'Equation => y = {self.coeffs[0]}x + {self.coeffs[1]}')
 
         #Plot results
-        y2 = self.coeffs[0]*x + self.coeffs[1]
-        fig = go.Figure()
-        fig.add_trace(go.Scatter(x=x, y=y,
-                            mode='markers', name='Calibration Points'))
-        fig.add_trace(go.Scatter(x=x, y=y2,
-                            mode='lines', name='Fitted Line'))
-        # Edit the layout
-        fig.update_layout(title='Calibration Points of Ultrasonic Sensor',
-            xaxis_title='Sensed Distance (Cm)',
-            yaxis_title='Real Measured Distance (Cm)',
-            template=self.theme)
-        fig.show()
+        if plot:
+            y2 = self.coeffs[0]*x + self.coeffs[1]
+            fig = go.Figure()
+            fig.add_trace(go.Scatter(x=x, y=y,
+                                mode='markers', name='Calibration Points'))
+            fig.add_trace(go.Scatter(x=x, y=y2,
+                                mode='lines', name='Fitted Line'))
+            # Edit the layout
+            fig.update_layout(title='Calibration Points of Ultrasonic Sensor',
+                xaxis_title='Sensed Distance (Cm)',
+                yaxis_title='Real Measured Distance (Cm)',
+                template=self.theme)
+            fig.show()
 
 #==============================================================================
 
