@@ -37,12 +37,15 @@ connection0.publish("Start Data")
 connection0.publish("SampleId, DateTime(UTC), RawDistance(cm), CalibratedDistance(cm)")
 sampleId=0
 while (1):
-    time.sleep(3)
     # Get  ultrasonic sensor data
     distanceRaw = myrobot.get_distance()
     distanceCalib = rpius.CalibrateSample(distanceRaw, myCalib.coeffs)
-    connection0.publish(f"Sample, {sampleId}, {datetime.now()}, {distanceRaw:.2f}, {distanceCalib:.2f}")
-    sampleId+=1
+    distanceCalib = rpius.VerifySample(distanceCalib, ranges = [1, 250])
+    
+    if(distanceCalib != -1):
+        connection0.publish(f"Sample, {sampleId}, {datetime.now()}, {distanceRaw:.2f}, {distanceCalib:.2f}")
+        sampleId+=1
+        time.sleep(2)
     
 connection0.publish("End Data")
 connection0.disconnect()

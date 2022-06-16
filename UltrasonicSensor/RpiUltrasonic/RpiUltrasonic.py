@@ -31,6 +31,12 @@ def NonBlocking_InputIsKey(key='q'):
 
 def CalibrateSample(sample, coeffs):
     return (coeffs[0]*sample + coeffs[1])
+
+def VerifySample(sample, ranges = [1, 200]):
+    if(sample < ranges[1]) and (sample > ranges[0]):
+        return sample
+    else:
+        return -1
  
 #==============================================================================
 #---------------------------   Main Class   -----------------------------------
