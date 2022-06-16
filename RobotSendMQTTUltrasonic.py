@@ -11,7 +11,8 @@ sys.path.append('Network_Connections/MQTT_Connection/')
 import MQTT_Publisher as mymqtt
 ##
 import time 
-import os    
+import os  
+from datetime import datetime 
  
 ##=============================================================================
 # Create robot object
@@ -33,15 +34,15 @@ else:
 # Set new connection for sending data   
 connection0 = mymqtt.NewMQTTPublisher("raspi0")
 connection0.publish("Start Data")
-
-i=0
+connection0.publish("SampleId, DateTime(UTC), RawDistance(cm), CalibratedDistance(cm)")
+sampleId=0
 while (1):
     time.sleep(3)
     # Get  ultrasonic sensor data
     distanceRaw = myrobot.get_distance()
     distanceCalib = rpius.CalibrateSample(distanceRaw, myCalib.coeffs)
-    connection0.publish(f"{distanceRaw}, {distanceCalib}")
-    i+=1
+    connection0.publish(f"{sampleId}, {datetime.now()}, {distanceRaw:.2f}, {distanceCalib:.2f}")
+    sampleId+=1
     
 connection0.publish("End Data")
 connection0.disconnect()
