@@ -9,35 +9,14 @@ import sys
 # importing own functions for mqtt connetion
 sys.path.append('Network_Connections/MQTT_Connection/')
 import MQTT_Receiver as mymqttr
+import pandas as pd
 ##
-import time 
-import os    
- 
-##=============================================================================
-# # Create robot object
-# myrobot = pix.Picarx()
-
-# # Calibrate system if it is the first time
-# calibPath = "UltrasonicSensor/RobotUltraSensor/UltrasonicSensorCalibration.npz"
-# # Calibration object
-# myCalib = rpius.UltrasonicSensor(trigger_pin=27, echo_pin=22)
-
-# # Calibrate sensor
-# if os.path.exists(calibPath) and os.path.getsize(calibPath) > 0:
-#     # Non empty file exists
-#     myCalib.ImportCalibrationFromFile(calibPath)
-# else:
-#     myCalib.CalibrateSemiAutomatic(1)
-#     myCalib.ExportCalibrationToFile(calibPath)
-
-# for i in range(10):
-#     # Get  ultrasonic sensor data
-#     distanceRaw = myrobot.get_distance()
-#     distanceCalib = rpius.CalibrateSample(distanceRaw, myCalib.coeffs)
-#     print(f'{distanceRaw}, {distanceCalib}')
-#     time.sleep(0.5)
-
-connection0 = mymqttr.NewMQTTReceiver("pc_lin0", 12)
-
+   
+## Block terminal for 'segs' seconds and receive data 
+connection0 = mymqttr.NewMQTTReceiver("pc_lin0", segs=20)
 myData = mymqttr.data
 print(myData)
+
+dfColumns = ['SampleId', 'DateTime(UTC)', 'RawDistance(cm)', 'CalibratedDistance(cm)']
+dfUltrasonic = pd.DataFrame(data=myData, columns=dfColumns)
+print(dfUltrasonic.head())

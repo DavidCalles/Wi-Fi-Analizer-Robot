@@ -35,7 +35,7 @@ def on_message(client, userdata, message):
     print("Mqtt message: ", msg)
  
     if(msg[0:7] == 'Sample,'):
-        data.append(msg[7:])
+        data.append(msg[7:].split(", "))
 
 # HANDSHAKE FUNCTION
 
