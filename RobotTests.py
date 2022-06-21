@@ -10,12 +10,12 @@ import time
 myrobot = Picarx()
 
 # Move motors breefly
-# myrobot.forward(50)
-# time.sleep(1)
-# myrobot.stop()
-# myrobot.backward(50)
-# time.sleep(1)
-# myrobot.stop()
+myrobot.forward(50)
+time.sleep(1)
+myrobot.stop()
+myrobot.backward(50)
+time.sleep(1)
+myrobot.stop()
 
 # # Get  ultrasonic sensor data
 # for i in range(10):
