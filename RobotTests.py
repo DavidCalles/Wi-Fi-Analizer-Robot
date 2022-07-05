@@ -5,6 +5,8 @@ import sys
 sys.path.insert(0, 'RobotSource/picar-x/')
 from picarx import *
 import time
+import curses
+import keyboard
 
 # Create robot object
 myrobot = Picarx()
