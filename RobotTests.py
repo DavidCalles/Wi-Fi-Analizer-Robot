@@ -5,7 +5,6 @@ import sys
 sys.path.insert(0, 'RobotSource/picar-x/')
 from picarx import *
 import time
-import curses
 import keyboard
 
 # Create robot object
@@ -37,16 +36,12 @@ myrobot.stop()
 #     except:
 try:
     while True:
-        char = screen.getch()
-
-        if char == ord('q'):
+        
+        if keyboard.is_pressed('q'):
             break
-
-        if keyboard.is_pressed('w'): #move forward all 4 motors(11,15,31,35)
-           myrobot.forward(10)
-            break
-
-        elif char == ord('s') : #move backword all 4 motors(13,16,33,37)
-            myrobot.backward(10)
-        except:
-            myrobot.stop()
+        if keyboard.is_pressed('w'):
+            print("w")
+        elif keyboard.is_pressed('s'):
+            print("s")
+except:
+    print("Error reading values")
