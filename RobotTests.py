@@ -33,4 +33,18 @@ myrobot.stop()
 #             myrobot.forward(10)
 
 #     except:
-#         myrobot.stop()
+try:
+    while True:
+        char = screen.getch()
+
+        if char == ord('q'):
+            break
+
+        if keyboard.is_pressed('w'): #move forward all 4 motors(11,15,31,35)
+           myrobot.forward(10)
+            break
+
+        elif char == ord('s') : #move backword all 4 motors(13,16,33,37)
+            myrobot.backward(10)
+        except:
+            myrobot.stop()
