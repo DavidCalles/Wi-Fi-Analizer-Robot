@@ -11,7 +11,7 @@
 [submodule "RobotSource/vilib"]
 	path = RobotSource/vilib
 	url = https://github.com/sunfounder/vilib.git
-[submodule "rplidar_sdk"]
+[submodule "SLAM/rplidar_sdk"]
 	path = rplidar_sdk
 	url = https://github.com/Slamtec/rplidar_sdk.git
 [submodule "SLAM/SLAM-on-Raspberry-Pi"]
