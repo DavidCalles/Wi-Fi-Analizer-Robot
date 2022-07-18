@@ -10,31 +10,6 @@ import keyboard
 # Create robot object
 myrobot = Picarx()
 
-# Move motors breefly
-# myrobot.forward(50)
-# time.sleep(1)
-# myrobot.stop()
-# myrobot.backward(50)
-# time.sleep(1)
-# myrobot.stop()
-
-# # Get  ultrasonic sensor data
-# for i in range(10):
-#     print(myrobot.get_distance())
-#     time.sleep(1)
-# myrobot.stop()
-# while (1):
-#     try:
-#         distance = myrobot.get_distance()
-#         if distance < 15.0:
-#             print(distance)
-#             myrobot.backward(10)
-#             time.sleep(2) 
-#         else:
-#             myrobot.forward(10)
-
-#     except:
-
 motorDelay = 0.3
 speed = 10
 currentDirAngle = 0
@@ -44,7 +19,6 @@ angle1upIncrement = 5
 angle1downIncrement = -5
 angle2upIncrement = 5
 angle2downIncrement = 5
-
 
 while True:
 
@@ -93,7 +67,7 @@ while True:
             myrobot.self.dir_servo_pin.angle(currentDirAngle)
             
         elif keyboard.is_pressed('8'):
-            currentDirAngle += angleRingtIncrement
+            currentDirAngle += angleRightIncrement
             myrobot.self.dir_servo_pin.angle(currentDirAngle)
             
         elif keyboard.is_pressed('0'):
@@ -104,9 +78,7 @@ while True:
         
         time.sleep(motorDelay)
         myrobot.stop()
-
-        
-    
+       
     except:
         myrobot.stop()
         break
