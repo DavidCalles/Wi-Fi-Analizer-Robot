@@ -9,7 +9,7 @@ from picarx import *
 
 #-------------------------- Robot Parameters -------------------------#
 myrobot = Picarx()
-speed = 50
+speed = 30
 dirAngle_Increment = 8
 dirAngle_Start = 0
 xCamera_Increment = 2
