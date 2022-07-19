@@ -11,3 +11,15 @@
 [submodule "RobotSource/vilib"]
 	path = RobotSource/vilib
 	url = https://github.com/sunfounder/vilib.git
+[submodule "SLAM/rplidar_sdk"]
+	path = rplidar_sdk
+	url = https://github.com/Slamtec/rplidar_sdk.git
+[submodule "SLAM/SLAM-on-Raspberry-Pi"]
+	path = SLAM/SLAM-on-Raspberry-Pi
+	url = https://github.com/AdroitAnandAI/SLAM-on-Raspberry-Pi.git
+[submodule "SLAM/BreezySLAM"]
+	path = SLAM/BreezySLAM
+	url = https://github.com/simondlevy/BreezySLAM.git
+[submodule "SLAM/PyRoboViz"]
+	path = SLAM/PyRoboViz
+	url = https://github.com/simondlevy/PyRoboViz.git
