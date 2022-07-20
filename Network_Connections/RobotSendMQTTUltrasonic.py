@@ -1,13 +1,13 @@
 # importing sys
 import sys
 # importing picar-x classes to the system path
-sys.path.append('RobotSource/picar-x/')
+sys.path.append('RobotSource/picar-x/picarx')
 import picarx as pix
 # importing own classes for ultrasonic sensor calibration
-sys.path.append('UltrasonicSensor/RpiUltrasonic/')
+sys.path.append('UltrasonicSensor/RpiUltrasonic')
 import RpiUltrasonic as rpius
 # importing own functions for mqtt connetion
-sys.path.append('Network_Connections/MQTT_Connection/')
+sys.path.append('Network_Connections/MQTT_Connection')
 import MQTT_Publisher as mymqtt
 ##
 import time 
@@ -15,13 +15,13 @@ import os
 from datetime import datetime 
  
 ##=============================================================================
-# # Create robot object
-# myrobot = pix.Picarx()
+# Create robot object
+myrobot = pix.Picarx()
 
-# # Calibrate system if it is the first time
-# calibPath = "UltrasonicSensor/RobotUltraSensor/UltrasonicSensorCalibration.npz"
-# # Calibration object
-# myCalib = rpius.UltrasonicSensor(trigger_pin=27, echo_pin=22)
+# Calibrate system if it is the first time
+calibPath = "UltrasonicSensor/RobotUltraSensor/UltrasonicSensorCalibration.npz"
+# Calibration object
+myCalib = rpius.UltrasonicSensor(trigger_pin=27, echo_pin=22)
 
 # Calibrate sensor in case it wasnt calibrated
 if os.path.exists(calibPath) and os.path.getsize(calibPath) > 0:

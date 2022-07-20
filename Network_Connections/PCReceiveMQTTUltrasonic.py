@@ -2,7 +2,7 @@
 import sys
 
 # importing own functions for mqtt connetion
-sys.path.append('Network_Connections/MQTT_Connection/')
+sys.path.append('/home/davidcalles/Wi-Fi-Analizer-Robot/Network_Connections/MQTT_Connection')
 import MQTT_Receiver as mymqttr
 import pandas as pd
 import numpy as np

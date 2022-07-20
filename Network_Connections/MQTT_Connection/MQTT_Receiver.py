@@ -1,11 +1,14 @@
-
+import sys
+sys.path.append('/home/davidcalles/Wi-Fi-Analizer-Robot/Network_Connections/HTTP_Connection')
 import paho.mqtt.client as mqtt #import the client1
 import time
+from restApi import *
 
 my_host = "broker.hivemq.com"
 my_port = 1883
 my_topic = "WIFI_Robot_Analizer_DC"
 my_qos = 2
+count = 0
 
 data = []
 receivingDataFlag = False
@@ -31,11 +34,14 @@ def on_connect(client, userdata, flags, rc):
     # EVALUATE received messages
 def on_message(client, userdata, message):
     global data
+    global count
     msg = message.payload.decode()
     print("Mqtt message: ", msg)
  
     if(msg[0:7] == 'Sample,'):
         data.append(msg[7:].split(", "))
+        postRequestJSON(url, {"sample:": f"Sample {count} posted"})
+        
 
 # HANDSHAKE FUNCTION
 

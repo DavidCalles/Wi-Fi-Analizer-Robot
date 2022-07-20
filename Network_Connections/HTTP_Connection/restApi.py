@@ -64,14 +64,14 @@ def deleteRequestJSON(url):
         return json_response
     
 
-topic = "/Cats"
-cat1 = {'name':'Garfield', 'color':'orange', 'mood':'hungry'}
-response = postRequestJSON(url=url+topic, dict=cat1)
-print(json.dumps(response, indent=4, sort_keys=True))
+# topic = "/Cats"
+# cat1 = {'name':'Garfield', 'color':'orange', 'mood':'hungry'}
+# response = postRequestJSON(url=url+topic, dict=cat1)
+# print(json.dumps(response, indent=4, sort_keys=True))
 
-cat2 = {'name':'Unlucky', 'color':'black', 'mood':'lazy'}
-response = postRequestJSON(url=url+topic, dict=cat2)
-print(json.dumps(response, indent=4, sort_keys=True))
+# cat2 = {'name':'Unlucky', 'color':'black', 'mood':'lazy'}
+# response = postRequestJSON(url=url+topic, dict=cat2)
+# print(json.dumps(response, indent=4, sort_keys=True))
 
-response = getRequestJSON(url+topic)
-print(json.dumps(response, indent=4, sort_keys=True))
+# response = getRequestJSON(url+topic)
+# print(json.dumps(response, indent=4, sort_keys=True))
