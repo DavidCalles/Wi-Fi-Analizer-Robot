@@ -3,10 +3,13 @@ import sys
 
 # importing own functions for mqtt connetion
 sys.path.append('/home/davidcalles/Wi-Fi-Analizer-Robot/Network_Connections/MQTT_Connection')
+sys.path.append('/home/davidcalles/Wi-Fi-Analizer-Robot/Network_Connections/HTTP_Connection')
 import MQTT_Receiver as mymqttr
+from restApi import sampleUrl, sampleTopic, getRequestJSON 
 import pandas as pd
 import numpy as np
 import plotly.express as px
+import json
 ##
    
 ## Block terminal for 'segs' seconds and receive data 
@@ -38,3 +41,8 @@ fig = px.line(dfUltrasonic, x="DateTime(UTC)",
               y=["RawDistance(cm)", "CalibratedDistance(cm)"],
               title='Ultrasensor Data', template='plotly_dark')
 fig.show()
+
+# GET request
+print(f"Output from {sampleUrl+sampleTopic}:")
+response = getRequestJSON(sampleUrl+sampleTopic)
+print(json.dumps(response, indent=4, sort_keys=True))

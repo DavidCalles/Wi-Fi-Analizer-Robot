@@ -1,8 +1,9 @@
 import sys
+
 sys.path.append('/home/davidcalles/Wi-Fi-Analizer-Robot/Network_Connections/HTTP_Connection')
 import paho.mqtt.client as mqtt #import the client1
 import time
-from restApi import *
+from restApi import sampleUrl, sampleTopic, postRequestJSON
 
 my_host = "broker.hivemq.com"
 my_port = 1883
@@ -39,9 +40,11 @@ def on_message(client, userdata, message):
     print("Mqtt message: ", msg)
  
     if(msg[0:7] == 'Sample,'):
-        data.append(msg[7:].split(", "))
-        postRequestJSON(url, {"sample:": f"Sample {count} posted"})
-        
+        cSample = msg[7:].split(", ")
+        data.append(cSample)
+        mydict = {"publisher":"David-PC", "myData": cSample}
+        response = postRequestJSON(sampleUrl+sampleTopic, mydict)
+        print(f"POST request for sample {cSample[0]} succesfull")
 
 # HANDSHAKE FUNCTION
 

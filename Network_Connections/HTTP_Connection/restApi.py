@@ -5,7 +5,8 @@ import json
 from datetime import datetime
 
 
-url = "https://crudcrud.com/api/3b17854564c1460dac2b6318c1f7a29b"
+sampleUrl = "https://crudcrud.com/api/b97da663683241d89c004a6824620401"
+sampleTopic = "/BTDataDavid"
 
 def getRequestJSON(url):
     try:
@@ -38,7 +39,7 @@ def postRequestJSON(url, dict):
     
 def putRequestJSON(url, dict):
     try:
-        dict['DateTime'] = str(datetime.now())
+        dict['ReqDateTime'] = str(datetime.now())
         response = rq.put(url, json=dict)
         # If the response was successful, no Exception will be raised
         response.raise_for_status()
@@ -64,14 +65,15 @@ def deleteRequestJSON(url):
         return json_response
     
 
+# USAGE EXAMPLE
 # topic = "/Cats"
-# cat1 = {'name':'Garfield', 'color':'orange', 'mood':'hungry'}
-# response = postRequestJSON(url=url+topic, dict=cat1)
+# cat1 = {'name':'Garfield', 'color':'orange', 'mood':5}
+# response = postRequestJSON(url=sampleUrl+sampleTopic, dict=cat1)
 # print(json.dumps(response, indent=4, sort_keys=True))
 
 # cat2 = {'name':'Unlucky', 'color':'black', 'mood':'lazy'}
-# response = postRequestJSON(url=url+topic, dict=cat2)
+# response = postRequestJSON(url=sampleUrl+sampleTopic, dict=cat2)
 # print(json.dumps(response, indent=4, sort_keys=True))
 
-# response = getRequestJSON(url+topic)
+# response = getRequestJSON(sampleUrl+sampleTopic)
 # print(json.dumps(response, indent=4, sort_keys=True))
