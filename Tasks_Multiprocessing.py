@@ -12,7 +12,7 @@ projectDir          = "/home/davidcalles/Documents/Wi-Fi-Analizer-Robot/"
 wifiBashScriptDir   = "Retrieve_Wi-Fi_Data/getWiFiData.sh"
 wifiDataOutputDir   = "Retrieve_Wi-Fi_Data/wifi.json"
 
-manualControlScript = "ManualNavigation2.py"
+manualControlScript = 'mannualnavigation3.py'#"ManualNavigation2.py"
 
 #-------------------------- Wifi Retrieval Variables -------------------------#
 bashCommandWifi = "/bin/bash " + projectDir + wifiBashScriptDir  
