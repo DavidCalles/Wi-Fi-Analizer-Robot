@@ -10,9 +10,9 @@ from picarx import *
 
 #-------------------------- Robot Parameters -------------------------#
 myrobot = Picarx()
-percentIncrement = 10
+percentIncrement = 5
 distanceUntilCrash = 12
-speed = 25
+speed = 0.1
 dirAngle_Increment = 8
 dirAngle_Start = 0
 xCamera_Increment = 2
@@ -80,17 +80,19 @@ def robot_SoftSteerDown():
 
 #------------------------------------------ Random Mode ----------------------#
 def robot_random_mode():
+    global dirAngle_Start
     while (1):
-        rcase = random.randint(1,3)
+        rcase = random.randint(1,2)
         if isData():
             break
         
         elif(rcase == 1):
-            global dirAngle_Start
             myrobot.stop()
-            if (abs(dirAngle_Start) < 40):
-                dirAngle_Start += random.randint(-7,7)
-                myrobot.set_dir_servo_angle(dirAngle_Start)                
+            if (abs(dirAngle_Start) < 25):
+                dirAngle_Start += random.randint(-5,5)
+                myrobot.set_dir_servo_angle(dirAngle_Start) 
+            else:
+                dirAngle_Start = 0               
             time.sleep(5*delay)
             
         elif(rcase == 2):
@@ -98,9 +100,14 @@ def robot_random_mode():
                 robot_SoftRampForward()
                 time.sleep(delay)
             else:
-                robot_SoftRampBackward()
-                dirAngle_Start = -dirAngle_Start
-                time.sleep(2)
+                if(myrobot.get_distance() > distanceUntilCrash):
+                    robot_SoftRampForward()
+                    time.sleep(delay)
+                else:   
+                    robot_SoftRampBackward()
+                    dirAngle_Start = -dirAngle_Start
+                    myrobot.set_dir_servo_angle(dirAngle_Start)
+                    time.sleep(2)
 
 #if there is an obstracle move backware
 #make the timme a define constant
@@ -120,6 +127,8 @@ commands = [['w', robot_SoftForward],
             
 if __name__ == '__main__':
 
+    myrobot.set_power(0.1) 
+    
     old_settings = termios.tcgetattr(sys.stdin)
     try:
         tty.setcbreak(sys.stdin.fileno())
@@ -147,6 +156,8 @@ if __name__ == '__main__':
             else:
                 # STOP VEHICLE
                 myrobot.stop()
-
+    except:
+        myrobot.stop()
     finally:
         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
+        myrobot.stop()

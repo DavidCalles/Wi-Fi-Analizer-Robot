@@ -15,6 +15,8 @@ wifiDataOutputDir   = "Retrieve_Wi-Fi_Data/wifi.json"
 
 manualControlScript = 'mannualnavigation3.py'#"ManualNavigation2.py"
 
+slamScript = 'SLAM/SLAM-on-Raspberry-Pi/rpslam-thread.py'
+
 #-------------------------- Wifi Retrieval Variables -------------------------#
 bashCommandWifi = "/bin/bash " + projectDir + wifiBashScriptDir  
 WifiDataQueue = mp.Queue() 
@@ -23,6 +25,7 @@ WifiDataQueue = mp.Queue()
 bashCommandManualControl = "/bin/python3 " + projectDir + manualControlScript  
 
 #---------------------- LIDAR/SLAM Retrieval Variables -----------------------#
+bashCommand = "/bin/python3 " + projectDir + slamScript
 enablePloting = True
 enablePrinting = True
 poseQueue = mp.Queue() 
@@ -71,17 +74,28 @@ def NavigationAlgorithm(bashCommand):
 def RunSLAM(poseQueue, bitMapQueue, RawLidarQueue):
         print("Started Slam Process")
         slam_compute(poseQueue, bitMapQueue, RawLidarQueue)
+        
+def RunSLAM2(bashCommand):
+        print("Started Slam Process")
+        # Fill in file with new data
+        process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+        output, error = process.communicate() #uncomment for verbose  
 
 
 def ConsumeSLAM(poseQueue, bitMapQueue, RawLidarQueue, viz):
     
-    if poseQueue.empty() == False:
+    poseObj = 0
+    bitMapObj = 0
+    
+    isPoseEmpty = poseQueue.empty()
+    if isPoseEmpty == False:
         poseObj = poseQueue.get(pose)
         if enablePrinting:
             print("Pose: ")
             print(poseObj)
-       
-    if bitMapQueue.empty() == False:
+    
+    isBitMapEmpty = bitMapQueue.empty() 
+    if isBitMapEmpty == False:
         bitMapObj = bitMapQueue.get(bitMapQueue)
         if enablePrinting:
             print(len(bitMapObj))
@@ -91,10 +105,11 @@ def ConsumeSLAM(poseQueue, bitMapQueue, RawLidarQueue, viz):
         if enablePrinting:
             print(len(radLidarObj))
             
-    if enablePloting:      
+    if (enablePloting) and (isPoseEmpty == False) and (isBitMapEmpty == False):      
         print("Plotting data")  
         if not viz.display(poseObj[0]/1000., poseObj[1]/1000., poseObj[2], bitMapObj):
-            raise KeyboardInterrupt
+            #raise KeyboardInterrupt
+            print("Plotting Error")
         
 #--------------------------------------- MAIN Task ---------------------------#
 
@@ -111,7 +126,7 @@ if __name__ == '__main__':
     manualNav_P = mp.Process(target=NavigationAlgorithm, args=(bashCommandManualControl,))
     manualNav_P.start() # Run manual navigation
     # Create SLAM process
-    slam_P = mp.Process(target=RunSLAM, args=(poseQueue, bitMapQueue, RawLidarQueue))
+    slam_P = mp.Process(target=RunSLAM2, args=(bashCommand,))
     slam_P.start()
     
     while(1):
@@ -121,18 +136,19 @@ if __name__ == '__main__':
             wifiObj = WifiDataQueue.get(block=True, timeout=6)
             print(json.dumps(wifiObj, indent=4, sort_keys=True))  
             
-            ConsumeSLAM(poseQueue, bitMapQueue, RawLidarQueue, viz)
+            #ConsumeSLAM(poseQueue, bitMapQueue, RawLidarQueue, viz)
 
         except queue.Empty:
             print("Couldnt find new wifi data")
             exit(0) 
         
         except KeyboardInterrupt:
+            
             runThread = False
             wifi_P.join()
             manualNav_P.join()
             slam_P.join()
-            lidar.stop()
-            lidar.disconnect()
+            # lidar.stop()
+            # lidar.disconnect()
             exit(0)         
         
