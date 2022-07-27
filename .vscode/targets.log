@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Jul 20 18:17:44 2022
+# Make data base, printed on Wed Jul 27 18:02:23 2022
 
 # Variables
 
@@ -53,7 +55,7 @@ MAKEFLAGS = pqrR
 # makefile
 CURDIR := /home/davidcalles/Wi-Fi-Analizer-Robot
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # automatic
@@ -64,6 +66,8 @@ MFLAGS = -pqrR
 .SHELLFLAGS := -c
 # environment
 NVM_BIN = /home/davidcalles/.nvm/versions/node/v18.5.0/bin
+# environment
+WSL2_GUI_APPS_ENABLED = 1
 # environment
 WAYLAND_DISPLAY = wayland-0
 # automatic
@@ -153,7 +157,7 @@ XDG_RUNTIME_DIR = /mnt/wslg/runtime-dir
 # environment
 _CE_M = 
 # environment
-VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-9a1cbe21-bda5-4619-99b9-de2e258c02a3.sock
+VSCODE_IPC_HOOK_CLI = /mnt/wslg/runtime-dir/vscode-ipc-5f14828c-b036-4bad-ac56-8f8e0c398b0a.sock
 # environment
 NVM_CD_FLAGS = 
 # environment
@@ -183,7 +187,7 @@ CONDA_EXE = /home/davidcalles/anaconda3/bin/conda
 # environment
 _CE_CONDA = 
 # variable set hash-table stats:
-# Load=86/1024=8%, Rehash=0, Collisions=1/113=1%
+# Load=87/1024=8%, Rehash=0, Collisions=1/114=1%
 
 # Pattern-specific Variable Values
 
@@ -191,9 +195,9 @@ _CE_CONDA =
 
 # Directories
 
-# . (device 2080, inode 33674279): 29 files, no impossibilities.
+# . (device 2080, inode 33674279): 27 files, no impossibilities.
 
-# 29 files, no impossibilities in 1 directories.
+# 27 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -243,14 +247,12 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 37 / storage = 486 B / avg = 13 B
-# current buf: size = 8162 B / used = 486 B / count = 37 / avg = 13 B
+# strcache buffers: 1 (0) / strings = 35 / storage = 450 B / avg = 12 B
+# current buf: size = 8162 B / used = 450 B / count = 35 / avg = 12 B
 
-# strcache performance: lookups = 40 / hit rate = 7%
+# strcache performance: lookups = 38 / hit rate = 7%
 # hash-table stats:
-# Load=37/8192=0%, Rehash=0, Collisions=0/40=0%
-# Finished Make data base on Wed Jul 20 18:17:44 2022
+# Load=35/8192=0%, Rehash=0, Collisions=0/38=0%
+# Finished Make data base on Wed Jul 27 18:02:23 2022
 
  
-make: *** No rule to make target 'all'.  Stop.
-
