@@ -5,6 +5,7 @@ import json
 import subprocess
 import time
 from RpiSlam import *
+from roboviz import MapVisualizer
 
 #------------------------------- Directories ---------------------------------#
 projectDir          = "/home/davidcalles/Documents/Wi-Fi-Analizer-Robot/"
@@ -22,6 +23,8 @@ WifiDataQueue = mp.Queue()
 bashCommandManualControl = "/bin/python3 " + projectDir + manualControlScript  
 
 #---------------------- LIDAR/SLAM Retrieval Variables -----------------------#
+enablePloting = True
+enablePrinting = True
 poseQueue = mp.Queue() 
 bitMapQueue = mp.Queue()  
 RawLidarQueue = mp.Queue()  
@@ -57,7 +60,7 @@ def UpdateWifiData(bashCommand, jsonPath, queue):
         time.sleep(3)
             
 #-------------------------- Retrieve WIFI DATA Task --------------------------#    
-def RunManualControl(bashCommand):
+def NavigationAlgorithm(bashCommand):
     print("Started Navigation Process")
     while(1):
         # Fill in file with new data
@@ -70,29 +73,42 @@ def RunSLAM(poseQueue, bitMapQueue, RawLidarQueue):
         slam_compute(poseQueue, bitMapQueue, RawLidarQueue)
 
 
-def ConsumeSLAM(poseQueue, bitMapQueue, RawLidarQueue):
+def ConsumeSLAM(poseQueue, bitMapQueue, RawLidarQueue, viz):
+    
     if poseQueue.empty() == False:
         poseObj = poseQueue.get(pose)
-        print("Pose: ")
-        print(poseObj)
+        if enablePrinting:
+            print("Pose: ")
+            print(poseObj)
        
     if bitMapQueue.empty() == False:
         bitMapObj = bitMapQueue.get(bitMapQueue)
-        print(len(bitMapObj))
+        if enablePrinting:
+            print(len(bitMapObj))
     
     if RawLidarQueue.empty() == False:
         radLidarObj = RawLidarQueue.get([distances, angles, quality])
-        print(len(radLidarObj))
+        if enablePrinting:
+            print(len(radLidarObj))
+            
+    if enablePloting:      
+        print("Plotting data")  
+        if not viz.display(poseObj[0]/1000., poseObj[1]/1000., poseObj[2], bitMapObj):
+            raise KeyboardInterrupt
         
 #--------------------------------------- MAIN Task ---------------------------#
 
 if __name__ == '__main__':
+    
+    # Plot setup
+    if enablePloting:
+        viz = MapVisualizer(MAP_SIZE_PIXELS, MAP_SIZE_METERS, 'SLAM', show_trajectory=True)
 
     # Create processes WIFI
     wifi_P = mp.Process(target=UpdateWifiData, args=(bashCommandWifi, projectDir+wifiDataOutputDir, WifiDataQueue))
     wifi_P.start()
     # Create Process MANUAL CONTROL
-    manualNav_P = mp.Process(target=RunManualControl, args=(bashCommandManualControl,))
+    manualNav_P = mp.Process(target=NavigationAlgorithm, args=(bashCommandManualControl,))
     manualNav_P.start() # Run manual navigation
     # Create SLAM process
     slam_P = mp.Process(target=RunSLAM, args=(poseQueue, bitMapQueue, RawLidarQueue))
@@ -105,7 +121,7 @@ if __name__ == '__main__':
             wifiObj = WifiDataQueue.get(block=True, timeout=6)
             print(json.dumps(wifiObj, indent=4, sort_keys=True))  
             
-            ConsumeSLAM(poseQueue, bitMapQueue, RawLidarQueue)
+            ConsumeSLAM(poseQueue, bitMapQueue, RawLidarQueue, viz)
 
         except queue.Empty:
             print("Couldnt find new wifi data")
