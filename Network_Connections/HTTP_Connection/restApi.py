@@ -5,7 +5,7 @@ import json
 from datetime import datetime
 
 
-sampleUrl = "https://crudcrud.com/api/23416cdbebc34409959d29dc0eb29070"
+sampleUrl = "https://crudcrud.com/api/0fa833ddff8b4a02aaf36a14f2ece05b"
 sampleTopic = "/BTDataDavid"
 
 def getRequestJSON(url):

@@ -2,9 +2,10 @@
 import sys
 
 # importing own functions for mqtt connetion
-sys.path.append('/home/davidcalles/Wi-Fi-Analizer-Robot/Network_Connections/MQTT_Connection')
-sys.path.append('/home/davidcalles/Wi-Fi-Analizer-Robot/Network_Connections/HTTP_Connection')
-import MQTT_Receiver as mymqttr
+sys.path.append('C:/Users/yodav/OneDrive/Documents/Conestoga_College/FOURTH_TERM/Capstone_Project/Wi_Fi_Analizer_Robot/Network_Connections/MQTT_Connection')
+import MQTT_Receiver_HTTP as mymqttr
+
+sys.path.append('C:/Users/yodav/OneDrive/Documents/Conestoga_College/FOURTH_TERM/Capstone_Project/Wi_Fi_Analizer_Robot/Network_Connections/HTTP_Connection')
 from restApi import sampleUrl, sampleTopic, getRequestJSON 
 import pandas as pd
 import numpy as np

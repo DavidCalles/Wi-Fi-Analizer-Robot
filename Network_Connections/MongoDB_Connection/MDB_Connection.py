@@ -30,6 +30,7 @@ class myMongoDB:
     def GetCollection(self, filter={}):
         docs = []
         for doc in self.collectionhandle.find(filter):
+            print("======================================================")
             pprint(doc)
             docs.append(doc)
         return docs
