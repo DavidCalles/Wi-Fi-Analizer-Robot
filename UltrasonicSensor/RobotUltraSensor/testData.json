@@ -1,32 +1,3 @@
 [
-  {
-    "SampleId":7,
-    "DateTime(UTC)":"2022-07-21 15:53:35.403095",
-    "RawDistance(cm)":118.27,
-    "CalibratedDistance(cm)":128.93
-  },
-  {
-    "SampleId":8,
-    "DateTime(UTC)":"2022-07-21 15:53:37.428208",
-    "RawDistance(cm)":186.43,
-    "CalibratedDistance(cm)":203.51
-  },
-  {
-    "SampleId":9,
-    "DateTime(UTC)":"2022-07-21 15:53:39.450299",
-    "RawDistance(cm)":119.3,
-    "CalibratedDistance(cm)":130.06
-  },
-  {
-    "SampleId":10,
-    "DateTime(UTC)":"2022-07-21 15:53:41.472515",
-    "RawDistance(cm)":119.24,
-    "CalibratedDistance(cm)":129.99
-  },
-  {
-    "SampleId":11,
-    "DateTime(UTC)":"2022-07-21 15:53:43.494380",
-    "RawDistance(cm)":117.86,
-    "CalibratedDistance(cm)":128.48
-  }
+
 ]

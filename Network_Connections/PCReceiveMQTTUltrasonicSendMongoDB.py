@@ -1,11 +1,9 @@
-# importing sys
-import sys
+import importlib.util as imp  
+rootDirectory = "C:/Users/yodav/OneDrive/Documents/Conestoga_College/FOURTH_TERM/Capstone_Project/Wi_Fi_Analizer_Robot/Network_Connections"
+spec1 = imp.spec_from_file_location("MQTT_Receiver_MongoDB", rootDirectory+"/MQTT_Connection/MQTT_Receiver_MongoDB.py")
+mqtt = imp.module_from_spec(spec1)      
+spec1.loader.exec_module(mqtt)
 
-# importing own functions for mqtt connetion
-sys.path.append('/home/davidcalles/Wi-Fi-Analizer-Robot/Network_Connections/MQTT_Connection')
-sys.path.append('/home/davidcalles/Wi-Fi-Analizer-Robot/Network_Connections/HTTP_Connection')
-import MQTT_Receiver as mymqttr
-from restApi import sampleUrl, sampleTopic, getRequestJSON 
 import pandas as pd
 import numpy as np
 import plotly.express as px
@@ -13,9 +11,9 @@ import json
 ##
    
 ## Block terminal for 'segs' seconds and receive data 
-connection0 = mymqttr.NewMQTTReceiver("pc_lin0", segs=10)
+connection0 = mqtt.NewMQTTReceiver("pc_lin0", segs=10)
 connection0.disconnect()
-myData = mymqttr.data
+myData = connection0.getData()
 
 # Turn data to a dataframe
 dfColumns = ['SampleId', 'DateTime(UTC)', 'RawDistance(cm)', 'CalibratedDistance(cm)']
@@ -42,7 +40,5 @@ fig = px.line(dfUltrasonic, x="DateTime(UTC)",
               title='Ultrasensor Data', template='plotly_dark')
 fig.show()
 
-# GET request
-print(f"Output from {sampleUrl+sampleTopic}:")
-response = getRequestJSON(sampleUrl+sampleTopic)
-print(json.dumps(response, indent=4, sort_keys=True))
+# MongoDB request
+mqtt.mongoClient.GetCollection()

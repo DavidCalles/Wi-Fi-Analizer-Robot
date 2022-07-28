@@ -1,6 +1,4 @@
-make --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/home/davidcalles/Wi-Fi-Analizer-Robot'
-make: Leaving directory '/home/davidcalles/Wi-Fi-Analizer-Robot'
- 
-make: *** No targets specified and no makefile found.  Stop.
+make.exe --dry-run --always-make --keep-going --print-directory
+'make.exe' is not recognized as an internal or external command,
+operable program or batch file.
 
