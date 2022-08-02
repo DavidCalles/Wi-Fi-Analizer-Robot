@@ -21,6 +21,8 @@ manualControlScript = 'mannualnavigation3.py'#"ManualNavigation2.py"
 
 slamScript = 'SLAM/SLAM-on-Raspberry-Pi/rpslam-thread.py'
 
+cameraOutput = "RetrieveVideoFeed/Pictures/"
+
 #-------------------------- Wifi Retrieval Variables -------------------------#
 bashCommandWifi = "/bin/bash " + projectDir + wifiBashScriptDir  
 WifiDataQueue = mp.Queue() 
@@ -35,6 +37,10 @@ enablePrinting = True
 poseQueue = mp.Queue() 
 bitMapQueue = mp.Queue()  
 RawLidarQueue = mp.Queue()  
+
+#----------------------- Video/Image Retrieval variables ---------------------#
+imageIndex = 0
+cliCamera = "libcamera-still -o" + projectDir + cameraOutput
 
 #------------------------------- Sample Task ---------------------------------#
 def f(l, i):
@@ -119,7 +125,13 @@ def ConsumeSLAM(poseQueue, bitMapQueue, RawLidarQueue, viz, mdbObj):
             #raise KeyboardInterrupt
             print("Plotting Error")
     
-        
+def SaveImage(bashCommand): 
+    global imageIndex
+    newImageCommand = bashCommand + "img"+str(imageIndex)+".jpg"
+    imageIndex += 1
+    # Fill in file with new data
+    process = subprocess.Popen(newImageCommand.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate() #uncomment for verbose            
 #--------------------------------------- MAIN Task ---------------------------#
 
 if __name__ == '__main__':
@@ -151,7 +163,8 @@ if __name__ == '__main__':
         # Get data from wifi data queue
         try:
             wifiObj = WifiDataQueue.get(block=True, timeout=6)
-            print(json.dumps(wifiObj, indent=4, sort_keys=True))  
+            print(json.dumps(wifiObj, indent=4, sort_keys=True))
+            SaveImage(cliCamera)  
 
         except queue.Empty:
             print("Couldnt find new wifi data")
