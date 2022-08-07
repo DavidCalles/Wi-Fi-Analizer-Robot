@@ -131,7 +131,7 @@ def robot_random_mode():
                         robot_SoftRampForward()
                         t1 = time.time()
                         state == 2
-                #no angle swiching 
+                #no angle change 
                 else:
                     dirAngle_Start = dirAngle_Start
                     robot_SoftRampForward()
@@ -160,12 +160,7 @@ def robot_random_mode():
                 robot_SoftRampForward()
                 state = 3
             if(time.time() - t1 > tb):
-                state = 0
-
-#if there is an obstracle move backware
-#make the timme a define constant
-# just backwared when there is obstravles 
-		
+                state = 0		
 
 commands = [['w', robot_SoftForward],   
             ['a', robot_SoftSteerLeft],
