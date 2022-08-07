@@ -94,6 +94,9 @@ def robot_SoftSteerDown():
 
 #------------------------------------------ Random Mode ----------------------#
 def robot_random_mode():
+    global dirAngle_Start
+    global t1
+    global state	
     
     while (1):       
         if isData():
