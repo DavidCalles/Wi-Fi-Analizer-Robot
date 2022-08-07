@@ -151,10 +151,11 @@ def robot_random_mode():
         if(state == 2):
             if(myrobot.get_distance() < distanceUntilCrash):
                 state = 0
+                break
             if(time.time() - t1 < tf):
                 robot_SoftRampForward()
                 state = 2
-            if(time.time() - t1 > tf):
+            if(time.time() - t1 >= tf):
                 state = 0
         
          #BorwardState
@@ -162,7 +163,7 @@ def robot_random_mode():
             if(time.time() - t1 < tb):
                 robot_SoftRampForward()
                 state = 3
-            if(time.time() - t1 > tb):
+            if(time.time() - t1 >= tb):
                 state = 0		
 
 commands = [['w', robot_SoftForward],   
@@ -174,7 +175,7 @@ commands = [['w', robot_SoftForward],
             ['e', robot_SoftLookRight],
             ['r', robot_SoftLookUp],
             ['f', robot_SoftSteerDown],
-	    ['g', robot_random_mode]]
+            ['g', robot_random_mode]]
             
 if __name__ == '__main__':
 
