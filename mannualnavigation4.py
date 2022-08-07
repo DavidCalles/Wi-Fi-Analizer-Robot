@@ -174,7 +174,7 @@ commands = [['w', robot_SoftForward],
             ['e', robot_SoftLookRight],
             ['r', robot_SoftLookUp],
             ['f', robot_SoftSteerDown],
-		    ['g', robot_random_mode]]
+	    ['g', robot_random_mode]]
             
 if __name__ == '__main__':
 
