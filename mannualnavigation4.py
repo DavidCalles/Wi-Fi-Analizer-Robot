@@ -27,7 +27,7 @@ state = 0
 t1 = time.time()
 ts = 0
 tf = 0.1
-fb = 3
+tb = 3
 #-------------------------- Check for stdin terminal -------------------------#
 def isData():
     return select.select([sys.stdin], [], [], 0) == ([sys.stdin], [], [])
@@ -96,7 +96,10 @@ def robot_SoftSteerDown():
 def robot_random_mode():
     global dirAngle_Start
     global t1
-    global state	
+    global state
+    global ts
+    global tb
+    global tf	
     
     while (1):       
         if isData():
