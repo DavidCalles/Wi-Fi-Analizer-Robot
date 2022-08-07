@@ -121,25 +121,25 @@ def robot_random_mode():
                         dirAngle_Start = dirAngle_Start - random.randint(0,5)
                         robot_SoftRampForward()
                         t1 = time.time()
-                        state == 2
+                        state = 2
                     # add from angle if it reached min
                     if(dirAngle_Start < -25):
                         dirAngle_Start = dirAngle_Start + random.randint(0,5)
                         robot_SoftRampForward()
                         t1 = time.time()
-                        state == 2
+                        state = 2
                     #add random angle when in between ranges
                     else:
                         dirAngle_Start += random.randint(-5,5)
                         robot_SoftRampForward()
                         t1 = time.time()
-                        state == 2
+                        state = 2
                 #no angle change 
                 else:
                     dirAngle_Start = dirAngle_Start
                     robot_SoftRampForward()
                     t1 = time.time()
-                    state == 2
+                    state = 2
             #if near crash oposite lock
             else:
                 dirAngle_Start = -1 * dirAngle_Start
