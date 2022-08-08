@@ -27,7 +27,7 @@ state = 0
 t1 = time.time()
 ts = 0
 tf = 0.1
-tb = 3
+tb = 1.5
 #-------------------------- Check for stdin terminal -------------------------#
 def isData():
     return select.select([sys.stdin], [], [], 0) == ([sys.stdin], [], [])
@@ -100,71 +100,70 @@ def robot_random_mode():
     global ts
     global tb
     global tf	
+    maxAngleAllowed = 35
+    maxAngleChange = 15
+    minAngleChange = 6
     
     while (1):       
         if isData():
             break
         
         #stop state
-        if(state == 0):
+        elif(state == 0):
             myrobot.stop()
+            time.sleep(0.1)
             state = 1
         
         #set direction state
-        if(state == 1):
+        elif(state == 1):
             #not near to crash
             if(myrobot.get_distance() > distanceUntilCrash):
                 #dandomly deside if the direction angle needs to be adjusted
-                if(random.randint(0,2)):
+                if(random.randint(0,3)):
                     # substract from angle if it reached max
-                    if(dirAngle_Start > 25):
-                        dirAngle_Start = dirAngle_Start - random.randint(0,5)
-                        robot_SoftRampForward()
-                        t1 = time.time()
-                        state = 2
+                    if(dirAngle_Start > maxAngleAllowed):
+                        dirAngle_Start = dirAngle_Start - random.randint(minAngleChange,maxAngleChange)
                     # add from angle if it reached min
-                    if(dirAngle_Start < -25):
-                        dirAngle_Start = dirAngle_Start + random.randint(0,5)
-                        robot_SoftRampForward()
-                        t1 = time.time()
-                        state = 2
+                    elif(dirAngle_Start < -maxAngleAllowed):
+                        dirAngle_Start = dirAngle_Start + random.randint(minAngleChange,maxAngleChange)                       
                     #add random angle when in between ranges
                     else:
-                        dirAngle_Start += random.randint(-5,5)
-                        robot_SoftRampForward()
-                        t1 = time.time()
-                        state = 2
-                #no angle change 
-                else:
-                    dirAngle_Start = dirAngle_Start
-                    robot_SoftRampForward()
-                    t1 = time.time()
-                    state = 2
+                        dirAngle_Start += random.randint(-maxAngleChange,maxAngleChange)
+                
+                myrobot.set_dir_servo_angle(dirAngle_Start)        
+                robot_SoftRampForward()
+                t1 = time.time()
+                state = 2 
+    
             #if near crash oposite lock
             else:
                 dirAngle_Start = -1 * dirAngle_Start
+                myrobot.set_dir_servo_angle(dirAngle_Start)
                 robot_SoftRampBackward()
                 t1 = time.time()
                 state = 3
         
         #ForwardState
-        if(state == 2):
+        elif(state == 2):
             if(myrobot.get_distance() < distanceUntilCrash):
                 state = 0
-                break
-            if(time.time() - t1 < tf):
-                robot_SoftRampForward()
+            elif(time.time() - t1 < tf):
+                #robot_SoftRampForward()
                 state = 2
-            if(time.time() - t1 >= tf):
+            elif(time.time() - t1 >= tf):
                 state = 0
         
-         #BorwardState
-        if(state == 3):
+        #Backward State
+        elif(state == 3):
             if(time.time() - t1 < tb):
-                robot_SoftRampForward()
+                #robot_SoftRampBackward()
                 state = 3
             if(time.time() - t1 >= tb):
-                state = 0		
+                dirAngle_Start = 0
+                myrobot.set_dir_servo_angle(dirAngle_Start)
+                state = 0	
+        
+        #print(f"State: {state}")	
 
 commands = [['w', robot_SoftForward],   
             ['a', robot_SoftSteerLeft],
@@ -179,7 +178,7 @@ commands = [['w', robot_SoftForward],
             
 if __name__ == '__main__':
 
-    myrobot.set_power(0.1) 
+    myrobot.set_power(0.05) 
     
     old_settings = termios.tcgetattr(sys.stdin)
     try:
@@ -213,3 +212,4 @@ if __name__ == '__main__':
     finally:
         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
         myrobot.stop()
+
