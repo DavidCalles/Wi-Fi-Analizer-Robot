@@ -6,7 +6,7 @@ It can run well on Raspberry Pi 3B or 4
 Many concepts are taken from rpslam.py : BreezySLAM in Python with SLAMTECH RP A1 self.lidar
 https://github.com/simondlevy/BreezySLAM
 
-Consume self.lidar measurement file and create an image for display.
+Consume lidar measurement file and create an image for display.
 
 Adafruit invests time and resources providing this open source code.
 Please support Adafruit and open source hardware by purchasing
@@ -23,7 +23,7 @@ import os
 import time
 from math import cos, sin, pi, floor
 # import pygame
-from adafruit_rpself.lidar import RPself.lidar, RPself.lidarException
+from adafruit_rplidar import RPLidar, RPLidarException
 import numpy as np
 import matplotlib.pyplot as plt
 import paho.mqtt.client as mqtt
@@ -32,7 +32,7 @@ from threading import Thread
 
 
 from breezyslam.algorithms import RMHC_SLAM
-from breezyslam.sensors import RPself.lidarA1 as LaserModel
+from breezyslam.sensors import RPLidarA1 as LaserModel
 # from rpself.lidar import RPself.lidar as self.lidar
 # from adafruit_rpself.lidar import RPself.lidar as self.lidar
 #from roboviz import MapVisualizer
@@ -52,7 +52,7 @@ class SlamCompute:
         self.slamData = []
         # Setup the RPself.lidar
         self.PORT_NAME = '/dev/ttyUSB0'
-        self.lidar = RPself.lidar(None, self.PORT_NAME)
+        self.lidar = RPLidar(None, self.PORT_NAME)
         # Create an RMHC SLAM object with a laser model and optional robot model
         self.slam = RMHC_SLAM(LaserModel(), self.MAP_SIZE_PIXELS, self.MAP_SIZE_METERS)
         # # Set up a SLAM display
@@ -81,10 +81,10 @@ class SlamCompute:
         inversed_new_scan = bool((raw[0] >> 1) & 0b1)
         quality = raw[0] >> 2
         if new_scan == inversed_new_scan:
-            raise RPself.lidarException('New scan flags mismatch')
+            raise RPLidarException('New scan flags mismatch')
         check_bit = raw[1] & 0b1
         if check_bit != 1:
-            raise RPself.lidarException('Check bit not equal to 1')
+            raise RPLidarException('Check bit not equal to 1')
         angle = ((raw[1] >> 1) + (raw[2] << 7)) / 64.
         distance = (raw[3] + (raw[4] << 8)) / 4.
         return new_scan, quality, angle, distance
@@ -98,11 +98,11 @@ class SlamCompute:
             self._send_cmd(cmd)
             dsize, is_single, dtype = self._read_descriptor()
             if dsize != 5:
-                raise RPself.lidarException('Wrong info reply length')
+                raise RPLidarException('Wrong info reply length')
             if is_single:
-                raise RPself.lidarException('Not a multiple response mode')
+                raise RPLidarException('Not a multiple response mode')
             if dtype != self.SCAN_TYPE:
-                raise RPself.lidarException('Wrong response data type')
+                raise RPLidarException('Wrong response data type')
             while True:
                 raw = self._read_response(dsize)
                 self.log_bytes('debug', 'Received scan response: ', raw)

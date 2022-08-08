@@ -16,10 +16,10 @@
 	url = https://github.com/Slamtec/rplidar_sdk.git
 [submodule "SLAM/SLAM-on-Raspberry-Pi"]
 	path = SLAM/SLAM-on-Raspberry-Pi
-	url = https://github.com/AdroitAnandAI/SLAM-on-Raspberry-Pi.git
+	url = https://github.com/DavidCalles/SLAM-on-Raspberry-Pi.git
 [submodule "SLAM/BreezySLAM"]
 	path = SLAM/BreezySLAM
 	url = https://github.com/simondlevy/BreezySLAM.git
 [submodule "SLAM/PyRoboViz"]
 	path = SLAM/PyRoboViz
-	url = https://github.com/simondlevy/PyRoboViz.git
+	url = https://github.com/DavidCalles/PyRoboViz.git

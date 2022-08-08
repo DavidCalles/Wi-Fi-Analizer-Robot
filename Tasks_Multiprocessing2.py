@@ -7,6 +7,8 @@ import subprocess
 import time
 from RpiSlam2 import SlamCompute
 from roboviz import MapVisualizer
+from pathlib import Path
+
 sys.path.append('Network_Connections/MongoDB_Connection')
 from MDB_Connection import myMongoDB
 
@@ -31,7 +33,7 @@ WifiDataQueue = mp.Queue()
 bashCommandManualControl = "/bin/python3 " + projectDir + manualControlScript  
 
 #---------------------- LIDAR/SLAM Retrieval Variables -----------------------#
-bashCommand = "/bin/python3 " + projectDir + slamScript
+bashCommandSlam = "/bin/python3 " + projectDir + slamScript
 enablePloting = True
 enablePrinting = True
 poseQueue = mp.Queue() 
@@ -40,7 +42,7 @@ RawLidarQueue = mp.Queue()
 
 #----------------------- Video/Image Retrieval variables ---------------------#
 imageIndex = 0
-cliCamera = "libcamera-still -o" + projectDir + cameraOutput
+cliCamera = "libcamera-still --nopreview -o" + projectDir + cameraOutput
 
 #------------------------------- Sample Task ---------------------------------#
 def f(l, i):
@@ -127,7 +129,9 @@ def ConsumeSLAM(poseQueue, bitMapQueue, RawLidarQueue, viz, mdbObj):
     
 def SaveImage(bashCommand): 
     global imageIndex
-    newImageCommand = bashCommand + "img"+str(imageIndex)+".jpg"
+    newImageName = "img"+str(imageIndex)+".jpg"
+    Path(cameraOutput+newImageName).touch()
+    newImageCommand = bashCommand + newImageName
     imageIndex += 1
     # Fill in file with new data
     process = subprocess.Popen(newImageCommand.split(), stdout=subprocess.PIPE)
@@ -152,7 +156,8 @@ if __name__ == '__main__':
     manualNav_P = mp.Process(target=NavigationAlgorithm, args=(bashCommandManualControl,))
     manualNav_P.start() # Run manual navigation
     # Create SLAM process
-    slam_P = mp.Process(target=RunSLAM, args=(slamObj, poseQueue, bitMapQueue, RawLidarQueue))
+    #slam_P = mp.Process(target=RunSLAM, args=(slamObj, poseQueue, bitMapQueue, RawLidarQueue))
+    slam_P = mp.Process(target=RunSLAM2, args=(bashCommandSlam,))
     slam_P.start()
     # Consume-Plot SLAM results
     slam_consume = mp.Process(target=ConsumeSLAM, args=(poseQueue, bitMapQueue, RawLidarQueue, viz, mdbObj))
