@@ -4,6 +4,7 @@ import select
 import tty
 import termios
 import random
+from statistics import median
 
 sys.path.append('RobotSource/picar-x/')
 from picarx import *
@@ -18,7 +19,8 @@ class navSystem:
 #---------------------------Navigation Initialization ------------------------#
     def __init__(self, xCamera_Increment=2, yCamera_Increment=2, ts=0, tf=0.1, tb=3, 
         dirAngle_Increment = 8, percentIncrement = 5, distanceUntilCrash = 6, 
-        speed = 0.1, delay = 0.01, maxAngleAllowed = 35, maxAngleChange = 15, minAngleChange = 6):
+        speed = 0.1, delay = 0.01, maxAngleAllowed = 35, maxAngleChange = 15, minAngleChange = 6,
+        windowSize = 4):
 
         self.myrobot = myrobot.Picarx()
 
@@ -47,6 +49,15 @@ class navSystem:
         self.camIncY = yCamera_Increment
 
         self.speedIncrement = percentIncrement
+
+#-----------------------------Average filter values ---------------------------#
+        self.windowSize = windowSize
+        self.value = 0
+        self.values = []
+        self.sensorFiltered = 0
+        
+
+
 
     
 #------------------------------------------- Forward/Backward ----------------#  
@@ -90,11 +101,24 @@ class navSystem:
         
     def robot_SoftSteerDown(self):           
         self.camPosY -= self.camIncY
-        self.myrobot.set_camera_servo2_angle(self.camPosY)    
+        self.myrobot.set_camera_servo2_angle(self.camPosY)
+
+   
+        
        
 #-------------------------- Movement Funtions --------------------------------#
+    
+    def sensorFilter(self):
+        self.value = self.myrobot.get_distance()
+        self.values.append()        
+        if len(self.values) > self.window_size:
+            x = self.values.pop(0)
+        self.senforFiltered = median(self.values)
+    
     def automatic(self):
-        while (1):       
+        while (1):
+            #constantly ultrasound data and creating a moving mean filter
+            self.sensorFilter()       
             if isData():
                 break
             
@@ -106,7 +130,7 @@ class navSystem:
             #set direction state
             elif(self.curretnState == 1):
                 #not near to crash
-                if(self.myrobot.get_distance() > self.usDistance):
+                if(self.senforFiltered > self.usDistance):
                     #dandomly deside if the direction angle needs to be adjusted
                     if(random.randint(0,3)):
                         # substract from angle if it reached max
@@ -134,7 +158,7 @@ class navSystem:
             
             #ForwardState
             elif(self.curretnState == 2):
-                if(self.myrobot.get_distance() < self.usDistance):
+                if(self.senforFiltered < self.usDistance):
                     self.curretnState = 0
                 elif(time.time() - self.initalTime < self.forwardTime):
                     self.curretnState = 2
@@ -151,7 +175,7 @@ class navSystem:
                     self.curretnState = 0
                     
 
-    def fullNavigation(self):
+    def fullNavigation(self):        
         self.commands = [['w', self.robot_SoftForward],   
             ['a', self.robot_SoftSteerLeft],
             ['s', self.robot_SoftBackward],
@@ -198,5 +222,6 @@ class navSystem:
             self.myrobot.stop()
 
 if __name__ == '__main__':
-    nav0 = navSystem()
+    nav0 = navSystem()   
     nav0.fullNavigation()
+    
