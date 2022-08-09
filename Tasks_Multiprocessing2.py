@@ -19,7 +19,7 @@ projectDir          = "/home/davidcalles/Documents/Wi-Fi-Analizer-Robot/"
 wifiBashScriptDir   = "Retrieve_Wi-Fi_Data/getWiFiData.sh"
 wifiDataOutputDir   = "Retrieve_Wi-Fi_Data/wifi.json"
 
-manualControlScript = 'mannualnavigation3.py'#"ManualNavigation2.py"
+manualControlScript = 'mannualnavigation4.py'
 
 slamScript = 'SLAM/SLAM-on-Raspberry-Pi/rpslam-thread.py'
 
