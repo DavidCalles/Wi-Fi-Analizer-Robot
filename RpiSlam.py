@@ -35,7 +35,7 @@ from breezyslam.algorithms import RMHC_SLAM
 from breezyslam.sensors import RPLidarA1 as LaserModel
 # from rplidar import RPLidar as Lidar
 # from adafruit_rplidar import RPLidar as Lidar
-#from roboviz import MapVisualizer
+from roboviz import MapVisualizer
 
 
 
@@ -61,7 +61,7 @@ lidar = RPLidar(None, PORT_NAME)
 slam = RMHC_SLAM(LaserModel(), MAP_SIZE_PIXELS, MAP_SIZE_METERS)
 
 # # Set up a SLAM display
-# viz = MapVisualizer(MAP_SIZE_PIXELS, MAP_SIZE_METERS, 'SLAM', show_trajectory=True)
+viz = MapVisualizer(MAP_SIZE_PIXELS, MAP_SIZE_METERS, 'SLAM', show_trajectory=True)
 
 # Initialize an empty trajectory
 trajectory = []
