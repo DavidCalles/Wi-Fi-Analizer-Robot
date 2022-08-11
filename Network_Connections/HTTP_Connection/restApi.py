@@ -5,7 +5,7 @@ import json
 from datetime import datetime
 
 
-sampleUrl = "https://crudcrud.com/api/0fa833ddff8b4a02aaf36a14f2ece05b"
+sampleUrl = "http://localhost:9000/ultrasonics"
 sampleTopic = "/BTDataDavid"
 
 def getRequestJSON(url):
@@ -76,4 +76,10 @@ def deleteRequestJSON(url):
 # print(json.dumps(response, indent=4, sort_keys=True))
 
 # response = getRequestJSON(sampleUrl+sampleTopic)
+# print(json.dumps(response, indent=4, sort_keys=True))
+
+# sample1 = { "DateTime": "Thursday Later hehe",
+#             "publisher": "Python Code Requests",
+#             "myData": [1.15, 3.18]}
+# response = postRequestJSON(url=sampleUrl, dict=sample1)
 # print(json.dumps(response, indent=4, sort_keys=True))

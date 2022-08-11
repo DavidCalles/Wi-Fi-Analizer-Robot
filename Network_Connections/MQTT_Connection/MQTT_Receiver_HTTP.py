@@ -3,7 +3,7 @@ import sys
 sys.path.append('C:/Users/yodav/OneDrive/Documents/Conestoga_College/FOURTH_TERM/Capstone_Project/Wi_Fi_Analizer_Robot/Network_Connections/HTTP_Connection')
 import paho.mqtt.client as mqtt #import the client1
 import time
-from restApi import sampleUrl, sampleTopic, postRequestJSON
+from restApi import sampleUrl, postRequestJSON
 
 my_host = "broker.hivemq.com"
 my_port = 1883
@@ -43,7 +43,7 @@ def on_message(client, userdata, message):
         cSample = msg[7:].split(", ")
         data.append(cSample)
         mydict = {"publisher":"David-PC", "myData": cSample}
-        response = postRequestJSON(sampleUrl+sampleTopic, mydict)
+        response = postRequestJSON(sampleUrl, mydict)
         print(f"POST request for sample {cSample[0]} succesfull")
 
 # HANDSHAKE FUNCTION

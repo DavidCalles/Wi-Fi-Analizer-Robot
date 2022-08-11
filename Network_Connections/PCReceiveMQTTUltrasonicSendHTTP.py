@@ -6,7 +6,7 @@ sys.path.append('C:/Users/yodav/OneDrive/Documents/Conestoga_College/FOURTH_TERM
 import MQTT_Receiver_HTTP as mymqttr
 
 sys.path.append('C:/Users/yodav/OneDrive/Documents/Conestoga_College/FOURTH_TERM/Capstone_Project/Wi_Fi_Analizer_Robot/Network_Connections/HTTP_Connection')
-from restApi import sampleUrl, sampleTopic, getRequestJSON 
+from restApi import sampleUrl, getRequestJSON 
 import pandas as pd
 import numpy as np
 import plotly.express as px
@@ -37,13 +37,13 @@ print(dfUltrasonic.describe())
 jsonPath = "UltrasonicSensor/RobotUltraSensor/testData.json"
 dfUltrasonic.to_json(jsonPath, orient='records', indent=2)
 
-# Plot
-fig = px.line(dfUltrasonic, x="DateTime(UTC)",
-              y=["RawDistance(cm)", "CalibratedDistance(cm)"],
-              title='Ultrasensor Data', template='plotly_dark')
-fig.show()
+# # Plot
+# fig = px.line(dfUltrasonic, x="DateTime(UTC)",
+#               y=["RawDistance(cm)", "CalibratedDistance(cm)"],
+#               title='Ultrasensor Data', template='plotly_dark')
+# fig.show()
 
 # GET request
-print(f"Output from {sampleUrl+sampleTopic}:")
-response = getRequestJSON(sampleUrl+sampleTopic)
+print(f"Output from {sampleUrl}:")
+response = getRequestJSON(sampleUrl)
 print(json.dumps(response, indent=4, sort_keys=True))
