@@ -2,6 +2,9 @@ from pymongo import MongoClient
 from datetime import datetime as dt
 import random as rd
 from pprint import pprint
+from gridfs import GridFS
+from bson import Binary
+from pickle import dumps
 
 class myMongoDB:
     
@@ -11,6 +14,7 @@ class myMongoDB:
         self.mongoDbClientUrl    = url
         self.databaseName        = dbName
         self.collectionName      = collectName 
+        self.DocNameIndex        = 0
 
         # Connect to mongodb server
         self.client = MongoClient(self.mongoDbClientUrl)
@@ -26,6 +30,25 @@ class myMongoDB:
             entry=newEntry
         # Send new packet
         self.collectionhandle.insert_one(entry)
+    
+    def SendImage(self, imgPath):
+        #Create an object of GridFs for the above database.
+        fs = GridFS(self.databaseHandle)
+
+        #Open the image in read-only format.
+        with open(imgPath, 'rb') as f:
+            contents = f.read()
+
+        #Now store/put the image via GridFs object.
+        filename = f"RobotImage{self.DocNameIndex}"
+        fs.put(contents, filename=filename)
+    
+    def AddImageBinary(self, imgPath, collection, field="img0"):
+        #Open the image in read-only format.
+        with open(imgPath, 'rb') as f:
+            contents = f.read()
+        collection[field] = Binary(dumps(contents))
+
 
     def GetCollection(self, filter={}):
         docs = []
