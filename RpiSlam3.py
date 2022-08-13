@@ -205,7 +205,7 @@ def RunSlamThread():
         while True:
             #time.sleep(5)
             print("Slam thread running")
-            print("x = " + str(pose[0]) + " y = " + str(pose[1]) + "theta = " + str(pose[2]))
+            #print("x = " + str(pose[0]) + " y = " + str(pose[1]) + "theta = " + str(pose[2]))
             if not viz.display(pose[0]/1000., pose[1]/1000., pose[2], mapbytes):
                 raise KeyboardInterrupt
 

@@ -44,7 +44,11 @@ enableSendingData = True
 
 #----------------------- Video/Image Retrieval variables ---------------------#
 imageIndex = 0
-cliCamera = "libcamera-still --nopreview -o" + projectDir + cameraOutput
+cliCamera =  "libcamera-still -t 0 -o " + \
+            projectDir + cameraOutput +"Img%d.jpg" + \
+            "--timelapse 3000 -p 0,0,350,350 --width 640 --height 480 --brightness 0.2"
+#cliCamera = "libcamera-jpeg -t 3000 -p 0,0,350,350 --width 640 --height 480 --brightness 0.2 -o " + projectDir + cameraOutput
+#cliCamera = "libcamera-still --nopreview -o " + projectDir + cameraOutput
      
 #---------------------++----- Utility Functions ------------------------------# 
 
@@ -183,7 +187,7 @@ if __name__ == '__main__':
         try:
             SaveImage(cliCamera) 
             print("While Loop Running")
-            time.sleep(1) 
+            time.sleep(5) 
 
         except:
             print("keyboard Exception Main Loop")
