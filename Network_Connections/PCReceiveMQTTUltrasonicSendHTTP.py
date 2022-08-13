@@ -14,7 +14,7 @@ import json
 ##
    
 ## Block terminal for 'segs' seconds and receive data 
-connection0 = mymqttr.NewMQTTReceiver("pc_lin0", segs=10)
+connection0 = mymqttr.NewMQTTReceiver("pc_lin0", segs=20)
 connection0.disconnect()
 myData = mymqttr.data
 

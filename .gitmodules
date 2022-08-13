@@ -1,6 +1,3 @@
-[submodule "WiviBot-WebApp"]
-	path = WiviBot-WebApp
-	url = https://github.com/kjaskaran/WiviBot-WebApp
 [submodule "RobotSource/picar-x"]
 	path = RobotSource/picar-x
 	url = https://github.com/sunfounder/picar-x.git
@@ -23,3 +20,6 @@
 [submodule "SLAM/PyRoboViz"]
 	path = SLAM/PyRoboViz
 	url = https://github.com/DavidCalles/PyRoboViz.git
+[submodule "WebApp/WebApp-Wifi-analizer"]
+	path = WebApp/WebApp-Wifi-analizer
+	url = https://github.com/kjaskaran/WebApp-Wifi-analizer

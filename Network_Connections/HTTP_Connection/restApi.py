@@ -75,11 +75,20 @@ def deleteRequestJSON(url):
 # response = postRequestJSON(url=sampleUrl+sampleTopic, dict=cat2)
 # print(json.dumps(response, indent=4, sort_keys=True))
 
-# response = getRequestJSON(sampleUrl+sampleTopic)
+# response = getRequestJSON(sampleUrl)
 # print(json.dumps(response, indent=4, sort_keys=True))
 
 # sample1 = { "DateTime": "Thursday Later hehe",
 #             "publisher": "Python Code Requests",
 #             "myData": [1.15, 3.18]}
 # response = postRequestJSON(url=sampleUrl, dict=sample1)
+# print(json.dumps(response, indent=4, sort_keys=True))
+
+# sample1 = { "DateTime": "Thursday Late hehe",
+#             "publisher": "Python Code Requests",
+#             "myData": [1.15, 3.18, 3.1415]}
+# response = putRequestJSON(url=sampleUrl+"/62f4524a185a0e0226666bd7", dict=sample1)
+# print(json.dumps(response, indent=4, sort_keys=True))
+
+# response = deleteRequestJSON(url=sampleUrl+"/62f4524a185a0e0226666bd7")
 # print(json.dumps(response, indent=4, sort_keys=True))
