@@ -6,8 +6,9 @@ import os
 import json
 import subprocess
 import time
-from datetime import datetime as dt
-from RpiSlam3 import SlamCompute, poseQueue, RawLidarQueue, bitMapQueue
+from datetime import datetime as dtdt
+import datetime as dt
+from RpiSlam3 import RunSlamThread, poseQueue, RawLidarQueue, bitMapQueue
 from pathlib import Path
 
 sys.path.append('Network_Connections/MongoDB_Connection')
@@ -37,10 +38,6 @@ bashCommandManualControl = "/bin/python3 " + projectDir + manualControlScript
 bashCommandSlam = "/bin/python3 " + projectDir + slamScript
 
 #-------------------------- Syncronization variables  ------------------------#
-retrievedPose = False
-retrievedBitmap = False
-retrievedLidar = False
-retrievedWifi = False
 enablePrinting = True
 enableSendingData = True
 
@@ -85,15 +82,16 @@ def NavigationAlgorithm(bashCommand):
     while(1):
         # Fill in file with new data
         process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-        output, error = process.communicate() #uncomment for verbose      
+        output, error = process.communicate() #uncomment for verbose  
         
 #-------------------------- Retrieve LIDAR/SLAM DATA Task --------------------------#    
         
 def RunSLAM(bashCommand):
         print("Started Slam Process")
+        RunSlamThread()
         # Fill in file with new data
-        process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-        output, error = process.communicate() #uncomment for verbose  
+        # process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+        # output, error = process.communicate() #uncomment for verbose  
 
 
 def ConsumeSLAM(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, mdbObj=None):
@@ -101,7 +99,7 @@ def ConsumeSLAM(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, mdbObj=None):
     retrievedLidar = 0
     retrievedPose = 0
     retrievedWifi = 0
-    tInit = dt.now()
+    tInit = dtdt.now()
     timeDelta = dt.timedelta(seconds=1)
     
     try:
@@ -124,8 +122,8 @@ def ConsumeSLAM(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, mdbObj=None):
                 retrievedWifi  += 1
             
             if retrievedBitmap and retrievedPose and retrievedLidar and retrievedWifi:
-                if(dt.now()-tInit > timeDelta):
-                    tInit = dt.now()              
+                if(dtdt.now()-tInit > timeDelta):
+                    tInit = dtdt.now()              
                     if enablePrinting:
                         print(f"DateTime: {tInit}")
                         print(f"Pose: {poseObj}")
@@ -153,44 +151,45 @@ def SaveImage(bashCommand):
     imageIndex += 1
     # Fill in file with new data
     process = subprocess.Popen(newImageCommand.split(), stdout=subprocess.PIPE)
-    output, error = process.communicate() #uncomment for verbose            
+    #output, error = process.communicate() #uncomment for verbose            
 #--------------------------------------- MAIN Task ---------------------------#
 
 if __name__ == '__main__':
     
+    print("Starting system")
     # New MongoDB interface object
     mdbObj = myMongoDB() # CHANGE URL HERE: args{url, dbName,'SampleCollection0'}
     # Plot setup
     # Create processes WIFI
     wifi_P = mp.Process(target=UpdateWifiData, args=(bashCommandWifi, projectDir+wifiDataOutputDir, wifiDataQueue))
     wifi_P.start()
+    print("Created Wifi Data Process")
     # Create Process MANUAL CONTROL
     manualNav_P = mp.Process(target=NavigationAlgorithm, args=(bashCommandManualControl,))
     manualNav_P.start() # Run manual navigation
+    print("Created Navigation Data Process")
     # Create SLAM process
     slam_P = mp.Process(target=RunSLAM, args=(bashCommandSlam,))
-    #slam_P.start()
+    slam_P.start()
+    print("Created SLAM Process")
     # Consume-Plot SLAM results
-    slam_consume = mp.Process(target=ConsumeSLAM, args=(poseQueue, bitMapQueue, RawLidarQueue, mdbObj))
+    slam_consume = mp.Process(target=ConsumeSLAM, args=(poseQueue, bitMapQueue, RawLidarQueue, wifiDataQueue, mdbObj))
     slam_consume.start()
+    print("Created Data Consumption Process")
     
     while(1):
         
         # Take picture from camera
         try:
             SaveImage(cliCamera) 
+            print("While Loop Running")
             time.sleep(1) 
 
-        except queue.Empty:
-            print("Couldnt find new wifi data")
-            exit(0) 
-        
-        except KeyboardInterrupt:
-            
-            runThread = False
-            wifi_P.join()
-            manualNav_P.join()
-            slam_P.join()
-            slam_consume.join()
+        except:
+            print("keyboard Exception Main Loop")
+            wifi_P.terminate()
+            manualNav_P.terminate()
+            slam_P.terminate()
+            slam_consume.terminate()
             exit(0)         
         

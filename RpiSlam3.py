@@ -139,6 +139,9 @@ def lidar_scans(self, max_buf_meas=800, min_len=100):
 
 
 def slam_compute(pose, mapbytes):
+    global poseQueue
+    global RawLidarQueue
+    global bitMapQueue
 
     try:
 
@@ -187,28 +190,32 @@ def slam_compute(pose, mapbytes):
         lidar.disconnect()
         raise
 
+def RunSlamThread():
+
+    # Launch the slam computation thread
+    thread = Thread(target=slam_compute,
+                    args=(pose, mapbytes))
+    thread.daemon = True
+    thread.start()
+    # thread = mp.Process(target=slam_compute, args=(pose, mapbytes))
+    # thread.start()
+
+    try:
+        # Loop forever,displaying current map and pose
+        while True:
+            #time.sleep(5)
+            print("Slam thread running")
+            print("x = " + str(pose[0]) + " y = " + str(pose[1]) + "theta = " + str(pose[2]))
+            if not viz.display(pose[0]/1000., pose[1]/1000., pose[2], mapbytes):
+                raise KeyboardInterrupt
 
 
-# Launch the slam computation thread
-# thread = Thread(target=slam_compute,
-#                 args=(pose, mapbytes))
-# thread.daemon = True
-# thread.start()
-thread = mp.Process(target=slam_compute, args=(pose, mapbytes))
-thread.start()
+    except KeyboardInterrupt:
+        runThread = False
+        thread.join()
+        lidar.stop()
+        lidar.disconnect()
+        exit(0)
 
-try:
-    # Loop forever,displaying current map and pose
-    while True:
-        time.sleep(1)
-        #print("x = " + str(pose[0]) + " y = " + str(pose[1]) + "theta = " + str(pose[2]))
-        # if not viz.display(pose[0]/1000., pose[1]/1000., pose[2], mapbytes):
-        #     raise KeyboardInterrupt
-
-
-except KeyboardInterrupt:
-    runThread = False
-    thread.join()
-    lidar.stop()
-    lidar.disconnect()
-    exit(0)
+# Test
+#RunSlamThread()
