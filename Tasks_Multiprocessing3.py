@@ -6,8 +6,7 @@ import os
 import json
 import subprocess
 import time
-from RpiSlam2 import SlamCompute
-from roboviz import MapVisualizer
+from RpiSlam3 import SlamCompute, poseQueue, RawLidarQueue, bitMapQueue
 from pathlib import Path
 
 sys.path.append('Network_Connections/MongoDB_Connection')
@@ -22,7 +21,7 @@ wifiDataOutputDir   = "Retrieve_Wi-Fi_Data/wifi.json"
 
 manualControlScript = 'NavigationSystem.py'
 
-slamScript = 'SLAM/SLAM-on-Raspberry-Pi/rpslam-thread.py'
+slamScript = 'RpiSlam3.py'#'SLAM/SLAM-on-Raspberry-Pi/rpslam-thread.py'
 
 cameraOutput = "RetrieveVideoFeed/Pictures/"
 
@@ -35,11 +34,8 @@ bashCommandManualControl = "/bin/python3 " + projectDir + manualControlScript
 
 #---------------------- LIDAR/SLAM Retrieval Variables -----------------------#
 bashCommandSlam = "/bin/python3 " + projectDir + slamScript
-enablePloting = True
-enablePrinting = True
-poseQueue = mp.Queue() 
-bitMapQueue = mp.Queue()  
-RawLidarQueue = mp.Queue()  
+enablePloting = False
+enablePrinting = False
 
 #----------------------- Video/Image Retrieval variables ---------------------#
 imageIndex = 0
@@ -84,11 +80,8 @@ def NavigationAlgorithm(bashCommand):
         output, error = process.communicate() #uncomment for verbose      
         
 #-------------------------- Retrieve LIDAR/SLAM DATA Task --------------------------#    
-def RunSLAM(slamObj, poseQueue, bitMapQueue, RawLidarQueue):
-        print("Started Slam Process")
-        slamObj.slam_compute(poseQueue, bitMapQueue, RawLidarQueue)
         
-def RunSLAM2(bashCommand):
+def RunSLAM(bashCommand):
         print("Started Slam Process")
         # Fill in file with new data
         process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
@@ -125,10 +118,7 @@ def ConsumeSLAM(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, viz=None, mdbO
             # mdbObj.SendPacket(newEntry={
             #     'pose':poseObj, 'rawScan':radLidarObj
             # })  
-            if not viz.display(poseObj[0]/1000., poseObj[1]/1000., poseObj[2], bitMapObj):
-                #raise KeyboardInterrupt
-                print("Plotting Error")
-        
+                
     except:
         print("Consumer Error")
     
@@ -145,15 +135,9 @@ def SaveImage(bashCommand):
 
 if __name__ == '__main__':
     
-    # New Slam Object
-    slamObj = SlamCompute()
     # New MongoDB interface object
     mdbObj = myMongoDB() # CHANGE URL HERE: args{url, dbName,'SampleCollection0'}
     # Plot setup
-    if enablePloting:
-        viz = MapVisualizer(slamObj.MAP_SIZE_PIXELS, slamObj.MAP_SIZE_METERS, 'SLAM', show_trajectory=True)
-    else:
-        viz = 0
     # Create processes WIFI
     wifi_P = mp.Process(target=UpdateWifiData, args=(bashCommandWifi, projectDir+wifiDataOutputDir, WifiDataQueue))
     wifi_P.start()
@@ -161,9 +145,8 @@ if __name__ == '__main__':
     manualNav_P = mp.Process(target=NavigationAlgorithm, args=(bashCommandManualControl,))
     manualNav_P.start() # Run manual navigation
     # Create SLAM process
-    slam_P = mp.Process(target=RunSLAM, args=(slamObj, poseQueue, bitMapQueue, RawLidarQueue))
-    #slam_P = mp.Process(target=RunSLAM2, args=(bashCommandSlam,))
-    slam_P.start()
+    slam_P = mp.Process(target=RunSLAM, args=(bashCommandSlam,))
+    #slam_P.start()
     # Consume-Plot SLAM results
     slam_consume = mp.Process(target=ConsumeSLAM, args=(poseQueue, bitMapQueue, RawLidarQueue, viz, mdbObj))
     slam_consume.start()
@@ -173,7 +156,6 @@ if __name__ == '__main__':
         # Get data from wifi data queue
         try:
             wifiObj = WifiDataQueue.get(block=True, timeout=6)
-            
             SaveImage(cliCamera)  
 
         except queue.Empty:

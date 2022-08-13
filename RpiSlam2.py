@@ -44,8 +44,8 @@ class SlamCompute:
         # Screen width & height
         self.W = 640
         self.H = 480
-        self.MAP_SIZE_PIXELS         = 250
-        self.MAP_SIZE_METERS         = 15
+        self.MAP_SIZE_PIXELS = 250
+        self.MAP_SIZE_METERS = 15
         self.MIN_SAMPLES   = 150
         self.SCAN_BYTE = b'\x20'
         self.SCAN_TYPE = 129
@@ -120,14 +120,14 @@ class SlamCompute:
     def lidar_scans(self, max_buf_meas=800, min_len=100):
             
             scan = []
-            iterator = self.lidar_measurements(self.lidar,max_buf_meas)
-            for new_scan, self.quality, angle, distance in iterator:
+            iterator = self.lidar_measurements(max_buf_meas)
+            for new_scan, quality, angle, distance in iterator:
                 if new_scan:
                     if len(scan) > min_len:
                         yield scan
                     scan = []
-                if self.quality > 0 and distance > 0:
-                    scan.append((self.quality, angle, distance))
+                if quality > 0 and distance > 0:
+                    scan.append((quality, angle, distance))
 
 
     def slam_compute(self, poseQ, mapbytesQ, rawDataQ):
@@ -139,7 +139,7 @@ class SlamCompute:
             previous_angles = None
             scan_count = 0
 
-            for scan in self.lidar_scans(self.lidar):
+            for scan in self.lidar_scans():
 
                 # To stop the thread
                 if not self.runThread:
