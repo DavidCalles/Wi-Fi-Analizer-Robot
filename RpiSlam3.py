@@ -190,16 +190,18 @@ def slam_compute(pose, mapbytes):
 
 
 # Launch the slam computation thread
-thread = Thread(target=slam_compute,
-                args=(pose, mapbytes))
-thread.daemon = True
+# thread = Thread(target=slam_compute,
+#                 args=(pose, mapbytes))
+# thread.daemon = True
+# thread.start()
+thread = mp.Process(target=slam_compute, args=(pose, mapbytes))
 thread.start()
 
 try:
     # Loop forever,displaying current map and pose
     while True:
         time.sleep(1)
-        print("x = " + str(pose[0]) + " y = " + str(pose[1]) + "theta = " + str(pose[2]))
+        #print("x = " + str(pose[0]) + " y = " + str(pose[1]) + "theta = " + str(pose[2]))
         # if not viz.display(pose[0]/1000., pose[1]/1000., pose[2], mapbytes):
         #     raise KeyboardInterrupt
 

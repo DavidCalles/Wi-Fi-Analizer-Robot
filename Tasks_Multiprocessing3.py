@@ -6,6 +6,7 @@ import os
 import json
 import subprocess
 import time
+from datetime import datetime as dt
 from RpiSlam3 import SlamCompute, poseQueue, RawLidarQueue, bitMapQueue
 from pathlib import Path
 
@@ -27,15 +28,22 @@ cameraOutput = "RetrieveVideoFeed/Pictures/"
 
 #-------------------------- Wifi Retrieval Variables -------------------------#
 bashCommandWifi = "/bin/bash " + projectDir + wifiBashScriptDir  
-WifiDataQueue = mp.Queue() 
+wifiDataQueue = mp.Queue() 
 
 #-------------------------- Manual Control Variables -------------------------#
 bashCommandManualControl = "/bin/python3 " + projectDir + manualControlScript  
 
 #---------------------- LIDAR/SLAM Retrieval Variables -----------------------#
 bashCommandSlam = "/bin/python3 " + projectDir + slamScript
-enablePloting = False
-enablePrinting = False
+
+#-------------------------- Syncronization variables  ------------------------#
+retrievedPose = False
+retrievedBitmap = False
+retrievedLidar = False
+retrievedWifi = False
+enablePrinting = True
+enableSendingData = True
+
 
 #----------------------- Video/Image Retrieval variables ---------------------#
 imageIndex = 0
@@ -88,39 +96,54 @@ def RunSLAM(bashCommand):
         output, error = process.communicate() #uncomment for verbose  
 
 
-def ConsumeSLAM(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, viz=None, mdbObj=None):
+def ConsumeSLAM(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, mdbObj=None):
+    retrievedBitmap = 0
+    retrievedLidar = 0
+    retrievedPose = 0
+    retrievedWifi = 0
+    tInit = dt.now()
+    timeDelta = dt.timedelta(seconds=1)
+    
     try:
-        poseObj = 0
-        bitMapObj = 0
-        
-        isPoseEmpty = (poseQueue.empty() == False)
-        isBitMapEmpty = (bitMapQueue.empty() == False) 
-        isRawLidarEmpty = (RawLidarQueue.empty() == False)
-        isWifiEmpty = (wifiQueue.empty() == False)
-        
-        
-        if isPoseEmpty and isBitMapEmpty and isRawLidarEmpty and isWifiEmpty:
-            poseObj = poseQueue.get()
-            bitMapObj = bitMapQueue.get()
-            radLidarObj = RawLidarQueue.get()
-            wifiObj = wifiQueue.get()
+        while(1):
             
-            if enablePrinting:
-                print("Pose: ")
-                print(poseObj)
-                print(len(bitMapObj))
-                print(len(radLidarObj))
-                print(json.dumps(wifiObj, indent=4, sort_keys=True))
+            while(poseQueue.empty() == False): # Check for robot current pose
+                poseObj = poseQueue.get()
+                retrievedBitmap  += 1
                 
-        if (enablePloting) and ((isPoseEmpty == False) or (isBitMapEmpty == False)):      
-            print("Plotting data")
-            # Send data to Mongodb server
-            # mdbObj.SendPacket(newEntry={
-            #     'pose':poseObj, 'rawScan':radLidarObj
-            # })  
+            while(bitMapQueue.empty() == False): # Check for slam bitmap
+                bitMapObj = bitMapQueue.get()
+                retrievedPose  += 1
+            
+            while(RawLidarQueue.empty() == False): # Check for raw lidar data
+                rawLidarObj = RawLidarQueue.get()
+                retrievedLidar  += 1
+                
+            while(wifiQueue.empty() == False): # Check for slam bitmap
+                wifiObj = wifiQueue.get()
+                retrievedWifi  += 1
+            
+            if retrievedBitmap and retrievedPose and retrievedLidar and retrievedWifi:
+                if(dt.now()-tInit > timeDelta):
+                    tInit = dt.now()              
+                    if enablePrinting:
+                        print(f"DateTime: {tInit}")
+                        print(f"Pose: {poseObj}")
+                        print(f"Size of Bitmap: {len(bitMapObj)}")
+                        print(f"Size of Lidar Data: {len(rawLidarObj)}")
+                        print("Wifi Data:")
+                        print(json.dumps(wifiObj, indent=4, sort_keys=True))
+                    
+                    if (enableSendingData):      
+                        print("Sending data")
+                        # Send data to Mongodb server
+                        # mdbObj.SendPacket(newEntry={
+                        #     'pose':poseObj, 'rawScan':radLidarObj
+                        # })
                 
     except:
         print("Consumer Error")
+        raise KeyboardInterrupt
     
 def SaveImage(bashCommand): 
     global imageIndex
@@ -139,7 +162,7 @@ if __name__ == '__main__':
     mdbObj = myMongoDB() # CHANGE URL HERE: args{url, dbName,'SampleCollection0'}
     # Plot setup
     # Create processes WIFI
-    wifi_P = mp.Process(target=UpdateWifiData, args=(bashCommandWifi, projectDir+wifiDataOutputDir, WifiDataQueue))
+    wifi_P = mp.Process(target=UpdateWifiData, args=(bashCommandWifi, projectDir+wifiDataOutputDir, wifiDataQueue))
     wifi_P.start()
     # Create Process MANUAL CONTROL
     manualNav_P = mp.Process(target=NavigationAlgorithm, args=(bashCommandManualControl,))
@@ -148,15 +171,15 @@ if __name__ == '__main__':
     slam_P = mp.Process(target=RunSLAM, args=(bashCommandSlam,))
     #slam_P.start()
     # Consume-Plot SLAM results
-    slam_consume = mp.Process(target=ConsumeSLAM, args=(poseQueue, bitMapQueue, RawLidarQueue, viz, mdbObj))
+    slam_consume = mp.Process(target=ConsumeSLAM, args=(poseQueue, bitMapQueue, RawLidarQueue, mdbObj))
     slam_consume.start()
     
     while(1):
         
-        # Get data from wifi data queue
+        # Take picture from camera
         try:
-            wifiObj = WifiDataQueue.get(block=True, timeout=6)
-            SaveImage(cliCamera)  
+            SaveImage(cliCamera) 
+            time.sleep(1) 
 
         except queue.Empty:
             print("Couldnt find new wifi data")
@@ -169,7 +192,5 @@ if __name__ == '__main__':
             manualNav_P.join()
             slam_P.join()
             slam_consume.join()
-            slamObj.lidar.stop()
-            slamObj.lidar.disconnect()
             exit(0)         
         
