@@ -22,7 +22,7 @@ class navSystem:
         speed = 0.1, delay = 0.01, maxAngleAllowed = 35, maxAngleChange = 15, minAngleChange = 6,
         windowSize = 4):
 
-        self.myrobot = myrobot.Picarx()
+        self.myrobot = Picarx()
 
 #--------------------------State Machine Variables ---------------------------#
         self.curretnState = 0
@@ -43,7 +43,7 @@ class navSystem:
         self.manualDistance = distanceUntilCrash
         self.percentInc = percentIncrement
         self.delay = delay
-        self.camPosX = 0
+        self.camPosX = -43
         self.camPosY = 0
         self.camIncX = xCamera_Increment
         self.camIncY = yCamera_Increment
@@ -56,9 +56,9 @@ class navSystem:
         self.values = []
         self.sensorFiltered = 0
         
-
-
-
+#---------------------------- Initial Motor values ----------------------------#
+        self.myrobot.set_power(0.1) 
+        self.myrobot.set_camera_servo1_angle(self.camPosX)
     
 #------------------------------------------- Forward/Backward ----------------#  
     def robot_SoftRampForward(self):
@@ -89,7 +89,7 @@ class navSystem:
     #------------------------------------------ Camera Horizontal ----------------#
     def robot_SoftLookLeft(self):            
         self.camPosX -= self.camIncX
-        self.myrobot.set_camera_servo1_angle(self.camPosXt)
+        self.myrobot.set_camera_servo1_angle(self.camPosX)
         
     def robot_SoftLookRight(self):            
         self.camPosX += self.camIncX
@@ -103,9 +103,7 @@ class navSystem:
         self.camPosY -= self.camIncY
         self.myrobot.set_camera_servo2_angle(self.camPosY)
 
-   
-        
-       
+          
 #-------------------------- Movement Funtions --------------------------------#
     
     def sensorFilter(self):
@@ -185,8 +183,6 @@ class navSystem:
             ['r', self.robot_SoftLookUp],
             ['f', self.robot_SoftSteerDown],
 		    ['g', self.automatic]]
-
-        self.myrobot.set_power(0.1) 
         
         old_settings = termios.tcgetattr(sys.stdin)
         try:

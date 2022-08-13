@@ -20,7 +20,7 @@ projectDir          = "/home/davidcalles/Documents/Wi-Fi-Analizer-Robot/"
 wifiBashScriptDir   = "Retrieve_Wi-Fi_Data/getWiFiData.sh"
 wifiDataOutputDir   = "Retrieve_Wi-Fi_Data/wifi.json"
 
-manualControlScript = 'mannualnavigation5.py'
+manualControlScript = 'NavigationSystem.py'
 
 slamScript = 'SLAM/SLAM-on-Raspberry-Pi/rpslam-thread.py'
 
@@ -128,8 +128,6 @@ def ConsumeSLAM(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, viz=None, mdbO
             if not viz.display(poseObj[0]/1000., poseObj[1]/1000., poseObj[2], bitMapObj):
                 #raise KeyboardInterrupt
                 print("Plotting Error")
-                
-        
         
     except:
         print("Consumer Error")
