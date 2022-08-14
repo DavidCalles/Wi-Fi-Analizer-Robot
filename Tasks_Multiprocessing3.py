@@ -55,10 +55,10 @@ processRefreshTime = 0.5 #seg
 verbose = True
 
 #----- Enables --------
-enableWifiThread        = True
-enableCameraThread      = True
-enableSlamThread        = False
-enableNavigationThread  = True
+enableWifiThread        = False
+enableCameraThread      = False
+enableSlamThread        = True
+enableNavigationThread  = False
 enableConsumerThread    = False
 
 #----------------------- Video/Image Retrieval variables ---------------------#
@@ -80,6 +80,19 @@ def EraseFilesFromDirectory(directoryPath):
         file = directoryPath + file_name
         if os.path.isfile(file):
             os.remove(file)
+
+def GetImageAsBase64(imgPath):
+    with open(imgPath, "rb") as img_file:
+        return base64.b64encode(img_file.read())
+
+def GetLatestFileAndEraseOthers(folderPath):
+    list_of_files = glob.glob(f"{folderPath}/*.*") # * means all if need specific format then *.csv
+    mostRecenDir = max(list_of_files, key=os.path.getctime)
+    time.sleep(0.2) # just make sure whoever is writting finishes
+    for clean_up in list_of_files:
+        if not clean_up.endswith(mostRecenDir): 
+            os.remove(clean_up)
+    return mostRecenDir
 #----------------------------- Run Manual Control -----------------------------#    
 def UpdateWifiData(bashCommand, csvPath, queue, delta):
     VerbosePrint("Started Wifi Acquisition Process")
@@ -122,19 +135,6 @@ def UpdateWifiData(bashCommand, csvPath, queue, delta):
     except:
         print("WAIFAI Error")
         raise KeyboardInterrupt
-#----------------------------- Helper Functions -------------------------------# 
-def GetImageAsBase64(imgPath):
-    with open(imgPath, "rb") as img_file:
-        return base64.b64encode(img_file.read())
-
-def GetLatestFileAndEraseOthers(folderPath):
-    list_of_files = glob.glob(f"{folderPath}/*.*") # * means all if need specific format then *.csv
-    mostRecenDir = max(list_of_files, key=os.path.getctime)
-    time.sleep(0.2) # just make sure whoever is writting finishes
-    for clean_up in list_of_files:
-        if not clean_up.endswith(mostRecenDir): 
-            os.remove(clean_up)
-    return mostRecenDir
     
 #-------------------------- Retrieve WIFI DATA Task --------------------------#    
 def NavigationAlgorithm(bashCommand):

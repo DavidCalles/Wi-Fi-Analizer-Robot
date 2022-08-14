@@ -21,6 +21,8 @@ All text above must be included in any redistribution.
 
 import os
 import time
+import datetime as dt
+from datetime import datetime as dtdt
 from math import cos, sin, pi, floor
 # import pygame
 from adafruit_rplidar import RPLidar, RPLidarException
@@ -197,15 +199,17 @@ def RunSlamThread():
                     args=(pose, mapbytes))
     thread.daemon = True
     thread.start()
-    # thread = mp.Process(target=slam_compute, args=(pose, mapbytes))
-    # thread.start()
 
     try:
         # Loop forever,displaying current map and pose
+        timeDeltSlam = dt.timedelta(seconds=3)
+        tInit = dtdt.now()
         while True:
             #time.sleep(5)
-            print("Slam thread running")
-            #print("x = " + str(pose[0]) + " y = " + str(pose[1]) + "theta = " + str(pose[2]))
+            if(dtdt.now() -tInit > timeDeltSlam):
+                tInit = dtdt.now()
+                print("Slam thread running")
+                print("x = " + str(pose[0]) + " y = " + str(pose[1]) + "theta = " + str(pose[2]))
             if not viz.display(pose[0]/1000., pose[1]/1000., pose[2], mapbytes):
                 raise KeyboardInterrupt
 
