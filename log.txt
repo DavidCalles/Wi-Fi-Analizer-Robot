@@ -1,12 +1,30 @@
 Starting system
-Created Wifi Data Process
-Running Loop Running
-Running Loop Running
-Running Loop Running
-Running Loop Running
+Created Data Consumption Process
 Running Loop Running
 Running Loop Running
 Running Loop Running
 Running Loop Running
 Running Loop Running
 keyboard Exception Main Loop
+Initializing libcamera-still call
+Libcamera-still Initialized
+Retrieving last image
+Erased all images but /home/davidcalles/Documents/Wi-Fi-Analizer-Robot/RetrieveVideoFeed/Pictures/Img1.jpg
+Queued image
+Retrieving last image
+Erased all images but /home/davidcalles/Documents/Wi-Fi-Analizer-Robot/RetrieveVideoFeed/Pictures/Img5.jpg
+Queued image
+Retrieving last image
+Erased all images but /home/davidcalles/Documents/Wi-Fi-Analizer-Robot/RetrieveVideoFeed/Pictures/Img9.jpg
+Queued image
+Retrieving last image
+Erased all images but /home/davidcalles/Documents/Wi-Fi-Analizer-Robot/RetrieveVideoFeed/Pictures/Img14.jpg
+Queued image
+Retrieving last image
+Erased all images but /home/davidcalles/Documents/Wi-Fi-Analizer-Robot/RetrieveVideoFeed/Pictures/Img18.jpg
+Queued image
+Retrieving last image
+Erased all images but /home/davidcalles/Documents/Wi-Fi-Analizer-Robot/RetrieveVideoFeed/Pictures/Img22.jpg
+Queued image
+Retrieving last image
+Couldnt Save Image
