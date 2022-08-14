@@ -55,8 +55,8 @@ processRefreshTime = 0.5 #seg
 verbose = True
 
 #----- Enables --------
-enableWifiThread        = False
-enableCameraThread      = False
+enableWifiThread        = True
+enableCameraThread      = True
 enableSlamThread        = False
 enableNavigationThread  = True
 enableConsumerThread    = False
@@ -73,12 +73,12 @@ def VerbosePrint(str):
         print(str)
 
 def EraseFilesFromDirectory(directoryPath):
+    VerbosePrint(f"Deleting files in: {directoryPath}")
     # Path should end in '/'
     for file_name in os.listdir(directoryPath):
         # construct full file path
         file = directoryPath + file_name
         if os.path.isfile(file):
-            VerbosePrint('Deleting file:', file)
             os.remove(file)
 #----------------------------- Run Manual Control -----------------------------#    
 def UpdateWifiData(bashCommand, csvPath, queue, delta):
@@ -89,29 +89,34 @@ def UpdateWifiData(bashCommand, csvPath, queue, delta):
         while(1):
             if (dtdt.now()-tInitWifi > delta):
                 tInitWifi = dtdt.now()
-                imgPath = f"{projectDir}Retrieve_Wi-Fi_Data/Pictures/fig{imgIndexWifi}.jpeg"
+                imgPath = f"{wifiOutput}fig{imgIndexWifi}.jpeg"
                 VerbosePrint(f"WAIFAI-File to print {imgPath}")
                 
                 VerbosePrint(f"WAIFAI-Enter Subprocess")
                 # Fill in file with new data
                 process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
                 output, error = process.communicate() #uncomment for verbose
-                process.wait()
+                #process.wait()
                 
                 # Read data - Opening JSON file and read as dict
                 VerbosePrint(f"WAIFAI-Read CSV")
                 wifiDf = pd.read_csv(csvPath)
                 wifiDf["Signal Level Mag"] = 10**(wifiDf["Signal Level"]/20)
                 fig = px.bar(wifiDf, x='SSID', y='Signal Level Mag', color='Frequency', title="Wifi-Data Magnitude and Frequency")
-                #fig.show()
+                #fig.show(renderer='vscode')
 
                 #Save to image
                 VerbosePrint(f"WAIFAI-Write Image")
                 pio.write_image(fig, imgPath, format="jpg", width=600, height=350, engine="kaleido")
-                imgIndexWifi+=1
                 time.sleep(0.5)
                 VerbosePrint(f"WAIFAI-Enqueue image")
+                # Queue image
                 queue.put(GetImageAsBase64(imgPath))
+                imgIndexWifi+=1
+                #Do not hyper fill memory
+                if(imgIndexWifi % 10 == 0):
+                    GetLatestFileAndEraseOthers(wifiOutput)
+
             else:
                 time.sleep(processRefreshTime)
     except:
