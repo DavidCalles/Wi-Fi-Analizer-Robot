@@ -23,6 +23,7 @@ projectDir          = "/home/davidcalles/Documents/Wi-Fi-Analizer-Robot/"
 
 wifiBashScriptDir   = "Retrieve_Wi-Fi_Data/getWiFiData.sh"
 wifiDataOutputDir   = "Retrieve_Wi-Fi_Data/wifi.json"
+wifiDataOutputDirCsv   = "Retrieve_Wi-Fi_Data/data.csv"
 
 manualControlScript = 'NavigationSystem.py'
 
@@ -56,7 +57,7 @@ imageIndex = 0
 #            projectDir + cameraOutput +"Img%d.jpg"
 
 #cliCamera = f"libcamera-jpeg -t 3000 -p 0,0,350,350 --width 640 --height 480 --brightness 0.2 -o {projectDir}{cameraOutput}"
-cliCamera = f"libcamera-still --nopreview -o {projectDir}{cameraOutput}"
+cliCamera = f"libcamera-still --nopreview --brightness 0.2 -o {projectDir}{cameraOutput}"
      
 #---------------------++----- Utility Functions ------------------------------# 
 
@@ -69,31 +70,34 @@ def EraseFilesFromDirectory(directoryPath):
             print('Deleting file:', file)
             os.remove(file)
 #----------------------------- Run Manual Control -----------------------------#    
-def UpdateWifiData(bashCommand, csvPath, outputPath, queue):
+def UpdateWifiData(bashCommand, csvPath, queue):
     print("Started Wifi Acquisition Process")
     imgIndex = 0
     try:
         while(1):
-            # Erase file contents
-            f = open(outputPath, 'r+')
-            f.truncate(0)
-            f.close()
+            imgPath = f"{projectDir}Retrieve_Wi-Fi_Data/Pictures/fig{imgIndex}.jpeg"
+            print(f"WAIFAI-File to print {imgPath}")
             
+            print(f"WAIFAI-Enter Subprocess")
             # Fill in file with new data
             process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
             output, error = process.communicate() #uncomment for verbose
-            process.wait()
+            time.sleep(0.2)
+            #process.wait()
             
             # Read data - Opening JSON file and read as dict
+            print(f"WAIFAI-Read CSV")
             wifiDf = pd.read_csv(csvPath)
             wifiDf["Signal Level Mag"] = 10**(wifiDf["Signal Level"]/20)
             fig = px.bar(wifiDf, x='SSID', y='Signal Level Mag', color='Frequency', title="Wifi-Data Magnitude and Frequency")
             #fig.show()
 
             #Save to image
-            imgPath = f"{projectDir}Retrieve_Wi-Fi_Data/Pictures/fig{imgIndex}.jpeg"
-            fig.write_image(imgPath)
+            print(f"WAIFAI-Write Image")
+            pio.write_image(fig, imgPath, format="jpg", width=600, height=350, engine="kaleido")
             imgIndex+=1
+            time.sleep(0.5)
+            print(f"WAIFAI-Enqueue image")
             queue.put(GetImageAsBase64(imgPath))
             time.sleep(3)
     except:
@@ -115,10 +119,15 @@ def GetLatestFileAndEraseOthers(folderPath):
 #-------------------------- Retrieve WIFI DATA Task --------------------------#    
 def NavigationAlgorithm(bashCommand):
     print("Started Navigation Process")
-    while(1):
+
+    try:
         # Fill in file with new data
         process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-        output, error = process.communicate() #uncomment for verbose  
+        output, error = process.communicate() #uncomment for verbose 
+        process.wait() 
+    except:
+        print("Problem running Navigation System")
+        raise KeyboardInterrupt
         
 #-------------------------- Retrieve LIDAR/SLAM DATA Task --------------------------#    
         
@@ -144,11 +153,11 @@ def ConsumeData(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, cameraQueue, m
             
             while(poseQueue.empty() == False): # Check for robot current pose
                 poseObj = poseQueue.get()
-                retrievedBitmap  += 1
+                retrievedPose  += 1
                 
             while(bitMapQueue.empty() == False): # Check for slam bitmap
                 bitMapObj = bitMapQueue.get()
-                retrievedPose  += 1
+                retrievedBitmap  += 1
             
             while(RawLidarQueue.empty() == False): # Check for raw lidar data
                 rawLidarObj = RawLidarQueue.get()
@@ -162,10 +171,13 @@ def ConsumeData(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, cameraQueue, m
                 cameraObj = cameraQueue.get()
                 retrievedCamera  += 1
             
+            print(f"Pose-{retrievedPose}, Bitmap-{retrievedBitmap}, Lidar-{retrievedLidar}, Wifi-{retrievedWifi}, Camera-{retrievedCamera}")
             if (retrievedBitmap and retrievedPose and retrievedLidar and retrievedWifi and retrievedCamera):
                 if(dtdt.now()-tInit > timeDelta):
+                    print("CONSUMERRR-prepping data")
                     tInit = dtdt.now()
                     # Get last Slam Picture
+                    print("CONSUMERRR-Getting most recent img")
                     latestSlamPicPath = GetLatestFileAndEraseOthers(pathToImagesSLAM)
                     slamImgObj = GetImageAsBase64(latestSlamPicPath)
 
@@ -198,16 +210,21 @@ def ConsumeData(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, cameraQueue, m
     
 def SaveImage(bashCommand, cameraImgsQueue): 
     global imageIndex
-    newImageName = "img"+str(imageIndex)+".jpg"
-    Path(cameraOutput+newImageName).touch()
-    newImageCommand = bashCommand + newImageName
-    imageIndex += 1
-    # Fill in file with new data
-    process = subprocess.Popen(newImageCommand.split(), stdout=subprocess.PIPE)
-    output, error = process.communicate() #uncomment for verbose  
-    process.wait()
-    cameraImgsQueue.put(GetImageAsBase64(f"{projectDir}{cameraOutput}{newImageName}"))
+    try:
+        newImageName = "img"+str(imageIndex)+".jpg"
+        Path(cameraOutput+newImageName).touch()
+        newImageCommand = bashCommand + newImageName
+        imageIndex += 1
+        # Fill in file with new data
 
+        process = subprocess.Popen(newImageCommand.split(), stdout=subprocess.PIPE)
+        time.sleep(0.2)
+        #output, error = process.communicate() #uncomment for verbose  
+        #process.wait()
+        cameraImgsQueue.put(GetImageAsBase64(f"{projectDir}{cameraOutput}{newImageName}"))
+    except:
+        print("Couldnt Save Image")
+        raise KeyboardInterrupt
 
 #--------------------------------------- MAIN Task ---------------------------#
 
@@ -218,7 +235,7 @@ if __name__ == '__main__':
     mdbObj = myMongoDB() # CHANGE URL HERE: args{url, dbName,'SampleCollection0'}
     # Plot setup
     # Create processes WIFI
-    wifi_P = mp.Process(target=UpdateWifiData, args=(bashCommandWifi, projectDir+wifiDataOutputDir, wifiDataQueue))
+    wifi_P = mp.Process(target=UpdateWifiData, args=(bashCommandWifi, projectDir+wifiDataOutputDirCsv, wifiDataQueue))
     wifi_P.start()
     print("Created Wifi Data Process")
     # Create Process MANUAL CONTROL
@@ -238,7 +255,8 @@ if __name__ == '__main__':
         
         # Take picture from camera
         try:
-            SaveImage(cliCamera) 
+            print("Take picture")
+            SaveImage(cliCamera, cameraImgsQueue) 
             print("While Loop Running")
             time.sleep(3) 
 

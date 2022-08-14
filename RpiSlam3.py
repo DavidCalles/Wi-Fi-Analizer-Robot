@@ -210,11 +210,13 @@ def RunSlamThread():
                 raise KeyboardInterrupt
 
 
-    except KeyboardInterrupt:
+    except:
+        print("Slam While loop not working")
         runThread = False
         thread.join()
         lidar.stop()
         lidar.disconnect()
+        raise KeyboardInterrupt
         exit(0)
 
 # Test

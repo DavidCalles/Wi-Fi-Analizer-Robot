@@ -226,7 +226,6 @@ class navSystem:
             termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
             self.myrobot.stop()
 
-if __name__ == '__main__':
-    nav0 = navSystem()   
-    nav0.fullNavigation()
+nav0 = navSystem()   
+nav0.fullNavigation()
     
