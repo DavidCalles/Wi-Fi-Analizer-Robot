@@ -1,8 +1,11 @@
 import sys
 import multiprocessing as mp
-import queue
-import pandas
+import plotly.io as pio
+import plotly.express as px
+import pandas as pd
 import os
+import glob
+import base64
 import json
 import subprocess
 import time
@@ -27,6 +30,8 @@ slamScript = 'RpiSlam3.py'#'SLAM/SLAM-on-Raspberry-Pi/rpslam-thread.py'
 
 cameraOutput = "RetrieveVideoFeed/Pictures/"
 
+wifiOutput = projectDir+"Retrieve_Wi-Fi_Data/Pictures/"
+
 #-------------------------- Wifi Retrieval Variables -------------------------#
 bashCommandWifi = "/bin/bash " + projectDir + wifiBashScriptDir  
 wifiDataQueue = mp.Queue() 
@@ -36,19 +41,22 @@ bashCommandManualControl = "/bin/python3 " + projectDir + manualControlScript
 
 #---------------------- LIDAR/SLAM Retrieval Variables -----------------------#
 bashCommandSlam = "/bin/python3 " + projectDir + slamScript
+pathToImagesSLAM = projectDir + "Wi-Fi-Analizer-Robot/SLAM/Pictures"
+#-------------------------- Camera Retrieval Variables -----------------------#
+cameraImgsQueue = mp.Queue() 
 
 #-------------------------- Syncronization variables  ------------------------#
 enablePrinting = True
 enableSendingData = True
 
-
 #----------------------- Video/Image Retrieval variables ---------------------#
 imageIndex = 0
-cliCamera =  "libcamera-still -t 0 -o " + \
-            projectDir + cameraOutput +"Img%d.jpg" + \
-            "--timelapse 3000 -p 0,0,350,350 --width 640 --height 480 --brightness 0.2"
-#cliCamera = "libcamera-jpeg -t 3000 -p 0,0,350,350 --width 640 --height 480 --brightness 0.2 -o " + projectDir + cameraOutput
-#cliCamera = "libcamera-still --nopreview -o " + projectDir + cameraOutput
+#cliCamera = "libcamera-still -t 0 " + \
+#            "--timelapse 3000 -p 0,0,350,350 --width 640 --height 480 --brightness 0.2 -o" + \
+#            projectDir + cameraOutput +"Img%d.jpg"
+
+#cliCamera = f"libcamera-jpeg -t 3000 -p 0,0,350,350 --width 640 --height 480 --brightness 0.2 -o {projectDir}{cameraOutput}"
+cliCamera = f"libcamera-still --nopreview -o {projectDir}{cameraOutput}"
      
 #---------------------++----- Utility Functions ------------------------------# 
 
@@ -61,25 +69,49 @@ def EraseFilesFromDirectory(directoryPath):
             print('Deleting file:', file)
             os.remove(file)
 #----------------------------- Run Manual Control -----------------------------#    
-def UpdateWifiData(bashCommand, jsonPath, queue):
+def UpdateWifiData(bashCommand, csvPath, outputPath, queue):
     print("Started Wifi Acquisition Process")
-    while(1):
-        # Erase file contents
-        f = open(jsonPath, 'r+')
-        f.truncate(0)
-        f.close()
-        
-        # Fill in file with new data
-        process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-        output, error = process.communicate() #uncomment for verbose
-        
-        # Read data - Opening JSON file and read as dict
-        f = open(jsonPath)
-        data = json.load(f)
-        queue.put(data)
-        f.close()
-        time.sleep(3)
+    imgIndex = 0
+    try:
+        while(1):
+            # Erase file contents
+            f = open(outputPath, 'r+')
+            f.truncate(0)
+            f.close()
             
+            # Fill in file with new data
+            process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+            output, error = process.communicate() #uncomment for verbose
+            process.wait()
+            
+            # Read data - Opening JSON file and read as dict
+            wifiDf = pd.read_csv(csvPath)
+            wifiDf["Signal Level Mag"] = 10**(wifiDf["Signal Level"]/20)
+            fig = px.bar(wifiDf, x='SSID', y='Signal Level Mag', color='Frequency', title="Wifi-Data Magnitude and Frequency")
+            #fig.show()
+
+            #Save to image
+            imgPath = f"{projectDir}Retrieve_Wi-Fi_Data/Pictures/fig{imgIndex}.jpeg"
+            fig.write_image(imgPath)
+            imgIndex+=1
+            queue.put(GetImageAsBase64(imgPath))
+            time.sleep(3)
+    except:
+        print("Wifi Error")
+        raise KeyboardInterrupt
+#----------------------------- Helper Functions -------------------------------# 
+def GetImageAsBase64(imgPath):
+    with open(imgPath, "rb") as img_file:
+        return base64.b64encode(img_file.read())
+
+def GetLatestFileAndEraseOthers(folderPath):
+    list_of_files = glob.glob(f"{folderPath}/*.*") # * means all if need specific format then *.csv
+    mostRecenDir = max(list_of_files, key=os.path.getctime)
+    for clean_up in list_of_files:
+        if not clean_up.endswith(mostRecenDir): 
+            os.remove(clean_up)
+    return mostRecenDir
+    
 #-------------------------- Retrieve WIFI DATA Task --------------------------#    
 def NavigationAlgorithm(bashCommand):
     print("Started Navigation Process")
@@ -98,11 +130,12 @@ def RunSLAM(bashCommand):
         # output, error = process.communicate() #uncomment for verbose  
 
 
-def ConsumeSLAM(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, mdbObj=None):
+def ConsumeData(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, cameraQueue, mdbObj=None):
     retrievedBitmap = 0
     retrievedLidar = 0
     retrievedPose = 0
     retrievedWifi = 0
+    retrievedCamera = 0
     tInit = dtdt.now()
     timeDelta = dt.timedelta(seconds=1)
     
@@ -121,33 +154,49 @@ def ConsumeSLAM(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, mdbObj=None):
                 rawLidarObj = RawLidarQueue.get()
                 retrievedLidar  += 1
                 
-            while(wifiQueue.empty() == False): # Check for slam bitmap
+            while(wifiQueue.empty() == False): # Check for wifi data plot
                 wifiObj = wifiQueue.get()
                 retrievedWifi  += 1
             
-            if retrievedBitmap and retrievedPose and retrievedLidar and retrievedWifi:
+            while(cameraQueue.empty() == False): # Check for wifi data plot
+                cameraObj = cameraQueue.get()
+                retrievedCamera  += 1
+            
+            if (retrievedBitmap and retrievedPose and retrievedLidar and retrievedWifi and retrievedCamera):
                 if(dtdt.now()-tInit > timeDelta):
-                    tInit = dtdt.now()              
+                    tInit = dtdt.now()
+                    # Get last Slam Picture
+                    latestSlamPicPath = GetLatestFileAndEraseOthers(pathToImagesSLAM)
+                    slamImgObj = GetImageAsBase64(latestSlamPicPath)
+
                     if enablePrinting:
                         print(f"DateTime: {tInit}")
                         print(f"Pose: {poseObj}")
                         print(f"Size of Bitmap: {len(bitMapObj)}")
                         print(f"Size of Lidar Data: {len(rawLidarObj)}")
-                        print("Wifi Data:")
-                        print(json.dumps(wifiObj, indent=4, sort_keys=True))
+                        print(f"Size of Wifi Plot:{len(wifiObj)}")
+                        print(f"Size of Camera Pic:{len(cameraObj)}")
+                        print(f"Size of Camera Pic:{len(slamImgObj)}")
                     
-                    if (enableSendingData):      
+                    if (enableSendingData):  
+                        newPacket = {"CamImg":cameraObj, "WifiImg":wifiObj, "SlamImg":slamImgObj}    
                         print("Sending data")
                         # Send data to Mongodb server
                         # mdbObj.SendPacket(newEntry={
                         #     'pose':poseObj, 'rawScan':radLidarObj
                         # })
+                    # Reset all flags
+                    retrievedBitmap = 0
+                    retrievedLidar = 0
+                    retrievedPose = 0
+                    retrievedWifi = 0
+                    retrievedCamera = 0
                 
     except:
         print("Consumer Error")
         raise KeyboardInterrupt
     
-def SaveImage(bashCommand): 
+def SaveImage(bashCommand, cameraImgsQueue): 
     global imageIndex
     newImageName = "img"+str(imageIndex)+".jpg"
     Path(cameraOutput+newImageName).touch()
@@ -155,7 +204,11 @@ def SaveImage(bashCommand):
     imageIndex += 1
     # Fill in file with new data
     process = subprocess.Popen(newImageCommand.split(), stdout=subprocess.PIPE)
-    #output, error = process.communicate() #uncomment for verbose            
+    output, error = process.communicate() #uncomment for verbose  
+    process.wait()
+    cameraImgsQueue.put(GetImageAsBase64(f"{projectDir}{cameraOutput}{newImageName}"))
+
+
 #--------------------------------------- MAIN Task ---------------------------#
 
 if __name__ == '__main__':
@@ -177,7 +230,7 @@ if __name__ == '__main__':
     slam_P.start()
     print("Created SLAM Process")
     # Consume-Plot SLAM results
-    slam_consume = mp.Process(target=ConsumeSLAM, args=(poseQueue, bitMapQueue, RawLidarQueue, wifiDataQueue, mdbObj))
+    slam_consume = mp.Process(target=ConsumeData, args=(poseQueue, bitMapQueue, RawLidarQueue, wifiDataQueue, cameraImgsQueue, mdbObj))
     slam_consume.start()
     print("Created Data Consumption Process")
     
@@ -187,7 +240,7 @@ if __name__ == '__main__':
         try:
             SaveImage(cliCamera) 
             print("While Loop Running")
-            time.sleep(5) 
+            time.sleep(3) 
 
         except:
             print("keyboard Exception Main Loop")
@@ -195,5 +248,5 @@ if __name__ == '__main__':
             manualNav_P.terminate()
             slam_P.terminate()
             slam_consume.terminate()
-            exit(0)         
+            exit(0)
         
