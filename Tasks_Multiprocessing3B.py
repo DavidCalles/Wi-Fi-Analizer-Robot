@@ -47,7 +47,7 @@ bashCommandManualControl = "/bin/python3 " + projectDir + manualControlScript
 
 #---------------------- LIDAR/SLAM Retrieval Variables -----------------------#
 bashCommandSlam = "/bin/python3 " + projectDir + slamScript
-pathToImagesSLAM = projectDir + "Wi-Fi-Analizer-Robot/SLAM/Pictures"
+pathToImagesSLAM = projectDir + "SLAM/Pictures"
 #-------------------------- Camera Retrieval Variables -----------------------#
 cameraImgsQueue = mp.Queue() 
 timeDeltaCamera = dt.timedelta(seconds=4)
@@ -112,8 +112,9 @@ def UpdateWifiData(bashCommand, csvPath, queue, delta):
             VerbosePrint(f"WAIFAI-Enter Subprocess")
             # Fill in file with new data
             process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-            output, error = process.communicate() #uncomment for verbose
+            #output, error = process.communicate() #uncomment for verbose
             #process.wait()
+            time.sleep(0.5)
             
             # Read data - Opening JSON file and read as dict
             VerbosePrint(f"WAIFAI-Read CSV")
@@ -209,14 +210,13 @@ def ConsumeData(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, cameraQueue, t
                 condWifi    = bool(retrievedWifi and enableWifiThread)
                 condCamera  = bool(retrievedCamera and enableCameraThread) 
                 
+                # Get last Slam Picture (no queue for this)
+                VerbosePrint("CONSUMERRR-Getting most recent img")
+                latestSlamPicPath = GetLatestFileAndEraseOthers(pathToImagesSLAM)
+                slamImgObj = GetImageAsBase64(latestSlamPicPath)
 
                 if (condPose and condBitmap and condLidar and condWifi and condCamera):
                     
-                    # Get last Slam Picture (no queue for this)
-                    VerbosePrint("CONSUMERRR-Getting most recent img")
-                    latestSlamPicPath = GetLatestFileAndEraseOthers(pathToImagesSLAM)
-                    slamImgObj = GetImageAsBase64(latestSlamPicPath)
-
                     if enablePrinting:
                         print(f"DateTime: {tInit}")
                         print(f"Pose: {poseObj}")
@@ -228,12 +228,13 @@ def ConsumeData(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, cameraQueue, t
                     
                     if (enableSendingData):  
                         # Send images as string (eliminate b'')
-                        newPacket = {"CamImg":str(cameraObj)[2:-1], "WifiImg":str(wifiObj)[2:-1], "SlamImg":str(slamImgObj)[2:-1]}    
+                        newPacket = {"TimeStamp":time.time(),
+                                    "CamImg":str(cameraObj)[2:-1],
+                                    "WifiImg":str(wifiObj)[2:-1],
+                                "SlamImg":str(slamImgObj)[2:-1]}    
                         VerbosePrint("Sending data")
                         # Send data to Mongodb server
-                        # mdbObj.SendPacket(newEntry={
-                        #     'pose':poseObj, 'rawScan':radLidarObj
-                        # })
+                        mdbObj.SendPacket(newEntry=newPacket)
                     # Reset all flags
                     retrievedBitmap = 0
                     retrievedLidar = 0
@@ -284,7 +285,9 @@ if __name__ == '__main__':
     EraseFilesFromDirectory(cameraOutputAbs)
     EraseFilesFromDirectory(slamOutputAbs)
     # New MongoDB interface object
-    mdbObj = myMongoDB() # CHANGE URL HERE: args{url, dbName,'SampleCollection0'}
+    mdbObj = myMongoDB( url='mongodb+srv://kjaskaran:QGx6rTpqiM11prDj@clusterjk.z1qwasf.mongodb.net/?retryWrites=true&w=majority', 
+                        dbName='test',
+                        collectName='wivibots')
     # ---- CREATE PROCESSES -----
     wifiCam_P = mp.Process(target=UpdateCameraAndWifi,
                 args = ([cliCamera, cameraImgsQueue, timeDeltaCamera],

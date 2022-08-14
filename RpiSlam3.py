@@ -212,17 +212,17 @@ def RunSlamThread():
 
     try:
         # Loop forever,displaying current map and pose
-        timeDeltSlam = dt.timedelta(seconds=5)
+        timeDeltSlam = dt.timedelta(seconds=2)
         tInit = dtdt.now()
         while True:
             #time.sleep(5)
             if(dtdt.now() -tInit > timeDeltSlam):
                 tInit = dtdt.now()
                 print("Slam thread running")
-                print("x = " + str(pose[0]) + " y = " + str(pose[1]) + "theta = " + str(pose[2]))
-                GetLatestFileAndEraseOthers2("/home/davidcalles/Documents/Wi-Fi-Analizer-Robot/SLAM/Pictures")
-            if not viz.display(pose[0]/1000., pose[1]/1000., pose[2], mapbytes):
-                raise KeyboardInterrupt
+                #print("x = " + str(pose[0]) + " y = " + str(pose[1]) + "theta = " + str(pose[2]))
+                #GetLatestFileAndEraseOthers2("/home/davidcalles/Documents/Wi-Fi-Analizer-Robot/SLAM/Pictures")
+                if not viz.display(pose[0]/1000., pose[1]/1000., pose[2], mapbytes):
+                    raise KeyboardInterrupt
 
 
     except:
