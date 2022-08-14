@@ -4,7 +4,7 @@ import select
 import tty
 import termios
 import random
-from statistics import median
+import statistics
 
 sys.path.append('RobotSource/picar-x/')
 from picarx import *
@@ -18,14 +18,14 @@ def isData():
 class navSystem:
 #---------------------------Navigation Initialization ------------------------#
     def __init__(self, xCamera_Increment=2, yCamera_Increment=2, ts=0, tf=0.1, tb=3, 
-        dirAngle_Increment = 8, percentIncrement = 5, distanceUntilCrash = 6, 
-        speed = 0.1, delay = 0.01, maxAngleAllowed = 35, maxAngleChange = 15, minAngleChange = 6,
+        dirAngle_Increment = 8, percentIncrement = 5, distanceUntilCrash = 12, 
+        speed = 0.1, delay = 0.01, maxAngleAllowed = 35, maxAngleChange = 15, minAngleChange = 15,
         windowSize = 4):
 
         self.myrobot = Picarx()
 
 #--------------------------State Machine Variables ---------------------------#
-        self.curretnState = 0
+        self.currentState = 0
         self.initalTime = time.time()
         self.stopTime = ts
         self.forwardTime = tf
@@ -43,7 +43,7 @@ class navSystem:
         self.manualDistance = distanceUntilCrash
         self.percentInc = percentIncrement
         self.delay = delay
-        self.camPosX = -43
+        self.camPosX = -37
         self.camPosY = 0
         self.camIncX = xCamera_Increment
         self.camIncY = yCamera_Increment
@@ -55,11 +55,9 @@ class navSystem:
         self.value = 0
         self.values = []
         self.sensorFiltered = 0
-        
-#---------------------------- Initial Motor values ----------------------------#
-        self.myrobot.set_power(0.1) 
+
+        self.myrobot.set_power(0.1)
         self.myrobot.set_camera_servo1_angle(self.camPosX)
-    
 #------------------------------------------- Forward/Backward ----------------#  
     def robot_SoftRampForward(self):
         for i in range(1,self.speedIncrement+1):
@@ -103,48 +101,57 @@ class navSystem:
         self.camPosY -= self.camIncY
         self.myrobot.set_camera_servo2_angle(self.camPosY)
 
-          
+    def PrintRobotData(self):
+        print(f"Raw Data {self.values}")
+        print(f"Filtered Data {self.sensorFiltered}")
+        print(f"Current Angle {self.currentAngle}")
+        print(f"current State {self.currentState}")
+       
+        
+
+       
 #-------------------------- Movement Funtions --------------------------------#
     
     def sensorFilter(self):
-        self.value = self.myrobot.get_distance()
-        self.values.append()        
-        if len(self.values) > self.window_size:
-            x = self.values.pop(0)
-        self.senforFiltered = median(self.values)
+        self.values.append(self.myrobot.get_distance())        
+        if len(self.values) > self.windowSize:
+            self.values.pop(0)
+        self.sensorFiltered = statistics.median(self.values)
     
     def automatic(self):
+        
         while (1):
+            #self.PrintRobotData()
             #constantly ultrasound data and creating a moving mean filter
             self.sensorFilter()       
             if isData():
                 break
             
             #stop state
-            if(self.curretnState == 0):
+            elif(self.currentState == 0):
                 self.myrobot.stop()
-                self.curretnState = 1
+                self.currentState = 1
             
             #set direction state
-            elif(self.curretnState == 1):
+            elif(self.currentState == 1):
                 #not near to crash
-                if(self.senforFiltered > self.usDistance):
+                if(self.sensorFiltered > self.usDistance):
                     #dandomly deside if the direction angle needs to be adjusted
                     if(random.randint(0,3)):
                         # substract from angle if it reached max
-                        if(self.currentAngle > self.maxAngleA):
+                        if(self.currentAngle >= self.maxAngleA):
                             self.currentAngle = self.currentAngle - random.randint(self.minAngleC,self.maxAngleC)                            
                         # add from angle if it reached min
-                        elif(self.currentAngle < -self.maxAngleA):
+                        elif(self.currentAngle <= -self.maxAngleA):                            
                             self.currentAngle = self.currentAngle + random.randint(self.minAngleC,self.maxAngleC)
                         #add random angle when in between ranges
-                        else:
+                        else:                            
                             self.currentAngle += random.randint(-self.minAngleC,self.maxAngleC)
                     
                     self.myrobot.set_dir_servo_angle(self.currentAngle) 
                     self.robot_SoftRampForward()
                     self.initalTime = time.time()
-                    self.curretnState = 2
+                    self.currentState = 2
                     #no angle change                    
                 #if near crash oposite lock
                 else:
@@ -152,25 +159,25 @@ class navSystem:
                     self.myrobot.set_dir_servo_angle(self.currentAngle) 
                     self.robot_SoftRampBackward()
                     self.initalTime = time.time()
-                    self.curretnState = 3
+                    self.currentState = 3
             
             #ForwardState
-            elif(self.curretnState == 2):
-                if(self.senforFiltered < self.usDistance):
-                    self.curretnState = 0
+            elif(self.currentState == 2):
+                if(self.sensorFiltered < self.usDistance):
+                    self.currentState = 0
                 elif(time.time() - self.initalTime < self.forwardTime):
-                    self.curretnState = 2
+                    self.currentState = 2
                 elif(time.time() - self.initalTime >= self.forwardTime):
-                    self.curretnState = 0
+                    self.currentState = 0
             
             #BackardState
-            if(self.curretnState == 3):
+            if(self.currentState == 3):
                 if(time.time() - self.initalTime < self.backwardTime):
-                    self.curretnState = 3
+                    self.currentState = 3
                 if(time.time() - self.initalTime >= self.backwardTime):
                     self.currentAngle = 0
                     self.myrobot.set_dir_servo_angle(self.currentAngle) 
-                    self.curretnState = 0
+                    self.currentState = 0
                     
 
     def fullNavigation(self):        
@@ -183,6 +190,8 @@ class navSystem:
             ['r', self.robot_SoftLookUp],
             ['f', self.robot_SoftSteerDown],
 		    ['g', self.automatic]]
+
+        
         
         old_settings = termios.tcgetattr(sys.stdin)
         try:
@@ -217,7 +226,7 @@ class navSystem:
             termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
             self.myrobot.stop()
 
-# Test()
-nav0 = navSystem()   
-nav0.fullNavigation()
+if __name__ == '__main__':
+    nav0 = navSystem()   
+    nav0.fullNavigation()
     
