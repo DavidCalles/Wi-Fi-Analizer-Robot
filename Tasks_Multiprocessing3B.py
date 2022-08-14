@@ -30,12 +30,17 @@ slamScript = 'RpiSlam3.py'
 
 cameraOutput = "RetrieveVideoFeed/Pictures/"
 
-wifiOutput = projectDir+"Retrieve_Wi-Fi_Data/Pictures/"
+cameraOutputAbs = projectDir+cameraOutput
+wifiOutputAbs = projectDir+"Retrieve_Wi-Fi_Data/Pictures/"
+slamOutputAbs = projectDir + "SLAM/Pictures/"
+
 
 #-------------------------- Wifi Retrieval Variables -------------------------#
 bashCommandWifi = "/bin/bash " + projectDir + wifiBashScriptDir  
 wifiDataQueue = mp.Queue() 
 timeDeltaWifi = dt.timedelta(seconds=4)
+imgIndexWifi = 0
+tInitWifi = dtdt.now()
 
 #-------------------------- Manual Control Variables -------------------------#
 bashCommandManualControl = "/bin/python3 " + projectDir + manualControlScript  
@@ -46,12 +51,15 @@ pathToImagesSLAM = projectDir + "Wi-Fi-Analizer-Robot/SLAM/Pictures"
 #-------------------------- Camera Retrieval Variables -----------------------#
 cameraImgsQueue = mp.Queue() 
 timeDeltaCamera = dt.timedelta(seconds=4)
+tInitCamera = dtdt.now()
 
 #-------------------------- Syncronization variables  ------------------------#
 enablePrinting = True
 enableSendingData = True
-processRefreshTime = 0.5 #seg
+processRefreshTime = 0.2 #seg
 verbose = True
+timeDeltaConsumer = dt.timedelta(seconds=5)
+settlingTime = 1  #seg
 
 #----- Enables --------
 enableWifiThread        = True
@@ -64,7 +72,7 @@ enableConsumerThread    = True
 # Command to constinusly take pictures every --timelapse milliseconds
 cliCamera = "libcamera-still -t 0 " + \
            "--timelapse 1000 -p 0,0,350,350 --width 640 --height 480 --brightness 0.2 -o" + \
-           projectDir + cameraOutput +"Img%d.jpg"
+           projectDir + cameraOutput +"Img%d.jpg >/dev/null 2>/dev/null"
      
 #---------------------++----- Utility Functions ------------------------------# 
 def VerbosePrint(str):
@@ -94,43 +102,40 @@ def GetLatestFileAndEraseOthers(folderPath):
     return mostRecenDir
 #----------------------------- Run Manual Control -----------------------------#    
 def UpdateWifiData(bashCommand, csvPath, queue, delta):
-    VerbosePrint("Started Wifi Acquisition Process")
-    imgIndexWifi = 0
-    tInitWifi = dtdt.now()
+    global tInitWifi
+    global imgIndexWifi
     try:
-        while(1):
-            if (dtdt.now()-tInitWifi > delta):
-                tInitWifi = dtdt.now()
-                imgPath = f"{wifiOutput}fig{imgIndexWifi}.jpeg"
-                VerbosePrint(f"WAIFAI-File to print {imgPath}")
-                
-                VerbosePrint(f"WAIFAI-Enter Subprocess")
-                # Fill in file with new data
-                process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-                output, error = process.communicate() #uncomment for verbose
-                #process.wait()
-                
-                # Read data - Opening JSON file and read as dict
-                VerbosePrint(f"WAIFAI-Read CSV")
-                wifiDf = pd.read_csv(csvPath)
-                wifiDf["Signal Level Mag"] = 10**(wifiDf["Signal Level"]/20)
-                fig = px.bar(wifiDf, x='SSID', y='Signal Level Mag', color='Frequency', title="Wifi-Data Magnitude and Frequency")
-                #fig.show(renderer='vscode')
+        if (dtdt.now()-tInitWifi > delta):
+            tInitWifi = dtdt.now()
+            imgPath = f"{wifiOutputAbs}fig{imgIndexWifi}.jpeg"
+            
+            VerbosePrint(f"WAIFAI-Enter Subprocess")
+            # Fill in file with new data
+            process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+            output, error = process.communicate() #uncomment for verbose
+            #process.wait()
+            
+            # Read data - Opening JSON file and read as dict
+            VerbosePrint(f"WAIFAI-Read CSV")
+            wifiDf = pd.read_csv(csvPath)
+            wifiDf["Signal Level Mag"] = 10**(wifiDf["Signal Level"]/20)
+            fig = px.bar(wifiDf, x='SSID', y='Signal Level Mag', color='Frequency', title="Wifi-Data Magnitude and Frequency")
+            #fig.show(renderer='vscode')
 
-                #Save to image
-                VerbosePrint(f"WAIFAI-Write Image")
-                pio.write_image(fig, imgPath, format="jpg", width=600, height=350, engine="kaleido")
-                time.sleep(0.5)
-                VerbosePrint(f"WAIFAI-Enqueue image")
-                # Queue image
-                queue.put(GetImageAsBase64(imgPath))
-                imgIndexWifi+=1
-                #Do not hyper fill memory
-                if(imgIndexWifi % 10 == 0):
-                    GetLatestFileAndEraseOthers(wifiOutput)
+            #Save to image
+            VerbosePrint(f"WAIFAI-Write to Image: {imgPath}")
+            pio.write_image(fig, imgPath, format="jpg", width=600, height=350, engine="kaleido")
+            time.sleep(0.2)
+            VerbosePrint(f"WAIFAI-Enqueue image")
+            # Queue image
+            queue.put(GetImageAsBase64(imgPath))
+            imgIndexWifi+=1
+            #Do not hyper fill memory
+            if(imgIndexWifi % 10 == 0):
+                GetLatestFileAndEraseOthers(wifiOutputAbs)
 
-            else:
-                time.sleep(processRefreshTime)
+        else:
+            time.sleep(processRefreshTime)
     except:
         print("WAIFAI Error")
         raise KeyboardInterrupt
@@ -161,15 +166,15 @@ def RunSLAM(bashCommand):
         # process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
         # output, error = process.communicate() #uncomment for verbose  
 
-
-def ConsumeData(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, cameraQueue, mdbObj=None):
+#-------------------------- Data SENDING Task --------------------------# 
+def ConsumeData(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, cameraQueue, timeDelta, mdbObj=None):
     retrievedBitmap = 0
     retrievedLidar = 0
     retrievedPose = 0
     retrievedWifi = 0
     retrievedCamera = 0
     tInit = dtdt.now()
-    timeDelta = dt.timedelta(seconds=1)
+    
     
     try:
         while(1):
@@ -235,65 +240,80 @@ def ConsumeData(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, cameraQueue, m
                     retrievedPose = 0
                     retrievedWifi = 0
                     retrievedCamera = 0
-                
+            else:
+                time.sleep(processRefreshTime) 
     except:
         print("Consumer Error")
         raise KeyboardInterrupt
     
-def SaveImage(bashCommand, cameraImgsQueue, delta):             
+#-------------------------- Camera Acquisition Task --------------------------# 
+def SaveImage(cameraImgsQueue, delta):
+    global tInitCamera           
     try:
-        VerbosePrint("Initializing libcamera-still call")
-        process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-        VerbosePrint("Libcamera-still Initialized")
-        tInitCamera = dtdt.now()
-        while(1): 
-            if (dtdt.now()-tInitCamera > delta):
-                tInitCamera = dtdt.now()
-                VerbosePrint("Retrieving last image")
-                latestImg = GetLatestFileAndEraseOthers(projectDir + cameraOutput)
-                VerbosePrint(f"Erased all images but {latestImg}")
-                cameraImgsQueue.put(GetImageAsBase64(latestImg))
-                VerbosePrint("Queued image")
-            else:
-                time.sleep(processRefreshTime)    
+        if (dtdt.now()-tInitCamera > delta):
+            tInitCamera = dtdt.now()
+            VerbosePrint("CAMERAA - Retrieving last image")
+            latestImg = GetLatestFileAndEraseOthers(projectDir + cameraOutput)
+            VerbosePrint(f"CAMERAA - Erased all images but {latestImg}")
+            cameraImgsQueue.put(GetImageAsBase64(latestImg))
+            VerbosePrint("CAMERAA  - Queued image")
+        else:
+            time.sleep(processRefreshTime)    
     except:
-        print("Couldnt Save Image")
+        print("CAMERAA - Couldnt Save Image")
         raise KeyboardInterrupt
+
+#-------------------------- Update Camera and Wifi Task --------------------------# 
+
+def UpdateCameraAndWifi(cameraArgs, wifiArgs):
+    VerbosePrint("WIFI-CAM Initializing libcamera-still call")
+    VerbosePrint("WIFI-CAM Libcamera-still Initialized")
+    VerbosePrint("WIFI-CAM Started Wifi Acquisition Process")
+    processCamera = subprocess.Popen(cameraArgs[0].split(), stdout=subprocess.PIPE)
+    while(1):
+        SaveImage(cameraArgs[1], cameraArgs[2])
+        UpdateWifiData(wifiArgs[0], wifiArgs[1], wifiArgs[2], wifiArgs[3])
 
 #--------------------------------------- MAIN Task ---------------------------#
 
 if __name__ == '__main__':
     
     VerbosePrint("Starting system")
+    # Erasing past images
+    EraseFilesFromDirectory(wifiOutputAbs)
+    EraseFilesFromDirectory(cameraOutputAbs)
+    EraseFilesFromDirectory(slamOutputAbs)
     # New MongoDB interface object
     mdbObj = myMongoDB() # CHANGE URL HERE: args{url, dbName,'SampleCollection0'}
     # ---- CREATE PROCESSES -----
-    wifi_P = mp.Process(target=UpdateWifiData, args=(bashCommandWifi, projectDir+wifiDataOutputDirCsv, wifiDataQueue, timeDeltaWifi))
+    wifiCam_P = mp.Process(target=UpdateCameraAndWifi,
+                args = ([cliCamera, cameraImgsQueue, timeDeltaCamera],
+                        [bashCommandWifi, projectDir+wifiDataOutputDirCsv, wifiDataQueue, timeDeltaWifi]))
     manualNav_P = mp.Process(target=NavigationAlgorithm, args=(bashCommandManualControl,))
+    slam_consume = mp.Process(target=ConsumeData, args=(poseQueue, bitMapQueue, RawLidarQueue, wifiDataQueue, cameraImgsQueue, timeDeltaConsumer, mdbObj))
     slam_P = mp.Process(target=RunSLAM, args=(bashCommandSlam,))
-    slam_consume = mp.Process(target=ConsumeData, args=(poseQueue, bitMapQueue, RawLidarQueue, wifiDataQueue, cameraImgsQueue, mdbObj))
-    camera_P = mp.Process(target=SaveImage, args=(cliCamera, cameraImgsQueue, timeDeltaCamera))
+    
 
-    # Create processes WIFI
-    if enableWifiThread:
-        wifi_P.start()
-        VerbosePrint("Created Wifi Data Process")
+    # Create processes WIFI-Cam
+    if (enableWifiThread and enableCameraThread):
+        wifiCam_P.start()
+        VerbosePrint("Created Wifi-CAM Data Process")
+        time.sleep(settlingTime)
     # Create Process MANUAL CONTROL
     if enableNavigationThread:  
         manualNav_P.start() # Run manual navigation
         VerbosePrint("Created Navigation Data Process")
+        time.sleep(settlingTime)
     # Create SLAM process
     if enableSlamThread:
         slam_P.start()
         VerbosePrint("Created SLAM Process")
-    # Camera Thread
-    if enableCameraThread:
-        camera_P.start()
-        VerbosePrint("Created Data Consumption Process")
+        time.sleep(settlingTime)
     # Consume-Plot SLAM results
     if enableConsumerThread:
         slam_consume.start()
         VerbosePrint("Created Data Consumption Process")
+        time.sleep(settlingTime)
     
     while(1):
         
@@ -304,10 +324,9 @@ if __name__ == '__main__':
 
         except:
             print("keyboard Exception Main Loop")
-            wifi_P.terminate()
+            wifiCam_P.terminate()
             manualNav_P.terminate()
             slam_P.terminate()
-            camera_P.terminate()
             slam_consume.terminate()
             exit(0)
         

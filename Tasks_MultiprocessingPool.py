@@ -56,9 +56,9 @@ verbose = True
 #----- Enables --------
 enableWifiThread        = True
 enableCameraThread      = True
-enableSlamThread        = True
+enableSlamThread        = False
 enableNavigationThread  = True
-enableConsumerThread    = True
+enableConsumerThread    = False
 
 #----------------------- Video/Image Retrieval variables ---------------------#
 # Command to constinusly take pictures every --timelapse milliseconds
@@ -267,7 +267,7 @@ if __name__ == '__main__':
     mdbObj = myMongoDB() # CHANGE URL HERE: args{url, dbName,'SampleCollection0'}
 
     # ---- CREATE POOL OF PROCESSES -----
-    num_workers = 5 # Listed below
+    num_workers = 8 # Listed below
     pool = mp.Pool(processes=num_workers)
     
     # Create processes WIFI

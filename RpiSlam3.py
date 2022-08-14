@@ -37,7 +37,7 @@ from breezyslam.algorithms import RMHC_SLAM
 from breezyslam.sensors import RPLidarA1 as LaserModel
 from roboviz import MapVisualizer
 
-
+from matplotlib import pyplot as plt
 
 # Screen width & height
 W = 640
@@ -228,6 +228,7 @@ def RunSlamThread():
     except:
         print("Slam While loop not working")
         runThread = False
+        plt.close('all')
         thread.join()
         lidar.stop()
         lidar.disconnect()
