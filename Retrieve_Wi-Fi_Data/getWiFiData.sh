@@ -53,4 +53,4 @@ echo "$(echo -n 'Channel,Frequency,Quality,Quality Max,Signal Level,Encryption,S
 #sed -i '$d' data.csv
 
 #genrate json
-cat "${PROJECT_DIR}${OUTPUT_DIR}data.csv" | python3 -c 'import csv, json, sys; print(json.dumps([dict(r) for r in csv.DictReader(sys.stdin)]))' > "${PROJECT_DIR}${OUTPUT_DIR}wifi.json"
+#cat "${PROJECT_DIR}${OUTPUT_DIR}data.csv" | python3 -c 'import csv, json, sys; print(json.dumps([dict(r) for r in csv.DictReader(sys.stdin)]))' > "${PROJECT_DIR}${OUTPUT_DIR}wifi.json"
