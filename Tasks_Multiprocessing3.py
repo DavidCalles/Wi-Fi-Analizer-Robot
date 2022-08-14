@@ -27,7 +27,7 @@ wifiDataOutputDirCsv   = "Retrieve_Wi-Fi_Data/data.csv"
 
 manualControlScript = 'NavigationSystem.py'
 
-slamScript = 'RpiSlam3.py'#'SLAM/SLAM-on-Raspberry-Pi/rpslam-thread.py'
+slamScript = 'RpiSlam3.py'
 
 cameraOutput = "RetrieveVideoFeed/Pictures/"
 
@@ -56,19 +56,16 @@ verbose = True
 
 #----- Enables --------
 enableWifiThread        = False
-enableCameraThread      = True
+enableCameraThread      = False
 enableSlamThread        = False
-enableNavigationThread  = False
+enableNavigationThread  = True
 enableConsumerThread    = False
 
 #----------------------- Video/Image Retrieval variables ---------------------#
-imageIndex = 0
+# Command to constinusly take pictures every --timelapse milliseconds
 cliCamera = "libcamera-still -t 0 " + \
            "--timelapse 1000 -p 0,0,350,350 --width 640 --height 480 --brightness 0.2 -o" + \
            projectDir + cameraOutput +"Img%d.jpg"
-
-#cliCamera = f"libcamera-jpeg -t 3000 -p 0,0,350,350 --width 640 --height 480 --brightness 0.2 -o {projectDir}{cameraOutput}"
-#cliCamera = f"libcamera-still --nopreview --brightness 0.2 -o {projectDir}{cameraOutput}"
      
 #---------------------++----- Utility Functions ------------------------------# 
 def VerbosePrint(str):
@@ -136,13 +133,12 @@ def GetLatestFileAndEraseOthers(folderPath):
     
 #-------------------------- Retrieve WIFI DATA Task --------------------------#    
 def NavigationAlgorithm(bashCommand):
-    VerbosePrint("Started Navigation Process")
-
     try:
+        VerbosePrint("Started Navigation Process")
         # Fill in file with new data
         process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+        #Block process until finished:
         output, error = process.communicate() #uncomment for verbose 
-        process.wait() 
     except:
         print("Problem running Navigation System")
         raise KeyboardInterrupt
