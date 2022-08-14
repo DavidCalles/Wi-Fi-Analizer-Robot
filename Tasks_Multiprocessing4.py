@@ -58,7 +58,7 @@ enableWifiThread        = True
 enableCameraThread      = True
 enableSlamThread        = True
 enableNavigationThread  = True
-enableConsumerThread    = False
+enableConsumerThread    = True
 
 #----------------------- Video/Image Retrieval variables ---------------------#
 # Command to constinusly take pictures every --timelapse milliseconds
@@ -265,32 +265,30 @@ if __name__ == '__main__':
     VerbosePrint("Starting system")
     # New MongoDB interface object
     mdbObj = myMongoDB() # CHANGE URL HERE: args{url, dbName,'SampleCollection0'}
-    # ---- CREATE PROCESSES -----
-    wifi_P = mp.Process(target=UpdateWifiData, args=(bashCommandWifi, projectDir+wifiDataOutputDirCsv, wifiDataQueue, timeDeltaWifi))
-    manualNav_P = mp.Process(target=NavigationAlgorithm, args=(bashCommandManualControl,))
-    slam_P = mp.Process(target=RunSLAM, args=(bashCommandSlam,))
-    slam_consume = mp.Process(target=ConsumeData, args=(poseQueue, bitMapQueue, RawLidarQueue, wifiDataQueue, cameraImgsQueue, mdbObj))
-    camera_P = mp.Process(target=SaveImage, args=(cliCamera, cameraImgsQueue, timeDeltaCamera))
 
+    # ---- CREATE POOL OF PROCESSES -----
+    num_workers = 5 # Listed below
+    pool = mp.Pool(processes=num_workers)
+    
     # Create processes WIFI
     if enableWifiThread:
-        wifi_P.start()
+        pool.apply_async(UpdateWifiData, args = (bashCommandWifi, projectDir+wifiDataOutputDirCsv, wifiDataQueue, timeDeltaWifi))
         VerbosePrint("Created Wifi Data Process")
     # Create Process MANUAL CONTROL
     if enableNavigationThread:  
-        manualNav_P.start() # Run manual navigation
+        pool.apply_async(NavigationAlgorithm, args = (bashCommandManualControl,))
         VerbosePrint("Created Navigation Data Process")
     # Create SLAM process
     if enableSlamThread:
-        slam_P.start()
+        pool.apply_async(RunSLAM, args = (bashCommandSlam,))
         VerbosePrint("Created SLAM Process")
     # Camera Thread
     if enableCameraThread:
-        camera_P.start()
-        VerbosePrint("Created Data Consumption Process")
+        pool.apply_async(SaveImage, args = (cliCamera, cameraImgsQueue, timeDeltaCamera))
+        VerbosePrint("Created Camera Capture Process")
     # Consume-Plot SLAM results
     if enableConsumerThread:
-        slam_consume.start()
+        pool.apply_async(ConsumeData, args = (poseQueue, bitMapQueue, RawLidarQueue, wifiDataQueue, cameraImgsQueue, mdbObj))
         VerbosePrint("Created Data Consumption Process")
     
     while(1):
@@ -302,10 +300,8 @@ if __name__ == '__main__':
 
         except:
             print("keyboard Exception Main Loop")
-            wifi_P.terminate()
-            manualNav_P.terminate()
-            slam_P.terminate()
-            camera_P.terminate()
-            slam_consume.terminate()
+            plt.close('all')
+            pool.close()
+            pool.join()
             exit(0)
         
