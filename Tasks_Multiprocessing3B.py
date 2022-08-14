@@ -64,7 +64,7 @@ settlingTime = 1  #seg
 #----- Enables --------
 enableWifiThread        = True
 enableCameraThread      = True
-enableSlamThread        = False
+enableSlamThread        = True
 enableNavigationThread  = True
 enableConsumerThread    = True
 
@@ -119,12 +119,12 @@ def UpdateWifiData(bashCommand, csvPath, queue, delta):
             VerbosePrint(f"WAIFAI-Read CSV")
             wifiDf = pd.read_csv(csvPath)
             wifiDf["Signal Level Mag"] = 10**(wifiDf["Signal Level"]/20)
-            fig = px.bar(wifiDf, x='SSID', y='Signal Level Mag', color='Frequency', title="Wifi-Data Magnitude and Frequency")
-            #fig.show(renderer='vscode')
+            figWF = px.bar(wifiDf, x='SSID', y='Signal Level Mag', color='Frequency', title="Wifi-Data Magnitude and Frequency")
+            #figWF.show(renderer='vscode')
 
             #Save to image
             VerbosePrint(f"WAIFAI-Write to Image: {imgPath}")
-            pio.write_image(fig, imgPath, format="jpg", width=600, height=350, engine="kaleido")
+            pio.write_image(figWF, imgPath, format="jpg", width=600, height=350, engine="kaleido")
             time.sleep(0.2)
             VerbosePrint(f"WAIFAI-Enqueue image")
             # Queue image
