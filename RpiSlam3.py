@@ -21,6 +21,7 @@ All text above must be included in any redistribution.
 
 import os
 import time
+import glob
 import datetime as dt
 from datetime import datetime as dtdt
 from math import cos, sin, pi, floor
@@ -192,6 +193,15 @@ def slam_compute(pose, mapbytes):
         lidar.disconnect()
         raise
 
+def GetLatestFileAndEraseOthers2(folderPath):
+    list_of_files = glob.glob(f"{folderPath}/*.*") # * means all if need specific format then *.csv
+    mostRecenDir = max(list_of_files, key=os.path.getctime)
+    time.sleep(0.2) # just make sure whoever is writting finishes
+    for clean_up in list_of_files:
+        if not clean_up.endswith(mostRecenDir): 
+            os.remove(clean_up)
+    return mostRecenDir
+
 def RunSlamThread():
 
     # Launch the slam computation thread
@@ -202,7 +212,7 @@ def RunSlamThread():
 
     try:
         # Loop forever,displaying current map and pose
-        timeDeltSlam = dt.timedelta(seconds=3)
+        timeDeltSlam = dt.timedelta(seconds=5)
         tInit = dtdt.now()
         while True:
             #time.sleep(5)
@@ -210,6 +220,7 @@ def RunSlamThread():
                 tInit = dtdt.now()
                 print("Slam thread running")
                 print("x = " + str(pose[0]) + " y = " + str(pose[1]) + "theta = " + str(pose[2]))
+                GetLatestFileAndEraseOthers2("/home/davidcalles/Documents/Wi-Fi-Analizer-Robot/SLAM/Pictures")
             if not viz.display(pose[0]/1000., pose[1]/1000., pose[2], mapbytes):
                 raise KeyboardInterrupt
 
