@@ -5,76 +5,353 @@
 Waiting for Lidar connection at /dev/ttyUSB0
 .
 .
-.
 Starting system
 Deleting files in: /home/davidcalles/Documents/Wi-Fi-Analizer-Robot/Retrieve_Wi-Fi_Data/Pictures/
 Deleting files in: /home/davidcalles/Documents/Wi-Fi-Analizer-Robot/RetrieveVideoFeed/Pictures/
 Deleting files in: /home/davidcalles/Documents/Wi-Fi-Analizer-Robot/SLAM/Pictures/
 Made X/EGL preview window
-[0:15:38.183038871] [10050] [1;32m INFO [1;37mCamera [1;34mcamera_manager.cpp:293 [0mlibcamera v0.0.0+3700-f30ad033
-[0:15:38.253077773] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:1368 [0mRegistered camera /base/soc/i2c0mux/i2c@1/ov5647@36 to Unicam device /dev/media4 and ISP device /dev/media0
-[0:15:38.255984717] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:38.257478337] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:05.348286931] [3839] [1;32m INFO [1;37mCamera [1;34mcamera_manager.cpp:293 [0mlibcamera v0.0.0+3700-f30ad033
+[0:13:05.414431837] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:1368 [0mRegistered camera /base/soc/i2c0mux/i2c@1/ov5647@36 to Unicam device /dev/media4 and ISP device /dev/media0
+[0:13:05.415564474] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:05.416094858] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
 Created Wifi-CAM Data Process
-[0:15:39.475706315] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:39.478235201] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Created Navigation Data Process
+[0:13:06.653898222] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:06.654781491] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:15:39.854419186] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:39.856929776] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:07.033960354] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:07.036876455] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
 Created SLAM Process
-[0:15:40.514360095] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:40.517297539] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:13:07.668979346] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:07.669730450] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:15:40.921276976] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:40.925422668] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:15:41.544564655] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:41.548039140] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:13:08.033572599] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:08.035993724] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:08.671559037] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:08.673862922] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:15:41.976715101] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:41.981091499] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:15:42.562494213] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:42.565986716] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:13:09.056177971] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:09.058646577] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:09.710954052] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:09.712633721] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:15:43.101210789] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:43.104663366] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:15:43.586221936] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:43.591903009] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:13:10.108849236] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:10.111314749] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:10.733788081] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:10.734552185] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:15:44.109570860] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:44.114374965] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:15:44.613181939] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:44.624755215] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:13:11.146368166] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:11.149424896] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:11.786179248] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:11.787618679] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:15:45.311135790] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:45.314201809] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:15:45.810910789] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:45.811876017] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:13:12.170105119] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:12.173288736] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:12.788223145] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:12.791136894] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:15:46.566976781] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:46.570863157] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:15:47.042792000] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:47.045022755] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:13:13.181948575] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:13.185727149] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:13.808099978] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:13.813527037] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:15:47.549938508] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:47.558051022] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:15:48.076556379] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:48.077850498] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:13:14.198513076] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:14.201210772] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:14.832234288] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:14.837334201] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:15:48.564738157] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:48.569364335] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:15:49.211455817] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:49.213258439] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:13:15.254408530] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:15.256959524] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:15.835614814] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:15.837141355] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:15:49.841378020] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:49.857161378] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:15:50.422670325] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:50.426727480] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:13:16.243373147] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:16.246561543] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:16.863479845] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:16.864320151] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:15:50.948859804] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:50.953370518] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:15:51.496171712] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:51.498788377] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:13:17.248300553] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:17.251501170] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:17.883758872] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:17.890188996] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:18.311082383] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:18.313632580] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:18.896529248] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:18.898497655] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:19.273975187] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:19.276749753] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:19.935716961] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:19.937070393] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:20.320827093] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:20.324862351] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:20.946908459] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:20.949016161] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:21.330811738] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:21.334561980] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:21.949195669] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:21.950186716] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:22.325129252] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:22.327519155] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:22.974930968] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:22.975950625] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:23.371274344] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:23.373599378] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:24.003240852] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:24.004998261] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:24.586430940] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:24.593491447] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:25.086603322] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:25.088329972] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:25.547759891] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:25.550493902] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:26.115417252] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:26.117140588] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:26.527592885] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:26.530451080] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:27.142326809] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:27.144897989] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:27.511451745] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:27.513765982] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:28.171209086] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:28.172867163] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:28.561386106] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:28.564730259] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:29.188585468] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:29.189473015] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:29.593985961] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:29.596872989] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:30.197278003] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:30.198198846] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:30.576916226] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:30.579247908] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:31.211810090] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:31.213980681] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:31.572379739] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:31.574709902] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:32.222030696] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:32.223038094] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:32.608792363] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:32.611354265] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:33.249872540] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:33.253818688] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:33.630802009] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:33.644137810] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:34.261017241] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:34.263296423] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:34.650923557] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:34.653819085] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:35.291404925] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:35.292871948] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:35.680325311] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:35.682746844] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:36.298830190] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:36.299915235] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:36.694108133] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:36.696631498] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:37.317875360] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:37.318776797] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:37.717770137] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:37.720196781] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:38.320209720] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:38.322399440] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:38.690080243] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:38.692384852] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:39.320623166] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:39.321748952] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:39.680526972] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:39.682943024] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:40.355531343] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:40.362937923] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:40.761479783] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:40.763765207] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:41.360715995] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:41.361643227] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:41.793549840] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:41.796286908] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:42.414576581] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:42.424151604] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:42.926014170] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:42.932898088] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:43.407994203] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:43.408701030] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:43.792968576] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:43.796348507] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:44.427797669] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:44.429780558] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:44.792819545] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:44.795638852] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:45.440451473] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:45.441418594] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:45.897006309] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:45.903378010] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:46.449817636] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:46.451901228] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:46.949621174] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:46.951970893] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:47.456118580] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:47.458990832] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:47.851709895] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:47.854050336] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:48.457554972] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:48.458495037] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:48.846714276] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:48.849649842] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:49.471927294] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:49.474483289] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:50.009882262] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:50.015555210] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:50.541027000] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:50.543167147] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:50.937881912] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:50.941674840] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:51.537025702] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:51.538953740] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:51.909900819] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:51.912969606] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:52.554436721] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:52.556334852] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:52.920275648] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:52.923254139] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:53.581555591] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:53.583578350] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:53.946223051] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:53.949265616] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:54.613098692] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:54.615402634] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:55.152380702] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:55.160623997] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:55.668707051] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:55.669890911] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:56.036778601] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:56.041672372] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:56.671810103] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:56.672988129] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:57.040984537] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:57.044072916] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:57.690132992] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:57.694768320] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:58.208275898] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:58.217106337] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:58.704330505] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:58.706891407] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:13:59.140778914] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:13:59.143655388] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:13:59.737721689] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:13:59.739283009] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:14:00.101203744] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:00.103570167] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:00.740864326] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:00.742016093] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:14:01.115391267] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:01.118278222] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:01.770490217] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:01.772356663] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:14:02.171037354] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:02.185400003] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:02.797441126] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:02.799971270] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:14:03.345617682] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:03.352773044] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:03.861834434] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:03.866393948] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:14:04.337594812] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:04.340837580] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:04.872266737] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:04.873152396] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:14:05.249674855] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:05.252626569] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:05.894246209] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:05.898963037] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:14:06.482344574] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:06.489715489] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:06.992155994] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:06.994193698] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:14:07.452519378] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:07.455492777] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:07.998396259] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:08.000388630] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:14:08.373607649] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:08.377110803] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:09.010175560] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:09.011772045] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:14:09.381040159] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:09.383931911] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:10.033337955] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:10.035280531] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:14:10.411297514] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:10.414010675] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:11.057554464] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:11.060494290] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:14:11.700598687] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:11.707585069] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:12.227288950] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:12.228197905] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:14:12.601548476] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:12.604004843] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:13.239186166] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:13.246546323] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:14:13.611109013] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:13.613517954] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:14.255297114] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:14.257834777] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+Still capture image received
+[0:14:14.826718160] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:14.833231621] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
 Exception in thread Thread-1:
 Traceback (most recent call last):
   File "/usr/lib/python3.9/threading.py", line 954, in _bootstrap_inner
@@ -90,168 +367,111 @@ Traceback (most recent call last):
   File "/home/davidcalles/Documents/Wi-Fi-Analizer-Robot/RpiSlam3.py", line 107, in _process_scan
     raise RPLidarException('Check bit not equal to 1')
 adafruit_rplidar.RPLidarException: Check bit not equal to 1
+[0:14:15.422535309] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:15.423438838] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:15:51.937839347] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:51.941439870] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:15:52.497967613] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:52.498912915] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:14:15.829462891] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:15.832632419] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:16.454100255] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:16.455684537] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:15:52.981169138] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:52.985029644] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:15:53.505764385] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:53.506893725] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:14:16.842693615] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:16.845295129] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:17.477379711] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:17.478738773] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:15:54.029134495] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:54.032407182] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:15:54.542804192] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:54.547349665] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:14:17.839423568] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:17.842270284] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:18.501083470] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:18.501876129] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:15:55.062410704] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:55.065703836] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:15:55.549808070] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:55.551389061] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:14:18.876012903] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:18.879301855] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:19.518443573] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:19.520734071] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:15:56.013051377] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:56.016358268] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:15:56.556904448] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:56.561025493] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:14:19.904726373] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:19.907906308] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:20.548070134] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:20.549592084] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:15:57.020099218] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:57.022805957] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:15:57.564322421] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:57.566503657] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:14:20.921586235] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:20.924480988] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:21.560986686] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:21.561800475] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:15:57.981712738] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:57.984993703] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:15:58.571933488] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:58.573789796] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:14:21.941005049] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:21.943875320] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:22.573200050] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:22.575510900] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:15:59.051803011] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:15:59.055707461] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:15:59.759073272] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:15:59.765032624] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:14:22.954194686] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:22.956489592] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:23.623070242] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:23.628103328] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:16:00.212442999] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:00.215457092] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:00.664392699] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:00.666087802] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:14:24.144043637] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:24.151197667] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:24.696283259] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:24.700716664] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:16:01.155359031] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:01.158880720] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:02.407439888] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:02.409376048] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:14:25.226176155] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:25.232815708] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:25.721286653] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:25.725970445] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:16:02.910640112] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:02.914533211] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:03.400853144] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:03.402876675] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:14:26.241589397] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:26.248490930] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:26.728821654] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:26.730829488] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:16:03.907126591] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:03.910311370] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:04.410947430] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:04.412493940] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:14:27.157112634] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:27.176647741] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:27.753400868] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:27.755284555] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:16:04.835847386] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:04.839123814] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:05.442524869] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:05.444828828] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:14:28.330303166] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:28.338144690] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:28.826622112] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:28.834966891] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:16:05.863689802] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:05.866875007] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:06.476372730] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:06.477318681] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:14:29.386703173] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:29.401632598] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:29.978784457] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:29.984998643] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:16:06.904165723] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:06.907562244] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:07.491085805] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:07.493959804] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:14:30.411371819] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:30.415300377] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:31.002751874] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:31.007914347] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:16:07.899953809] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:07.902752641] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:08.505652100] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:08.507488019] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:14:31.514304793] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:31.521396842] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:32.025320071] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:32.035645222] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:16:08.964157323] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:08.967662696] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:09.512688738] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:09.513683559] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:14:32.489237150] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:32.492732194] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:33.030915796] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:33.036651043] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:16:09.977154794] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:09.979954607] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:10.532785013] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:10.535261639] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
+[0:14:33.532199629] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:33.539330197] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
+[0:14:34.036543863] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
+[0:14:34.042373646] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
 Still capture image received
-[0:16:10.969028281] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:10.973582309] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:11.563195889] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:11.567939382] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
-Still capture image received
-[0:16:12.025709414] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:12.033342999] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:12.580381683] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:12.583840038] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
-Still capture image received
-[0:16:13.061040932] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:13.065846722] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:13.603491476] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:13.607175981] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
-Still capture image received
-[0:16:13.981718048] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:13.985080884] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:14.637652339] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:14.640572302] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
-Still capture image received
-[0:16:15.113563541] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:15.117825216] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:15.652456655] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:15.657030758] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
-Still capture image received
-[0:16:16.092499150] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:16.096165877] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:16.671427497] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:16.673316990] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
-Still capture image received
-[0:16:17.097865111] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:17.101073538] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:17.691310789] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:17.701160313] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
-Still capture image received
-[0:16:18.085907352] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:18.090939642] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:18.692003442] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:18.695644113] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
-Still capture image received
-[0:16:19.301855315] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:19.310511684] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:19.759070918] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:19.761214136] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
-Still capture image received
-[0:16:20.200468570] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:20.210620967] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:20.779276712] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:20.780282200] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
-Still capture image received
-[0:16:21.201381447] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:21.205524084] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:21.786634445] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:21.787681118] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
-Still capture image received
-[0:16:22.172061431] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:22.175189173] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:22.791106788] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:22.792259332] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
-Still capture image received
-[0:16:23.366301907] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:23.369454594] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:23.821536461] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:23.823179527] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
-Still capture image received
-[0:16:24.251510523] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
-[0:16:24.253916742] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
-[0:16:24.835744255] [10050] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 640x480-YUV420 (1) 2592x1944-SGBRG10_CSI2P
-[0:16:24.839300147] [10054] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 2592x1944-SGBRG10_1X10 - Selected unicam format: 2592x1944-pGAA
-Process Process-3:
+[0:14:34.519721932] [3839] [1;32m INFO [1;37mCamera [1;34mcamera.cpp:1029 [0mconfiguring streams: (0) 1296x972-YUV420
+[0:14:34.526794592] [3844] [1;32m INFO [1;37mRPI [1;34mraspberrypi.cpp:759 [0mSensor: /base/soc/i2c0mux/i2c@1/ov5647@36 - Selected sensor format: 1296x972-SGBRG10_1X10 - Selected unicam format: 1296x972-pGAA
 Created Data Consumption Process
+Running Loop Running
+Running Loop Running
+Running Loop Running
+Running Loop Running
+Running Loop Running
+Running Loop Running
+Running Loop Running
+Running Loop Running
+Running Loop Running
 Running Loop Running
 Running Loop Running
 Running Loop Running

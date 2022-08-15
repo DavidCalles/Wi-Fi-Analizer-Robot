@@ -21,6 +21,9 @@ All text above must be included in any redistribution.
 
 import os
 import time
+import glob
+import datetime as dt
+from datetime import datetime as dtdt
 from math import cos, sin, pi, floor
 # import pygame
 from adafruit_rplidar import RPLidar, RPLidarException
@@ -28,16 +31,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import paho.mqtt.client as mqtt
 from threading import Thread
-
-
+import multiprocessing as mp
 
 from breezyslam.algorithms import RMHC_SLAM
 from breezyslam.sensors import RPLidarA1 as LaserModel
-# from rplidar import RPLidar as Lidar
-# from adafruit_rplidar import RPLidar as Lidar
 from roboviz import MapVisualizer
 
-
+from matplotlib import pyplot as plt
 
 # Screen width & height
 W = 640
@@ -55,6 +55,15 @@ slamData = []
 
 # Setup the RPLidar
 PORT_NAME = '/dev/ttyUSB0'
+
+## Helper function to look for lidar
+def WaitForLidarConnection(path="/dev/ttyUSB0"):
+    print(f"Waiting for Lidar connection at {path}")
+    while (os.path.exists(path) == False):
+        time.sleep(2)
+        print(".")
+        
+WaitForLidarConnection(PORT_NAME)
 lidar = RPLidar(None, PORT_NAME)
 
 # Create an RMHC SLAM object with a laser model and optional robot model
@@ -79,10 +88,10 @@ max_distance = 0
 # Pose will be modified in our threaded code
 pose = [0, 0, 0]
 
-# Curent scan data
-distances = []
-angles = []
-quality = []
+# Queues to store data from thread
+poseQueue = mp.Queue() 
+bitMapQueue = mp.Queue()  
+RawLidarQueue = mp.Queue()  
 
 scan_data = [0]*360
 
@@ -100,7 +109,7 @@ def _process_scan(raw):
     distance = (raw[3] + (raw[4] << 8)) / 4.
     return new_scan, quality, angle, distance
 
-def lidar_measurments(self, max_buf_meas=500):
+def lidar_measurements(self, max_buf_meas=500):
        
         lidar.set_pwm(800)
         status, error_code = self.health
@@ -131,7 +140,7 @@ def lidar_measurments(self, max_buf_meas=500):
 def lidar_scans(self, max_buf_meas=800, min_len=100):
         
         scan = []
-        iterator = lidar_measurments(lidar,max_buf_meas)
+        iterator = lidar_measurements(lidar,max_buf_meas)
         for new_scan, quality, angle, distance in iterator:
             if new_scan:
                 if len(scan) > min_len:
@@ -141,7 +150,10 @@ def lidar_scans(self, max_buf_meas=800, min_len=100):
                 scan.append((quality, angle, distance))
 
 
-def slam_compute(poseQ, mapbytesQ, rawDataQ):
+def slam_compute(pose, mapbytes):
+    global poseQueue
+    global RawLidarQueue
+    global bitMapQueue
 
     try:
 
@@ -165,54 +177,71 @@ def slam_compute(poseQ, mapbytesQ, rawDataQ):
             distances = [item[2] for item in items]
             angles = [item[1] for item in items]
             quality = [item[0] for item in items]
-            rawDataQ.put([distances, angles, quality])
 
             # Update SLAM with current Lidar scan and scan angles if adequate
             if len(distances) > MIN_SAMPLES:
                 slam.update(distances, scan_angles_degrees=angles)
                 previous_distances = distances.copy()
                 previous_angles    = angles.copy()
+                RawLidarQueue.put([distances, angles, quality])
 
             # If not adequate, use previous
             elif previous_distances is not None:
                 slam.update(previous_distances, scan_angles_degrees=previous_angles)
 
             # Get new position
-            pose = [0,0,0]
             pose[0], pose[1], pose[2] = slam.getpos()
-            poseQ.put(pose)
+            poseQueue.put(pose)
 
             # Get current map bytes as grayscale
             slam.getmap(mapbytes)
-            mapbytesQ.put(mapbytes)
-            # 
-        print("Exiting Lidar")
+            bitMapQueue.put(mapbytes)
 
     except KeyboardInterrupt:
         lidar.stop()
         lidar.disconnect()
         raise
 
+def GetLatestFileAndEraseOthers2(folderPath):
+    list_of_files = glob.glob(f"{folderPath}/*.*") # * means all if need specific format then *.csv
+    mostRecenDir = max(list_of_files, key=os.path.getctime)
+    time.sleep(0.2) # just make sure whoever is writting finishes
+    for clean_up in list_of_files:
+        if not clean_up.endswith(mostRecenDir): 
+            os.remove(clean_up)
+    return mostRecenDir
+
+def RunSlamThread():
+
+    # Launch the slam computation thread
+    thread = Thread(target=slam_compute,
+                    args=(pose, mapbytes))
+    thread.daemon = True
+    thread.start()
+
+    try:
+        # Loop forever,displaying current map and pose
+        timeDeltSlam = dt.timedelta(seconds=1)
+        tInit = dtdt.now()
+        while True:
+            #time.sleep(5)
+            if(dtdt.now() -tInit > timeDeltSlam):
+                tInit = dtdt.now()
+                print("Slam thread running")
+                #print("x = " + str(pose[0]) + " y = " + str(pose[1]) + "theta = " + str(pose[2]))
+                if not viz.display(pose[0]/1000., pose[1]/1000., pose[2], mapbytes):
+                    raise KeyboardInterrupt
 
 
-# # Launch the slam computation thread
-# thread = Thread(target=slam_compute,
-#                 args=(pose, mapbytes))
-# thread.daemon = True
-# thread.start()
+    except:
+        print("Slam While loop not working")
+        runThread = False
+        plt.close('all')
+        thread.join()
+        lidar.stop()
+        lidar.disconnect()
+        raise KeyboardInterrupt
+        exit(0)
 
-# try:
-#     # Loop forever,displaying current map and pose
-#     while True:
-
-#         print("x = " + str(pose[0]) + " y = " + str(pose[1]) + "theta = " + str(pose[2]))
-#         # if not viz.display(pose[0]/1000., pose[1]/1000., pose[2], mapbytes):
-#         #     raise KeyboardInterrupt
-
-
-# except KeyboardInterrupt:
-#     runThread = False
-#     thread.join()
-#     lidar.stop()
-#     lidar.disconnect()
-#     exit(0)
+# Test
+#RunSlamThread()

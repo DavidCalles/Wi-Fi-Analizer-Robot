@@ -176,6 +176,7 @@ def ConsumeData(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, cameraQueue, t
     retrievedPose = 0
     retrievedWifi = 0
     retrievedCamera = 0
+    packetSentCount = 0
     tInit = dtdt.now()
     
     try:
@@ -219,23 +220,32 @@ def ConsumeData(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, cameraQueue, t
                 if (condPose and condBitmap and condLidar and condWifi and condCamera):
                     
                     if enablePrinting:
+                        print("#-----------------------------------------------------------#")
+                        print(f"#-------------- NEW SAMPLE {packetSentCount} ------------------#")
+                        print("#-----------------------------------------------------------#")
                         print(f"DateTime: {tInit}")
                         print(f"Pose: {poseObj}")
-                        print(f"Size of Bitmap: {len(bitMapObj)}")
-                        print(f"Size of Lidar Data: {len(rawLidarObj)}")
-                        print(f"Size of Wifi Plot:{len(wifiObj)}")
-                        print(f"Size of Camera Pic:{len(cameraObj)}")
-                        print(f"Size of Camera Pic:{len(slamImgObj)}")
+                        print(f"Size of Bitmap: {sys.getsizeof(bitMapObj)/1024} kB")
+                        print(f"Size of Lidar Data: {sys.getsizeof(rawLidarObj)/1024} kB")
+                        print(f"Size of Wifi Plot:{sys.getsizeof(wifiObj)/1024} kB")
+                        print(f"Size of Camera Pic:{sys.getsizeof(cameraObj)/1024} kB")
+                        print(f"Size of SLAM Pic:{sys.getsizeof(slamImgObj)/1024} kB")
+                        print("#-----------------------------------------------------------#")
+                        print(f"#-------------- END SAMPLE {packetSentCount} ------------------#")
+                        print("#-----------------------------------------------------------#")
                     
                     if (enableSendingData):  
                         # Send images as string (eliminate b'')
                         newPacket = {"TimeStamp":time.time(),
-                                    "CamImg":str(cameraObj)[2:-1],
-                                    "WifiImg":str(wifiObj)[2:-1],
-                                "SlamImg":str(slamImgObj)[2:-1]}    
+                                    "SampleCount":packetSentCount,
+                                    "ImgCam":str(cameraObj)[2:-1],
+                                    "ImgWifi":str(wifiObj)[2:-1],
+                                    "ImgSlam":str(slamImgObj)[2:-1]}    
                         VerbosePrint("Sending data")
                         # Send data to Mongodb server
                         mdbObj.SendPacket(newEntry=newPacket)
+
+                    packetSentCount += 1
                     # Reset all flags
                     retrievedBitmap = 0
                     retrievedLidar = 0
