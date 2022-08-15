@@ -47,6 +47,7 @@ bashCommandManualControl = "/bin/python3 " + projectDir + manualControlScript
 
 #---------------------- LIDAR/SLAM Retrieval Variables -----------------------#
 bashCommandSlam = "/bin/python3 " + projectDir + slamScript
+timeDeltaSlam = dt.timedelta(seconds=2)
 
 #-------------------------- Camera Retrieval Variables -----------------------#
 cameraImgsQueue = mp.Queue() 
@@ -160,7 +161,7 @@ def NavigationAlgorithm(bashCommand):
 def RunSLAM(bashCommand):
         VerbosePrint("Started Slam Process")
         try:
-            RunSlamThread()
+            RunSlamThread(updateTime=timeDeltaSlam, refreshTime=processRefreshTime)
         except:
             print("RunSLAM function exception")
             plt.close('all')

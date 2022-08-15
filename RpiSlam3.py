@@ -211,7 +211,7 @@ def GetLatestFileAndEraseOthers2(folderPath):
             os.remove(clean_up)
     return mostRecenDir
 
-def RunSlamThread():
+def RunSlamThread(updateTime=dt.timedelta(seconds=1), refreshTime=0.2):
 
     # Launch the slam computation thread
     thread = Thread(target=slam_compute,
@@ -221,7 +221,7 @@ def RunSlamThread():
 
     try:
         # Loop forever,displaying current map and pose
-        timeDeltSlam = dt.timedelta(seconds=1)
+        timeDeltSlam = updateTime
         tInit = dtdt.now()
         while True:
             #time.sleep(5)
@@ -232,6 +232,8 @@ def RunSlamThread():
                 #GetLatestFileAndEraseOthers2("/home/davidcalles/Documents/Wi-Fi-Analizer-Robot/SLAM/Pictures")
                 if not viz.display(pose[0]/1000., pose[1]/1000., pose[2], mapbytes):
                     raise KeyboardInterrupt
+            else:
+                time.sleep(refreshTime)
 
 
     except:
