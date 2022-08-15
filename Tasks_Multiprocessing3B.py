@@ -47,7 +47,7 @@ bashCommandManualControl = "/bin/python3 " + projectDir + manualControlScript
 
 #---------------------- LIDAR/SLAM Retrieval Variables -----------------------#
 bashCommandSlam = "/bin/python3 " + projectDir + slamScript
-pathToImagesSLAM = projectDir + "SLAM/Pictures"
+
 #-------------------------- Camera Retrieval Variables -----------------------#
 cameraImgsQueue = mp.Queue() 
 timeDeltaCamera = dt.timedelta(seconds=4)
@@ -55,7 +55,7 @@ tInitCamera = dtdt.now()
 
 #-------------------------- Syncronization variables  ------------------------#
 enablePrinting = True
-enableSendingData = True
+enableSendingData = False
 processRefreshTime = 0.2 #seg
 verbose = True
 timeDeltaConsumer = dt.timedelta(seconds=5)
@@ -100,6 +100,7 @@ def GetLatestFileAndEraseOthers(folderPath):
         if not clean_up.endswith(mostRecenDir): 
             os.remove(clean_up)
     return mostRecenDir
+
 #----------------------------- Run Manual Control -----------------------------#    
 def UpdateWifiData(bashCommand, csvPath, queue, delta):
     global tInitWifi
@@ -113,12 +114,13 @@ def UpdateWifiData(bashCommand, csvPath, queue, delta):
             # Fill in file with new data
             process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
             #output, error = process.communicate() #uncomment for verbose
-            #process.wait()
-            time.sleep(0.5)
+            process.wait()
+            #time.sleep(0.5)
             
             # Read data - Opening JSON file and read as dict
             VerbosePrint(f"WAIFAI-Read CSV")
             wifiDf = pd.read_csv(csvPath)
+            VerbosePrint(f"WAIFAI- Succesfully Read CSV")
             wifiDf["Signal Level Mag"] = 10**(wifiDf["Signal Level"]/20)
             figWF = px.bar(wifiDf, x='SSID', y='Signal Level Mag', color='Frequency', title="Wifi-Data Magnitude and Frequency")
             #figWF.show(renderer='vscode')
@@ -176,7 +178,6 @@ def ConsumeData(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, cameraQueue, t
     retrievedCamera = 0
     tInit = dtdt.now()
     
-    
     try:
         while(1):
             
@@ -212,7 +213,7 @@ def ConsumeData(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, cameraQueue, t
                 
                 # Get last Slam Picture (no queue for this)
                 VerbosePrint("CONSUMERRR-Getting most recent img")
-                latestSlamPicPath = GetLatestFileAndEraseOthers(pathToImagesSLAM)
+                latestSlamPicPath = GetLatestFileAndEraseOthers(slamOutputAbs)
                 slamImgObj = GetImageAsBase64(latestSlamPicPath)
 
                 if (condPose and condBitmap and condLidar and condWifi and condCamera):

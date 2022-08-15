@@ -55,6 +55,15 @@ slamData = []
 
 # Setup the RPLidar
 PORT_NAME = '/dev/ttyUSB0'
+
+## Helper function to look for lidar
+def WaitForLidarConnection(path="/dev/ttyUSB0"):
+    print(f"Waiting for Lidar connection at {path}")
+    while (os.path.exists(path) == False):
+        time.sleep(2)
+        print(".")
+        
+WaitForLidarConnection(PORT_NAME)
 lidar = RPLidar(None, PORT_NAME)
 
 # Create an RMHC SLAM object with a laser model and optional robot model
@@ -212,7 +221,7 @@ def RunSlamThread():
 
     try:
         # Loop forever,displaying current map and pose
-        timeDeltSlam = dt.timedelta(seconds=2)
+        timeDeltSlam = dt.timedelta(seconds=1)
         tInit = dtdt.now()
         while True:
             #time.sleep(5)
