@@ -49,7 +49,6 @@ class myMongoDB:
             contents = f.read()
         collection[field] = Binary(dumps(contents))
 
-
     def GetCollection(self, filter={}):
         docs = []
         for doc in self.collectionhandle.find(filter):
@@ -58,6 +57,25 @@ class myMongoDB:
             docs.append(doc)
         return docs
     
+    def GetCollectionNoPrint(self, filter={}):
+        return self.collectionhandle.find(filter)
+    
+    # def KeepOnlyNewerSamples(self, keepLast=10):
+    #     allDocs = self.collectionhandle.find({})
+    #     if (len(allDocs) > keepLast):
+    #         # We need to delete
+    #     else:
+    #         return len(allDocs)   
+     
+    def DeleteAll(self):
+        print("Deleting all documents")
+        self.collectionhandle.delete_many({})
+    
+    def DeleteOlder(self, minutes=10):
+        for records in self.collectionhandle.find():
+            #print(records.get('TimeStamp'))
+            if int(dt.now().timestamp()) - minutes*60 > records.get('TimeStamp'):
+                print(self.collectionhandle.delete_one({'TimeStamp' : records.get('TimeStamp')}))
 
 # if __name__ == '__main__':
 #     client  = myMongoDB()
