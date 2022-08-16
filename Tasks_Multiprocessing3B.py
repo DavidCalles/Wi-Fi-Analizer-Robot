@@ -56,10 +56,10 @@ tInitCamera = dtdt.now()
 
 #-------------------------- Syncronization variables  ------------------------#
 enablePrinting = True
-enableSendingData = False
+enableSendingData = True
 processRefreshTime = 0.2 #seg
 verbose = True
-timeDeltaConsumer = dt.timedelta(seconds=5)
+timeDeltaConsumer = dt.timedelta(seconds=10)
 settlingTime = 1  #seg
 
 #----- Enables --------
@@ -73,7 +73,7 @@ enableConsumerThread    = True
 # Command to constinusly take pictures every --timelapse milliseconds
 cliCamera = "libcamera-still -t 0 " + \
            "--timelapse 1000 -p 0,0,350,350 --width 640 --height 480 --brightness 0.2 -o" + \
-           projectDir + cameraOutput +"Img%d.jpg >/dev/null 2>/dev/null"
+           projectDir + cameraOutput +"Img%d.jpg &> /dev/null"
      
 #---------------------++----- Utility Functions ------------------------------# 
 def VerbosePrint(str):
@@ -114,9 +114,7 @@ def UpdateWifiData(bashCommand, csvPath, queue, delta):
             VerbosePrint(f"WAIFAI-Enter Subprocess")
             # Fill in file with new data
             process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-            #output, error = process.communicate() #uncomment for verbose
             process.wait()
-            #time.sleep(0.5)
             
             # Read data - Opening JSON file and read as dict
             VerbosePrint(f"WAIFAI-Read CSV")
@@ -166,9 +164,6 @@ def RunSLAM(bashCommand):
             print("RunSLAM function exception")
             plt.close('all')
             raise KeyboardInterrupt
-        # Fill in file with new data
-        # process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-        # output, error = process.communicate() #uncomment for verbose  
 
 #-------------------------- Data SENDING Task --------------------------# 
 def ConsumeData(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, cameraQueue, timeDelta, mdbObj=None):
@@ -245,6 +240,8 @@ def ConsumeData(poseQueue, bitMapQueue, RawLidarQueue, wifiQueue, cameraQueue, t
                         VerbosePrint("Sending data")
                         # Send data to Mongodb server
                         mdbObj.SendPacket(newEntry=newPacket)
+                        #Erase older samples
+                        mdbObj.DeleteOlder(minutes=10)
 
                     packetSentCount += 1
                     # Reset all flags
