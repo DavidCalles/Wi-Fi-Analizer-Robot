@@ -17,7 +17,7 @@ def isData():
 
 class navSystem:
 #---------------------------Navigation Initialization ------------------------#
-    def __init__(self, xCamera_Increment=2, yCamera_Increment=2, ts=0, tf=0.1, tb=3, 
+    def __init__(self, xCamera_Increment=2, yCamera_Increment=2, ts=0, tf=0.1, tb=2, 
         dirAngle_Increment = 8, percentIncrement = 5, distanceUntilCrash = 12, 
         speed = 0.1, delay = 0.01, maxAngleAllowed = 35, maxAngleChange = 15, minAngleChange = 15,
         windowSize = 4):
@@ -183,7 +183,7 @@ class navSystem:
     def fullNavigation(self):        
         self.commands = [['w', self.robot_SoftForward],   
             ['a', self.robot_SoftSteerLeft],
-            ['s', self.robot_SoftBackward],
+            ['s', self.robot_SoftRampBackward],
             ['d', self.robot_SoftSteerRight],
             ['q', self.robot_SoftLookLeft],
             ['e', self.robot_SoftLookRight],

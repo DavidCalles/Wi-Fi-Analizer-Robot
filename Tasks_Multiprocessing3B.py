@@ -12,6 +12,8 @@ import time
 from datetime import datetime as dtdt
 import datetime as dt
 from RpiSlam3 import RunSlamThread, poseQueue, RawLidarQueue, bitMapQueue
+import cv2
+
 
 sys.path.append('Network_Connections/MongoDB_Connection')
 from MDB_Connection import myMongoDB
@@ -41,7 +43,7 @@ wifiDataQueue = mp.Queue()
 timeDeltaWifi = dt.timedelta(seconds=4)
 imgIndexWifi = 0
 tInitWifi = dtdt.now()
-
+plotWifi = True
 #-------------------------- Manual Control Variables -------------------------#
 bashCommandManualControl = "/bin/python3 " + projectDir + manualControlScript  
 
@@ -131,6 +133,11 @@ def UpdateWifiData(bashCommand, csvPath, queue, delta):
             VerbosePrint(f"WAIFAI-Enqueue image")
             # Queue image
             queue.put(GetImageAsBase64(imgPath))
+            # Show Image
+            if (plotWifi):
+                imgWifi = cv2.imread(imgPath, cv2.IMREAD_COLOR)
+                cv2.imshow(f"Wifi Plot", imgWifi)
+                cv2.waitKey(500)
             imgIndexWifi+=1
             #Do not hyper fill memory
             if(imgIndexWifi % 10 == 0):
@@ -140,6 +147,7 @@ def UpdateWifiData(bashCommand, csvPath, queue, delta):
             time.sleep(processRefreshTime)
     except:
         print("WAIFAI Error")
+        cv2.destroyAllWindows()
         raise KeyboardInterrupt
     
 #-------------------------- Retrieve WIFI DATA Task --------------------------#    
@@ -280,6 +288,7 @@ def UpdateCameraAndWifi(cameraArgs, wifiArgs):
     VerbosePrint("WIFI-CAM Libcamera-still Initialized")
     VerbosePrint("WIFI-CAM Started Wifi Acquisition Process")
     processCamera = subprocess.Popen(cameraArgs[0].split(), stdout=subprocess.PIPE)
+    
     while(1):
         SaveImage(cameraArgs[1], cameraArgs[2])
         UpdateWifiData(wifiArgs[0], wifiArgs[1], wifiArgs[2], wifiArgs[3])
@@ -293,6 +302,7 @@ if __name__ == '__main__':
     EraseFilesFromDirectory(wifiOutputAbs)
     EraseFilesFromDirectory(cameraOutputAbs)
     EraseFilesFromDirectory(slamOutputAbs)
+    
     # New MongoDB interface object
     mdbObj = myMongoDB( url='mongodb+srv://kjaskaran:QGx6rTpqiM11prDj@clusterjk.z1qwasf.mongodb.net/?retryWrites=true&w=majority', 
                         dbName='test',
@@ -340,5 +350,6 @@ if __name__ == '__main__':
             manualNav_P.terminate()
             slam_P.terminate()
             slam_consume.terminate()
+            cv2.destroyAllWindows()
             exit(0)
         
